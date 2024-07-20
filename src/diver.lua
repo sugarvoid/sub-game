@@ -40,7 +40,7 @@ end
 
 function Diver:draw()
     self.curr_animation:draw(self.spr_sheet, self.x, self.y - 2, 0, self.facing_dir-0.3, 0.7, self.w / 2, self.h / 2)
-    draw_hitbox(self, "#ffffff")
+    draw_hitbox(self, "#D70040")
 end
 
 

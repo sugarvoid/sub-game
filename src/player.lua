@@ -119,7 +119,7 @@ end
 function Player:draw()
     self.curr_animation:draw(self.spr_sheet, self.x, self.y - 2, math.rad(self.rotation), self.facing_dir, 1, self.w / 2,
         self.h / 2)
-    draw_hitbox(self, "#ffffff")
+    draw_hitbox(self, "#D70040")
 end
 
 function Player:reset()
