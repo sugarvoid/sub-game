@@ -1,20 +1,13 @@
 --player.lua
 
-require("src.jump_sfx")
-
 Player = {}
 Player.__index = Player
 
 
 local flux = require("lib.flux")
 local player_mass = 0.22
-local jump_sfx = love.audio.newSource("asset/audio/jump1.wav", "static")
-local jump_sfx2 = love.audio.newSource("asset/audio/jump2.wav", "static")
-local death_sfx = love.audio.newSource("asset/audio/player_death.wav", "static")
 
-jump_sfx:setVolume(0.3)
-jump_sfx2:setVolume(0.2)
-death_sfx:setVolume(0.5)
+
 
 function Player:new()
     local _player = setmetatable({}, Player)
