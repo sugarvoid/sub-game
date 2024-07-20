@@ -58,6 +58,10 @@ function love.load()
 
     diver_2 = Diver:new(10, 67, player)
     table.insert(all_divers, diver_2)
+
+
+    shark_1 = Shark:new(10, 60, player)
+    table.insert(all_sharks, shark_1)
     
 end
 
@@ -120,6 +124,7 @@ function update_game(dt)
     tick = tick + 1
     player:update(dt)
     update_divers(dt)
+    update_sharks(dt)
 end
 
 function update_gameover(dt)
@@ -155,6 +160,7 @@ function draw_game()
     --love.graphics.pop()
     player:draw()
     draw_divers()
+    draw_sharks()
 end
 
 
