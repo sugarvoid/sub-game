@@ -5,8 +5,10 @@
 -- version: 0.1
 
 
-require("diver")
-require("player")
+require("src.diver")
+require("src.player")
+require("src.shark")
+require("src.mini_sub")
 
 
 local game_bg = love.graphics
@@ -29,52 +31,6 @@ local obj = {
 
 player = {}
 
--- DIVER --
-all_divers = {}
-diver = obj:new({
-    x,
-    y = 50,
-    color = nil,
-    timer = 0,
-    update = function(self)
-        self.x = self.x + 1
-    end,
-    draw = function(self)
-        spr(288, self.x, self.y)
-    end
-})
-
-function spawn_diver(pos)
-    n_diver = diver:new()
-    n_diver.x = pos[1]
-    n_diver.y = pos[2]
-    add(all_divers, n_diver)
-end
-
-function update_divers()
-    for p in all(all_divers) do
-        p:update()
-    end
-end
-
-function draw_divers()
-    for p in all(all_divers) do
-        p:draw()
-    end
-end
-
--- DIVER END --
-
-
-function _DRAW()
-    cls(13)
-    rect(0, 20, 300, 200, 8)
-    rect(0, 110, 300, 50, 3)
-    rect(0, 120, 300, 50, 15)
-    spr(256, x, y, 0, 1, 0, 0, 3, 2)
-    draw_divers()
-    print(t)
-end
 
 -- EXTRA STUFF --
 

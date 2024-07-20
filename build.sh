@@ -1,10 +1,9 @@
-# zip -9 -r SickleDodge.love . --exclude '*.git*' '*.vscode*' 'build.sh' 'todo.md' 'sublime-build.txt' 'asset/sickle_dodge_love.png' 'asset/sickle_dodge_love.svg'
 
-zip -9 -r SickleDodge.love . \
+zip -9 -r sub_game.love . \
     --exclude '*.git*' \
     '*.vscode*' \
     'build.sh' \
     'todo.md' \
     'sublime-build.txt' \
-    'asset/sickle_dodge_love.png' \
-    'asset/sickle_dodge_love.svg'
+    'asset/sub_game.png' \
+    'asset/sub_game.svg'
