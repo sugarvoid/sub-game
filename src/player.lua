@@ -12,7 +12,7 @@ local flux = require("lib.flux")
 function Player:new()
     local _player = setmetatable({}, Player)
     _player.spr_sheet = love.graphics.newImage("asset/image/player/player.png")
-    local s_grid = anim8.newGrid(24, 20, _player.spr_sheet:getWidth(), _player.spr_sheet:getHeight())
+    local s_grid = anim8.newGrid(19, 14, _player.spr_sheet:getWidth(), _player.spr_sheet:getHeight())
 
     _player.animations = {
         default = anim8.newAnimation(s_grid(('1-4'), 1), 0.1),
@@ -36,7 +36,7 @@ function Player:new()
     _player.max_speed = 80
     _player.acceleration = 25
     _player.w, _player.h = _player.curr_animation:getDimensions()
-    _player.hitbox = { x = _player.x, y = _player.y, w = _player.w - 10, h = _player.h - 4 }
+    _player.hitbox = { x = _player.x, y = _player.y, w = _player.w, h = _player.h-3 }
     return _player
 end
 
@@ -74,6 +74,9 @@ function Player:update(dt)
     if self.is_alive then
         flux.update(dt)
     end
+
+    self.hitbox.x = self.x - self.w /2
+    self.hitbox.y = self.y - self.h/2
 end
 
 function Player:move(dt)
@@ -117,6 +120,7 @@ end
 function Player:draw()
     self.curr_animation:draw(self.spr_sheet, self.x, self.y - 2, math.rad(self.rotation), self.facing_dir, 1, self.w / 2,
         self.h / 2)
+    draw_hitbox(self, "#ffffff")
 end
 
 function Player:reset()

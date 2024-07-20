@@ -2,6 +2,7 @@
 local flux = require("lib.flux")
 
 
+
 Diver = {}
 Diver.__index = Diver
 
@@ -21,7 +22,7 @@ function Diver:new()
     _diver.y = 11
     _diver.move_spped = 100
     _diver.w, _diver.h = _diver.curr_animation:getDimensions()
-    _diver.hitbox = { x = _diver.x, y = _diver.y, w = _diver.w - 10, h = _diver.h - 4 }
+    _diver.hitbox = { x = _diver.x, y = _diver.y, w = _diver.w, h = _diver.h }
     return _diver
 end
 
@@ -36,6 +37,7 @@ end
 
 function Diver:draw()
     self.curr_animation:draw(self.spr_sheet, self.x, self.y - 2, 0, self.facing_dir-0.3, 0.7, self.w / 2, self.h / 2)
+    draw_hitbox(self, "#ffffff")
 end
 
 

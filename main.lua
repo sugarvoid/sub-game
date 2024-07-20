@@ -5,6 +5,7 @@
 -- version: 0.1
 
 love = require("love")
+require("lib.kgo.core")
 
 require("lib.kgo.timer")
 anim8 = require("lib.anim8")
