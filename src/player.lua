@@ -80,7 +80,6 @@ function Player:update(dt)
 end
 
 function Player:move(dt)
-    print(self.xvel)
     if self.xvel < 0 then
         self.facing_dir = -1
     else

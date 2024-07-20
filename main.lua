@@ -48,8 +48,14 @@ function love.load()
     love.graphics.setFont(font)
     gamestate = gamestates.title
 
-    diver_1 = Diver:new()
+    diver_1 = Diver:new(100, 40)
     table.insert(all_divers, diver_1)
+
+    diver_3 = Diver:new(50, 100)
+    table.insert(all_divers, diver_3)
+
+    diver_2 = Diver:new(10, 67)
+    table.insert(all_divers, diver_2)
     
 end
 
