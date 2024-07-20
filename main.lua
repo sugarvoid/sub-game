@@ -46,6 +46,9 @@ function love.load()
     font:setFilter("nearest")
     love.graphics.setFont(font)
     gamestate = gamestates.title
+
+    diver_1 = Diver:new()
+    table.insert(all_divers, diver_1)
     
 end
 
@@ -107,6 +110,7 @@ end
 function update_game(dt)
     tick = tick + 1
     player:update(dt)
+    update_divers(dt)
 end
 
 function update_gameover(dt)
@@ -139,6 +143,7 @@ function draw_game()
     love.graphics.push("all")
     love.graphics.pop()
     player:draw()
+    draw_divers()
 end
 
 
