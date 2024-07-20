@@ -6,15 +6,16 @@ local flux = require("lib.flux")
 Diver = {}
 Diver.__index = Diver
 
+local _player = nil
 
-
-function Diver:new(x, y)
+function Diver:new(x, y, player)
     local _diver = setmetatable({}, Diver)
     _diver.spr_sheet = love.graphics.newImage("asset/image/diver.png")
     local s_grid = anim8.newGrid(17, 16, _diver.spr_sheet:getWidth(), _diver.spr_sheet:getHeight())
     _diver.animations = {
         default = anim8.newAnimation(s_grid(('1-2'), 1), 0.3),
     }
+    _player = player
     _diver.curr_animation = _diver.animations["default"]
     _diver.is_alive = true
     _diver.facing_dir = 1
@@ -40,7 +41,7 @@ end
 
 function Diver:draw()
     self.curr_animation:draw(self.spr_sheet, self.x, self.y - 2, 0, self.facing_dir-0.3, 0.7, self.w / 2, self.h / 2)
-    draw_hitbox(self, "#D70040")
+    draw_hitbox(self.hitbox, "#3e8948")
 end
 
 
@@ -49,6 +50,10 @@ all_divers = {}
 
 function update_divers(dt)
     for p in all(all_divers) do
+        if check_collision(p.hitbox, _player.hitbox) then
+            del(all_divers, p)
+            _player:play_sound(1)
+        end
         p:update(dt)
     end
 end

@@ -34,6 +34,8 @@ local gamestate = nil
 local level = 1
 local tick = 0
 
+local background = love.graphics.newImage("asset/image/background.png")
+local sand = love.graphics.newImage("asset/image/sand_bottom.png")
 local player = Player:new()
 
 
@@ -48,13 +50,13 @@ function love.load()
     love.graphics.setFont(font)
     gamestate = gamestates.title
 
-    diver_1 = Diver:new(100, 40)
+    diver_1 = Diver:new(100, 40, player)
     table.insert(all_divers, diver_1)
 
-    diver_3 = Diver:new(50, 100)
+    diver_3 = Diver:new(50, 100, player)
     table.insert(all_divers, diver_3)
 
-    diver_2 = Diver:new(10, 67)
+    diver_2 = Diver:new(10, 67, player)
     table.insert(all_divers, diver_2)
     
 end
@@ -127,12 +129,14 @@ end
 
 function love.draw()
     love.graphics.scale(4)
-
+    love.graphics.draw(background, 0, 0)
+    love.graphics.draw(sand, 0, 136 - 30)
     if gamestate == gamestates.title then
         draw_title()
     end
     if gamestate == gamestates.game then
         draw_game()
+        
     end
     if gamestate == gamestates.retry then
         draw_gameover()
@@ -147,8 +151,8 @@ function draw_title()
 end
 
 function draw_game()
-    love.graphics.push("all")
-    love.graphics.pop()
+    --love.graphics.push("all")
+    --love.graphics.pop()
     player:draw()
     draw_divers()
 end
