@@ -7,6 +7,7 @@
 love = require("love")
 
 require("lib.kgo.timer")
+anim8 = require("lib.anim8")
 require("src.diver")
 require("src.player")
 require("src.shark")
@@ -32,7 +33,8 @@ local gamestate = nil
 local level = 1
 local tick = 0
 
---local player = Player:new()
+local player = Player:new()
+
 
 
 function love.load()
@@ -65,8 +67,8 @@ function love.keypressed(key)
     end
 
     if gamestate == gamestates.game then
-        if key == "space" or key == "w" then
-            player:jump()
+        if key == "space" then
+            player:shoot()
         end
     end
 
@@ -104,16 +106,6 @@ end
 
 function update_game(dt)
     tick = tick + 1
-    if seconds_left >= 1 then
-        if tick == 60 then
-            seconds_left = seconds_left - 1
-            tick = 0
-        end
-    end
-    if seconds_left == 0 then
-        save_game()
-        gamestate = gamestates.win
-    end
     player:update(dt)
 end
 
@@ -145,9 +137,7 @@ end
 
 function draw_game()
     love.graphics.push("all")
-    draw_hud()
     love.graphics.pop()
-    draw_snow()
     player:draw()
 end
 
