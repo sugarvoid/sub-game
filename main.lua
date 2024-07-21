@@ -36,11 +36,13 @@ local tick = 0
 
 local background = love.graphics.newImage("asset/image/background.png")
 local sand = love.graphics.newImage("asset/image/sand_bottom.png")
+local o2_bar = love.graphics.newImage("asset/image/o2_bar.png")
 local player = Player:new()
 
 
 
 function love.load()
+    love.graphics.setDefaultFilter("nearest", "nearest")
     --load_game()
     --title_music:play()
     --title_music:setVolume(0.3)
@@ -135,7 +137,10 @@ end
 function love.draw()
     love.graphics.scale(4)
     love.graphics.draw(background, 0, 0)
-    love.graphics.draw(sand, 0, 136 - 30)
+    love.graphics.draw(sand, 0, 136 - 29)
+    love.graphics.draw(o2_bar, 20, 5)
+    love.graphics.print(string.format("%05d", player.score), 200, 0)
+    print_mouse_pos(0,0,4)
     if gamestate == gamestates.title then
         draw_title()
     end

@@ -37,3 +37,7 @@ function draw_hitbox(obj, color)
     love.graphics.pop()
 end
 
+function print_mouse_pos(x,y, scale) 
+	local mx, my = love.mouse.getPosition() -- get the position of the mouse
+	love.graphics.print("mPos: ("..mx/scale..","..my/scale..")",x,y,0,2,2)
+end

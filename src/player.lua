@@ -23,6 +23,8 @@ local surface_rect = {
 
 function Player:new()
     local _player = setmetatable({}, Player)
+    _player.score = 0
+    _player.image = love.graphics.newImage("asset/image/ship_player.png")
     _player.spr_sheet = love.graphics.newImage("asset/image/player/player.png")
     local s_grid = anim8.newGrid(19, 14, _player.spr_sheet:getWidth(), _player.spr_sheet:getHeight())
 
@@ -47,8 +49,8 @@ function Player:new()
     _player.friction = 1.1
     _player.max_speed = 80
     _player.acceleration = 25
-    _player.w, _player.h = _player.curr_animation:getDimensions()
-    _player.hitbox = { x = _player.x, y = _player.y, w = _player.w, h = _player.h-3 }
+    _player.w, _player.h = _player.image:getDimensions()
+    _player.hitbox = { x = _player.x, y = _player.y, w = _player.w, h = _player.h - 6 }
     return _player
 end
 
@@ -85,7 +87,7 @@ function Player:update(dt)
     end
 
     self.hitbox.x = self.x - self.w /2
-    self.hitbox.y = self.y - self.h/2
+    self.hitbox.y = (self.y - self.h/2) + 6
 end
 
 -- function Player:move(dt)
@@ -136,7 +138,7 @@ function Player:move(dt)
     self.yvel = self.yvel * (1 - math.min(dt * self.friction, 1))
 
     self.x = clamp(20, (self.x + self.xvel * dt), 220)
-    self.y = clamp(15, (self.y + self.yvel * dt), 136)
+    self.y = clamp(14, (self.y + self.yvel * dt), 136)
     
 
 
@@ -153,10 +155,11 @@ function Player:shoot(...)
 end
 
 function Player:draw()
-    self.curr_animation:draw(self.spr_sheet, self.x, self.y - 2, math.rad(self.rotation), self.facing_dir, 1, self.w / 2,
-        self.h / 2)
+    --self.curr_animation:draw(self.spr_sheet, self.x, self.y - 2, math.rad(self.rotation), self.facing_dir, 1, self.w / 2, self.h / 2)
+    love.graphics.draw(self.image, self.x, self.y, 0, self.facing_dir, 1, self.w/2, self.h/2)
     draw_hitbox(self.hitbox, "#D70040")
     draw_hitbox(surface_rect, "#feae34")
+    love.graphics.line( 20, 20, 60, 20)
 end
 
 function Player:reset()
