@@ -41,3 +41,11 @@ function print_mouse_pos(x,y, scale)
 	local mx, my = love.mouse.getPosition() -- get the position of the mouse
 	love.graphics.print("mPos: ("..mx/scale..","..my/scale..")",x,y,0,2,2)
 end
+
+-- TABLES
+function all(_list)
+    local i = 0
+    return function()
+        i = i + 1; return _list[i]
+    end
+end

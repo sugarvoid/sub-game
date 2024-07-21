@@ -5,6 +5,8 @@
 -- version: 0.1
 
 love = require("love")
+love.graphics.setDefaultFilter("nearest", "nearest")
+
 require("lib.kgo.core")
 
 require("lib.kgo.timer")
@@ -13,12 +15,13 @@ require("src.diver")
 require("src.player")
 require("src.shark")
 require("src.mini_sub")
+require("src.diver_hud")
 
 
 
 add = table.insert
 
-love.graphics.setDefaultFilter("nearest", "nearest")
+
 
 local font = nil
 local gamestates = {
@@ -50,6 +53,10 @@ function love.load()
     font = love.graphics.newFont("asset/font/c64esque.ttf", 16)
     font:setFilter("nearest")
     love.graphics.setFont(font)
+
+
+    world = love.physics.newWorld(0,0,true)
+
     gamestate = gamestates.title
 
     diver_1 = Diver:new(100, 40, player)
@@ -62,8 +69,23 @@ function love.load()
     table.insert(all_divers, diver_2)
 
 
-    shark_1 = Shark:new(10, 60, player)
+    shark_1 = Shark:new(10, 90, player)
     table.insert(all_sharks, shark_1)
+
+
+    world:setCallbacks(beginContact, endContact, preSolve, postSolve)
+
+    text       = "" -- we'll use this to put info text on the screen later
+    persisting = 0  -- we'll use this to store the state of repeated callback calls
+
+
+    surface = {}
+    surface.body = love.physics.newBody(world, 400,400, "static") -- "static" makes it not move
+    surface.shape = love.physics.newRectangleShape(200,50)      -- set size to 200,50 (x,y)
+    surface.fixture = love.physics.newFixture(surface.body, surface.shape)
+    surface.fixture:setUserData("Surface")
+
+
     
 end
 
@@ -123,6 +145,10 @@ function update_title()
 end
 
 function update_game(dt)
+    if string.len(text) > 768 then    -- cleanup when 'text' gets too long
+        text = "" 
+    end
+    world:update(dt)
     tick = tick + 1
     player:update(dt)
     update_divers(dt)
@@ -140,7 +166,7 @@ function love.draw()
     love.graphics.draw(sand, 0, 136 - 29)
     love.graphics.draw(o2_bar, 20, 5)
     love.graphics.print(string.format("%05d", player.score), 200, 0)
-    print_mouse_pos(0,0,4)
+    --print_mouse_pos(0,0,4)
     if gamestate == gamestates.title then
         draw_title()
     end
@@ -166,6 +192,8 @@ function draw_game()
     player:draw()
     draw_divers()
     draw_sharks()
+    diver_HUD:draw()
+    love.graphics.print(text, 10, 10)
 end
 
 
@@ -194,12 +222,7 @@ function clamp(_min, _val, _max)
     return math.max(_min, math.min(_val, _max));
 end
 
-function all(_list)
-    local i = 0
-    return function()
-        i = i + 1; return _list[i]
-    end
-end
+
 
 function del(_table, _item)
     for i, v in ipairs(_table) do
@@ -235,4 +258,32 @@ function load_game()
         data = lume.deserialize(file)
         player.has_won = data.has_won or false
     end
+end
+
+
+
+--TODO: Move to sperate physics file
+
+function beginContact(a, b, coll)
+    x,y = coll:getNormal()
+    text = text.."\n"..a:getUserData().." colliding with "..b:getUserData().." with a vector normal of: "..x..", "..y
+end
+
+
+function endContact(a, b, coll)
+    persisting = 0    -- reset since they're no longer touching
+    text = text.."\n"..a:getUserData().." uncolliding with "..b:getUserData()
+end
+
+function preSolve(a, b, coll)
+    if persisting == 0 then    -- only say when they first start touching
+        text = text.."\n"..a:getUserData().." touching "..b:getUserData()
+    elseif persisting < 20 then    -- then just start counting
+        text = text.." "..persisting
+    end
+    persisting = persisting + 1    -- keep track of how many updates they've been touching for
+end
+
+function postSolve(a, b, coll, normalimpulse, tangentimpulse)
+-- we won't do anything with this function
 end

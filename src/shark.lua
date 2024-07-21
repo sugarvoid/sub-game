@@ -22,6 +22,13 @@ function Shark:new(x, y, player)
     _shark.y = y
     _shark.move_spped = 0.4
     _shark.w, _shark.h = _shark.curr_animation:getDimensions()
+
+    _shark.body = love.physics.newBody(world, 0,0, "dynamic")
+    _shark.shape = love.physics.newRectangleShape(_shark.w-6, _shark.h-10)
+    _shark.fixture = love.physics.newFixture(_shark.body, _shark.shape)
+    _shark.fixture:setUserData("Shark")
+
+
     _shark.hitbox = { x = _shark.x, y = _shark.y, w = _shark.w-6, h = _shark.h -10}
     return _shark
 end
@@ -32,6 +39,7 @@ function Shark:update(dt)
     self.x = self.x + self.move_spped * self.facing_dir
     self.hitbox.x = (self.x - self.w /2)+2
     self.hitbox.y = (self.y - self.h/2) +3
+    self.body:setPosition(self.hitbox.x,self.hitbox.y)
 end
 
 function Shark:die(pos)
