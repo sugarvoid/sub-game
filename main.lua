@@ -5,6 +5,7 @@
 -- version: 0.1
 
 love = require("love")
+world = love.physics.newWorld(0,0,true)
 love.graphics.setDefaultFilter("nearest", "nearest")
 
 require("lib.kgo.core")
@@ -78,7 +79,7 @@ function love.load()
     love.graphics.setFont(font)
 
 
-    world = love.physics.newWorld(0,0,true)
+    
 
     gamestate = gamestates.title
 
@@ -217,7 +218,10 @@ function draw_game()
     draw_divers()
     draw_sharks()
     diver_HUD:draw()
+    love.graphics.push("all")
+    love.graphics.scale(0.5)
     love.graphics.print(text, 10, 10)
+    love.graphics.pop()
     o2_bar:draw()
 end
 
@@ -290,23 +294,28 @@ end
 --TODO: Move to sperate physics file
 
 function beginContact(a, b, coll)
+    
     x,y = coll:getNormal()
     text = text.."\n"..a:getUserData().." colliding with "..b:getUserData().." with a vector normal of: "..x..", "..y
+    print(text)
 end
 
 
 function endContact(a, b, coll)
-    persisting = 0    -- reset since they're no longer touching
+    print("uncolliding")
+    --persisting = 0    -- reset since they're no longer touching
     text = text.."\n"..a:getUserData().." uncolliding with "..b:getUserData()
+    print(text)
+    collectgarbage()
 end
 
 function preSolve(a, b, coll)
-    if persisting == 0 then    -- only say when they first start touching
-        text = text.."\n"..a:getUserData().." touching "..b:getUserData()
-    elseif persisting < 20 then    -- then just start counting
-        text = text.." "..persisting
-    end
-    persisting = persisting + 1    -- keep track of how many updates they've been touching for
+    --if persisting == 0 then    -- only say when they first start touching
+    --text = text.."\n"..a:getUserData().." touching "..b:getUserData()
+    --elseif persisting < 20 then    -- then just start counting
+        --text = text.." "..persisting
+    --end
+    --persisting = persisting + 1    -- keep track of how many updates they've been touching for
 end
 
 function postSolve(a, b, coll, normalimpulse, tangentimpulse)

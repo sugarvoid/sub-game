@@ -23,7 +23,7 @@ function Shark:new(x, y, player)
     _shark.move_spped = 0.4
     _shark.w, _shark.h = _shark.curr_animation:getDimensions()
 
-    _shark.body = love.physics.newBody(world, 0,0, "dynamic")
+    _shark.body = love.physics.newBody(world, _shark.x,_shark.y, "dynamic")
     _shark.shape = love.physics.newRectangleShape(_shark.w-6, _shark.h-10)
     _shark.fixture = love.physics.newFixture(_shark.body, _shark.shape)
     _shark.fixture:setUserData("Shark")
@@ -58,7 +58,7 @@ all_sharks = {}
 function update_sharks(dt)
     for p in all(all_sharks) do
         if check_collision(p.hitbox, _player.hitbox) then
-            del(all_sharks, p)
+            --del(all_sharks, p)
         end
         p:update(dt)
     end

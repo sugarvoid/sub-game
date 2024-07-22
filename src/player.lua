@@ -51,6 +51,15 @@ function Player:new()
     _player.acceleration = 25
     _player.w, _player.h = _player.image:getDimensions()
     _player.hitbox = { x = _player.x, y = _player.y, w = _player.w, h = _player.h - 6 }
+    
+    _player.body = love.physics.newBody(world,_player.x,_player.y,"dynamic")
+    _player.shape = love.physics.newRectangleShape(_player.hitbox.w, _player.hitbox.h)
+    _player.fixture = love.physics.newFixture(_player.body, _player.shape)
+    _player.fixture:setUserData("Player")
+
+
+
+
     return _player
 end
 
@@ -88,6 +97,7 @@ function Player:update(dt)
 
     self.hitbox.x = self.x - self.w /2
     self.hitbox.y = (self.y - self.h/2) + 6
+    self.body:setPosition(self.hitbox.x,self.hitbox.y)
 end
 
 -- function Player:move(dt)
