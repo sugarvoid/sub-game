@@ -159,7 +159,7 @@ function Player:draw()
     love.graphics.draw(self.image, self.x, self.y, 0, self.facing_dir, 1, self.w/2, self.h/2)
     draw_hitbox(self.hitbox, "#D70040")
     draw_hitbox(surface_rect, "#feae34")
-    love.graphics.line( 20, 20, 60, 20)
+    
 end
 
 function Player:reset()

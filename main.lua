@@ -39,9 +39,32 @@ local tick = 0
 
 local background = love.graphics.newImage("asset/image/background.png")
 local sand = love.graphics.newImage("asset/image/sand_bottom.png")
-local o2_bar = love.graphics.newImage("asset/image/o2_bar.png")
+--local o2_bar = love.graphics.newImage("asset/image/o2_bar.png")
 local player = Player:new()
 
+
+
+local o2_bar = {
+    image = love.graphics.newImage("asset/image/o2_bar.png"),
+    max = 60,
+    value = 30,
+    position = {20, 5},
+    draw=function(self)
+        --TODO: Figure out the lines are not lining up with sprite
+        love.graphics.draw(self.image, self.position[1], self.position[2])
+        love.graphics.push("all")
+        change_draw_color("#ffffff")
+        love.graphics.line( self.position[1] + 3, self.position[2]+2.5, self.position[1] + 3 + self.value, self.position[2]+2.5)
+        change_draw_color("#0ce6f2")
+        love.graphics.line( self.position[1] + 3, self.position[2]+3.5, self.position[1] + 3 + self.value, self.position[2]+3.5)
+        change_draw_color("#0098db")
+        love.graphics.line( self.position[1] + 3, self.position[2]+4.5, self.position[1] + 3 + self.value, self.position[2]+4.5)
+        love.graphics.pop()
+    end,
+    update=function(self)
+        
+    end,
+}
 
 
 function love.load()
@@ -145,6 +168,7 @@ function update_title()
 end
 
 function update_game(dt)
+    o2_bar:update()
     if string.len(text) > 768 then    -- cleanup when 'text' gets too long
         text = "" 
     end
@@ -164,7 +188,7 @@ function love.draw()
     love.graphics.scale(4)
     love.graphics.draw(background, 0, 0)
     love.graphics.draw(sand, 0, 136 - 29)
-    love.graphics.draw(o2_bar, 20, 5)
+    
     love.graphics.print(string.format("%05d", player.score), 200, 0)
     --print_mouse_pos(0,0,4)
     if gamestate == gamestates.title then
@@ -194,6 +218,7 @@ function draw_game()
     draw_sharks()
     diver_HUD:draw()
     love.graphics.print(text, 10, 10)
+    o2_bar:draw()
 end
 
 

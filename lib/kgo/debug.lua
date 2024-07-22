@@ -2,7 +2,7 @@
 
 function draw_hitbox(obj, color)
     love.graphics.push("all")
-    changeFontColor(color)
+    change_draw_color(color)
     love.graphics.rectangle("line", obj.hitbox.x, obj.hitbox.y, obj.hitbox.w, obj.hitbox.h)
     love.graphics.pop()
 end
@@ -31,7 +31,7 @@ function _color(str, mul)
     return r * mul, g * mul, b * mul, a * mul
   end
   
-  function changeFontColor(hex)
+  function change_draw_color(hex)
       love.graphics.setColor(_color(hex))
   end
   
