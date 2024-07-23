@@ -1,9 +1,12 @@
-local flux = require("lib.flux")
+--local flux = require("lib.flux")
 
 
 
 Shark = {}
 Shark.__index = Shark
+
+local _sfx_die = love.audio.newSource("asset/audio/shark_death.ogg", "stream")
+
 
 local _player = nil
 
@@ -23,19 +26,21 @@ function Shark:new(x, y, player)
     _shark.move_spped = 0.4
     _shark.w, _shark.h = _shark.curr_animation:getDimensions()
 
-    --TODO: Use hitbox for this and player
-    _shark.body = love.physics.newBody(world, _shark.x,_shark.y, "dynamic")
-    _shark.shape = love.physics.newRectangleShape(_shark.w-6, _shark.h-10)
-    _shark.fixture = love.physics.newFixture(_shark.body, _shark.shape)
-    _shark.fixture:setUserData("Shark")
-
-
     _shark.hitbox = { x = _shark.x, y = _shark.y, w = _shark.w-6, h = _shark.h -10}
+
+    --TODO: Use hitbox for this and player
+    _shark.body = love.physics.newBody(world, _shark.hitbox.x,_shark.hitbox.y, "dynamic")
+    _shark.shape = love.physics.newRectangleShape(_shark.hitbox.w, _shark.hitbox.h)
+    _shark.fixture = love.physics.newFixture(_shark.body, _shark.shape)
+    _shark.fixture:setUserData({type="Shark", owner=_shark})
+
+
+    
     return _shark
 end
 
 function Shark:update(dt)
-    flux.update(dt)
+    --flux.update(dt)
     self.curr_animation:update(dt)
     self.x = self.x + self.move_spped * self.facing_dir
     self.hitbox.x = (self.x - self.w /2)+2
@@ -44,7 +49,8 @@ function Shark:update(dt)
 end
 
 function Shark:die(pos)
-
+    --print("im dead????")
+    _sfx_die:play()
 end
 
 function Shark:draw()
@@ -59,7 +65,7 @@ all_sharks = {}
 function update_sharks(dt)
     for p in table.for_each(all_sharks) do
         if check_collision(p.hitbox, _player.hitbox) then
-            --del(all_sharks, p)
+            --remove_item(all_sharks, p)
         end
         p:update(dt)
     end

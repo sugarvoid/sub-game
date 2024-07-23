@@ -4,7 +4,7 @@ Player = {}
 Player.__index = Player
 
 
-local flux = require("lib.flux")
+--local flux = require("lib.flux")
 
 local _sfx_diver_saved = love.audio.newSource("asset/audio/diver_saved.ogg", "static")
 local _sfx_diver_killed = love.audio.newSource("asset/audio/diver_death.ogg", "static")
@@ -24,17 +24,19 @@ local surface_rect = {
 function Player:new()
     local _player = setmetatable({}, Player)
     _player.score = 0
+    _player.high_score = 0 --TODO: Add to game object, not player??
     
     _player.MAX_OXYGEN = 60
     _player.oxygen = _player.MAX_OXYGEN
     _player.image = love.graphics.newImage("asset/image/ship_player.png")
-    _player.spr_sheet = love.graphics.newImage("asset/image/player/player.png")
-    local s_grid = anim8.newGrid(19, 14, _player.spr_sheet:getWidth(), _player.spr_sheet:getHeight())
+    _player.spr_sheet = love.graphics.newImage("asset/image/player_sheet.png")
+    local s_grid = anim8.newGrid(24, 16, _player.spr_sheet:getWidth(), _player.spr_sheet:getHeight())
 
     _player.animations = {
-        default = anim8.newAnimation(s_grid(('1-4'), 1), 0.1),
+        default = anim8.newAnimation(s_grid(('1-5'), 1), 0.1),
         death = anim8.newAnimation(s_grid(('1-4'), 1), 0.1),
     }
+    _player.is_submerged = true
     _player.starting_pos = { x = 100, y = 100 }
     _player.curr_animation = _player.animations["default"]
     _player.rotation = 0
@@ -44,6 +46,7 @@ function Player:new()
     _player.y = _player.starting_pos.y
     _player.is_moving_left = false
     _player.is_moving_right = false
+    _player.can_shoot = true
     _player.speed = 100
     _player.vel_y = 50
     _player.vel_x = 0
@@ -68,8 +71,10 @@ end
 
 function Player:update(dt)
     self:move(dt)
-    self.oxygen = clamp(0, self.oxygen - 0.1, self.MAX_OXYGEN)
-    print(self.oxygen)
+    if self.is_submerged then
+        self.oxygen = clamp(0, self.oxygen - 0.1, self.MAX_OXYGEN)
+    end
+    --print(self.oxygen)
     
     --print(self.body:isAwake())
     -- if love.keyboard.isDown('d') then
@@ -166,14 +171,24 @@ function Player:die(pos, condition)
 end
 
 function Player:shoot(...)
-    print("pew")
+    if self.can_shoot then
+        self.can_shoot = false
+        print("pew")
+        local _x = self.x --+ self.w / 2
+        local _y = self.y + 4 --+ self.h / 2
+        local new_torpedo = Torpedo:new(_x, _y, self)
+        new_torpedo.facing_dir = self.facing_dir
+        table.insert(player_torpedos, new_torpedo)
+        new_torpedo:drop(_y)
+    end
 end
 
 function Player:draw()
-    --self.curr_animation:draw(self.spr_sheet, self.x, self.y - 2, math.rad(self.rotation), self.facing_dir, 1, self.w / 2, self.h / 2)
-    love.graphics.draw(self.image, self.x, self.y, 0, self.facing_dir, 1, self.w/2, self.h/2)
+    self.curr_animation:draw(self.spr_sheet, self.x, self.y - 2, math.rad(self.rotation), self.facing_dir, 1, self.w / 2, self.h / 2)
+    --love.graphics.draw(self.image, self.x, self.y, 0, self.facing_dir, 1, self.w/2, self.h/2)
     draw_hitbox(self.hitbox, "#D70040")
     draw_hitbox(surface_rect, "#feae34")
+    love.graphics.points(self.x, self.y+4)
     
 end
 

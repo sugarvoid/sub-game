@@ -1,6 +1,6 @@
--- title:   game title
--- author:  game developer, email, etc.
--- desc:    short description
+-- title:   Sub Game
+-- author:  sugarvoid
+-- desc:    A clone of Seaquest for the Atari 2600 
 -- license: MIT License
 -- version: 0.1
 
@@ -12,11 +12,14 @@ require("lib.kgo.core")
 
 require("lib.kgo.timer")
 anim8 = require("lib.anim8")
+flux = require("lib.flux")
 require("src.diver")
 require("src.player")
 require("src.shark")
+require("src.surface")
 require("src.mini_sub")
 require("src.diver_hud")
+require("src.player_torpedo")
 
 
 
@@ -113,7 +116,7 @@ function love.load()
     surface.body:setAwake(true)
     surface.fixture:setUserData("Surface")
 
-
+    set_up_surface()
     
 end
 
@@ -173,6 +176,7 @@ function update_title()
 end
 
 function update_game(dt)
+    flux.update(dt)
     o2_bar.value = player.oxygen
     o2_bar:update()
     if string.len(text) > 768 then    -- cleanup when 'text' gets too long
@@ -183,6 +187,9 @@ function update_game(dt)
     player:update(dt)
     update_divers(dt)
     update_sharks(dt)
+    for t in table.for_each(player_torpedos) do
+        t:update()
+    end
 end
 
 function update_gameover(dt)
@@ -195,7 +202,7 @@ function love.draw()
     love.graphics.draw(background, 0, 0)
     love.graphics.draw(sand, 0, 136 - 29)
     
-    love.graphics.print(string.format("%05d", player.score), 200, 0)
+    
     --print_mouse_pos(0,0,4)
     if gamestate == gamestates.title then
         draw_title()
@@ -219,15 +226,28 @@ end
 function draw_game()
     --love.graphics.push("all")
     --love.graphics.pop()
+    for sb in table.for_each(surface_sections) do
+        sb:draw_back()
+        --sb:draw_front()
+        
+    end
     player:draw()
     draw_divers()
     draw_sharks()
+    for t in table.for_each(player_torpedos) do
+        t:draw()
+    end
+
+    
+
     diver_HUD:draw()
     love.graphics.push("all")
     love.graphics.scale(0.5)
+    love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 100)
     love.graphics.print(text, 10, 40)
     love.graphics.pop()
     o2_bar:draw()
+    love.graphics.print(string.format("%05d", player.score), 200, 0)
 end
 
 
@@ -265,6 +285,7 @@ function check_collision(a, b)
         b.x < a.x + a.w and
         a.y < b.y + b.h and
         b.y < a.y + a.h
+
 end
 
 function do_tables_match(_table_1, _table_2)
@@ -273,16 +294,17 @@ end
 
 function save_game()
     data = {}
-    data.has_won = true
+    data.high_score = player.high_score
     serialized = lume.serialize(data)
-    love.filesystem.write("sickle.sav", serialized)
+    love.filesystem.write("sub_game.sav", serialized)
+
 end
 
 function load_game()
-    if love.filesystem.getInfo("sickle.sav") then
-        file = love.filesystem.read("sickle.sav")
+    if love.filesystem.getInfo("sub_game.sav") then
+        file = love.filesystem.read("sub_game.sav")
         data = lume.deserialize(file)
-        player.has_won = data.has_won or false
+        player.high_score = data.high_score or 0
     end
 end
 
@@ -295,12 +317,28 @@ function beginContact(a, b, coll)
     x,y = coll:getNormal()
     obj_a = a:getUserData()
     obj_b = b:getUserData()
-    if obj_a == "Player" and obj_b == "Shark" then
-        print("player made contact with shark")
-    elseif obj_a == "Player" and obj_b == "Surface" then
-        player:play_sound(3)
+
+    print(obj_a["type"])
+
+    if obj_a["type"] == "P_Torpedo" and obj_b["type"] == "Shark" or 
+        obj_b["type"] == "P_Torpedo" and obj_a["type"] == "Shark" then
+        --player:play_sound(3)
+        --player.is_submerged =  not player.is_submerged
+        --obj_a:setAwake(false)
+        print("Helllllooooo!!")
+        obj_a["owner"]:die()
+        --table.remove_item(all_sharks, obj_b)
     end
-    -- text = text.."\n"..a:getUserData().." colliding with "..b:getUserData().." with a vector normal of: "..x..", "..y
+    if obj_a == "Player" and obj_b["type"] == "Shark" then
+        print("player made contact with shark")
+    end
+    if obj_a == "Player" and obj_b == "Surface" then
+        player:play_sound(3)
+        player.is_submerged =  not player.is_submerged
+    end
+    print(obj_a)
+    
+    --text = text.."\n"..a:getUserData().." colliding with "..obj_b["type"].." with a vector normal of: "..x..", "..y
     -- print(text)
 end
 
@@ -308,13 +346,19 @@ end
 function endContact(a, b, coll)
     print("uncolliding")
     persisting = 0    -- reset since they're no longer touching
-    text = text.."\n"..a:getUserData().." uncolliding with "..b:getUserData()
+    --text = text.."\n"..a:getUserData().." uncolliding with "..b:getUserData()
+    
+    if obj_a == "Player" and obj_b == "Surface" then
+        print("Player going back in water")
+        player.is_submerged =  not player.is_submerged
+    end
+
     collectgarbage()
 end
 
 function preSolve(a, b, coll)
     if persisting == 0 then    -- only say when they first start touching
-        text = text.."\n"..a:getUserData().." touching "..b:getUserData()
+        --text = text.."\n"..a:getUserData().." touching "..b:getUserData()
     elseif persisting < 20 then    -- then just start counting
         text = text
     end

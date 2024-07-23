@@ -1,5 +1,5 @@
 
-local flux = require("lib.flux")
+
 
 
 
@@ -28,7 +28,7 @@ function Diver:new(x, y, player)
 end
 
 function Diver:update(dt)
-    flux.update(dt)
+    --flux.update(dt)
     self.curr_animation:update(dt)
     self.x = self.x + self.move_spped * self.facing_dir
     self.hitbox.x = (self.x - self.w /2)+2
@@ -51,7 +51,7 @@ all_divers = {}
 function update_divers(dt)
     for p in table.for_each(all_divers) do
         if check_collision(p.hitbox, _player.hitbox) then
-            table.remove(all_divers, p)
+            table.remove_item(all_divers, p)
             _player:play_sound(1)
         end
         p:update(dt)

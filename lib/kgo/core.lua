@@ -50,7 +50,7 @@ function table.for_each(_list)
     end
 end
 
-function table.remove(_table, _item)
+function table.remove_item(_table, _item)
     for i, v in ipairs(_table) do
         if v == _item then
             _table[i] = _table[#_table]
