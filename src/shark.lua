@@ -10,14 +10,16 @@ local _sfx_die = love.audio.newSource("asset/audio/shark_death.ogg", "stream")
 
 local _player = nil
 
-function Shark:new(x, y, player)
+--TODO: Remove body, it is not needed. can use simple AABB
+
+
+function Shark:new(x, y)
     local _shark = setmetatable({}, Shark)
     _shark.spr_sheet = love.graphics.newImage("asset/image/shark.png")
     local s_grid = anim8.newGrid(22, 16, _shark.spr_sheet:getWidth(), _shark.spr_sheet:getHeight())
     _shark.animations = {
         default = anim8.newAnimation(s_grid(('1-4'), 1), 0.2),
     }
-    _player = player
     _shark.curr_animation = _shark.animations["default"]
     _shark.is_alive = true
     _shark.facing_dir = 1
@@ -29,10 +31,10 @@ function Shark:new(x, y, player)
     _shark.hitbox = { x = _shark.x, y = _shark.y, w = _shark.w-6, h = _shark.h -10}
 
     --TODO: Use hitbox for this and player
-    _shark.body = love.physics.newBody(world, _shark.hitbox.x,_shark.hitbox.y, "dynamic")
-    _shark.shape = love.physics.newRectangleShape(_shark.hitbox.w, _shark.hitbox.h)
-    _shark.fixture = love.physics.newFixture(_shark.body, _shark.shape)
-    _shark.fixture:setUserData({type="Shark", owner=_shark})
+    --_shark.body = love.physics.newBody(world, _shark.hitbox.x,_shark.hitbox.y, "dynamic")
+    --_shark.shape = love.physics.newRectangleShape(_shark.hitbox.w, _shark.hitbox.h)
+   -- _shark.fixture = love.physics.newFixture(_shark.body, _shark.shape)
+    --_shark.fixture:setUserData({type="Shark", owner=_shark})
 
 
     
@@ -45,13 +47,14 @@ function Shark:update(dt)
     self.x = self.x + self.move_speed * self.facing_dir
     self.hitbox.x = (self.x - self.w /2)+2
     self.hitbox.y = (self.y - self.h/2) +3
-    self.body:setPosition(self.hitbox.x,self.hitbox.y)
+    --self.body:setPosition(self.hitbox.x,self.hitbox.y)
 end
 
 function Shark:die(pos)
     --print("im dead????")
     _sfx_die:play()
     player:increase_score(20)
+    table.remove_item(all_sharks, self)
 end
 
 function Shark:draw()
@@ -65,8 +68,15 @@ all_sharks = {}
 
 function update_sharks(dt)
     for p in table.for_each(all_sharks) do
-        if check_collision(p.hitbox, _player.hitbox) then
+        if check_collision(p.hitbox, player.hitbox) then
             --remove_item(all_sharks, p)
+            print("player die")
+        end
+        for _t in table.for_each(player_torpedos) do
+            if check_collision(p.hitbox, _t.hitbox) then
+                p:die()
+                print("SHARK DEAD")
+            end
         end
         p:update(dt)
     end

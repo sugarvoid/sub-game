@@ -96,21 +96,21 @@ function love.load()
 
     gamestate = gamestates.title
 
-    diver_1 = Diver:new(100, 40, player)
+    diver_1 = Diver:new(100, 40)
     table.insert(all_divers, diver_1)
 
-    diver_3 = Diver:new(50, 100, player)
+    diver_3 = Diver:new(50, 100)
     table.insert(all_divers, diver_3)
 
-    diver_2 = Diver:new(10, 67, player)
+    diver_2 = Diver:new(10, 67)
     table.insert(all_divers, diver_2)
 
 
-    shark_1 = Shark:new(-10, 30, player)
+    shark_1 = Shark:new(-10, 30)
     table.insert(all_sharks, shark_1)
-    shark_2 = Shark:new(-10, 70, player)
+    shark_2 = Shark:new(-10, 70)
     table.insert(all_sharks, shark_2)
-    shark_3 = Shark:new(-10, 100, player)
+    shark_3 = Shark:new(-10, 100)
     table.insert(all_sharks, shark_3)
 
 
@@ -192,7 +192,7 @@ function update_title()
 end
 
 function update_game(dt)
-    print(#player_torpedos)
+    --print(#player_torpedos)
     flux.update(dt)
     o2_bar.value = player.oxygen
     o2_bar:update()
@@ -341,19 +341,19 @@ function beginContact(a, b, coll)
     obj_a = a:getUserData()
     obj_b = b:getUserData()
 
-    print(obj_a["type"])
+    
 
-    if obj_a["type"] == "P_Torpedo" and obj_b["type"] == "Shark" or 
-        obj_b["type"] == "P_Torpedo" and obj_a["type"] == "Shark" then
+    --if obj_a["type"] == "P_Torpedo" and obj_b["type"] == "Shark" or 
+       -- obj_b["type"] == "P_Torpedo" and obj_a["type"] == "Shark" then
         --player:play_sound(3)
         --player.is_submerged =  not player.is_submerged
         --obj_a:setAwake(false)
-        obj_a["owner"]:die()
+        --obj_a["owner"]:die()
         --table.remove_item(all_sharks, obj_b)
-    end
-    if obj_a == "Player" and obj_b["type"] == "Shark" then
-        print("player made contact with shark")
-    end
+    --end
+    --if obj_a == "Player" and obj_b["type"] == "Shark" then
+        --print("player made contact with shark")
+    --end
     if obj_a == "Player" and obj_b == "Surface" then
         --TODO: Make on_surface function in player
         --TODO: Prevent player moving until o2 is full
@@ -383,11 +383,11 @@ function endContact(a, b, coll)
 end
 
 function preSolve(a, b, coll)
-    if persisting == 0 then    -- only say when they first start touching
-        --text = text.."\n"..a:getUserData().." touching "..b:getUserData()
-    elseif persisting < 20 then    -- then just start counting
-        text = text
-    end
+    -- if persisting == 0 then    -- only say when they first start touching
+    --     --text = text.."\n"..a:getUserData().." touching "..b:getUserData()
+    -- elseif persisting < 20 then    -- then just start counting
+    --     text = text
+    -- end
     --persisting = persisting + 1    -- keep track of how many updates they've been touching for
 end
 

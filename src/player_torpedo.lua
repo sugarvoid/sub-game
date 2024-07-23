@@ -7,6 +7,9 @@ Torpedo = {}
 Torpedo.__index = Torpedo
 
 
+--TODO: Remove body, it is not needed. can use simple AABB
+
+
 local STARTING_Y = 10
 
 
@@ -29,10 +32,10 @@ function Torpedo:new(x, y, _parent)
     	h = _torpedo.h + 2
     }
 
-    _torpedo.body = love.physics.newBody(world, _torpedo.hitbox.x,_torpedo.hitbox.y, "dynamic")
-    _torpedo.shape = love.physics.newRectangleShape(_torpedo.hitbox.w, _torpedo.hitbox.h)
-    _torpedo.fixture = love.physics.newFixture(_torpedo.body, _torpedo.shape)
-    _torpedo.fixture:setUserData({type="P_Torpedo", owner=_torpedo})
+   -- _torpedo.body = love.physics.newBody(world, _torpedo.hitbox.x,_torpedo.hitbox.y, "dynamic")
+    --_torpedo.shape = love.physics.newRectangleShape(_torpedo.hitbox.w, _torpedo.hitbox.h)
+   -- _torpedo.fixture = love.physics.newFixture(_torpedo.body, _torpedo.shape)
+   -- _torpedo.fixture:setUserData({type="P_Torpedo", owner=_torpedo})
 
 
 
@@ -48,7 +51,7 @@ function Torpedo:update(dt)
 	end
 	self.hitbox.x = (self.x - self.w /2)
     self.hitbox.y = (self.y - 1 )
-    self.body:setPosition(self.hitbox.x,self.hitbox.y)
+   --self.body:setPosition(self.hitbox.x,self.hitbox.y)
 end
 
 function Torpedo:drop(starting_y)

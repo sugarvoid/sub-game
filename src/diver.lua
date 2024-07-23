@@ -11,7 +11,6 @@ function Diver:new(x, y, player)
     _diver.animations = {
         default = anim8.newAnimation(s_grid(('1-2'), 1), 0.3),
     }
-    _player = player
     _diver.curr_animation = _diver.animations["default"]
     _diver.is_alive = true
     _diver.facing_dir = 1
@@ -46,11 +45,11 @@ all_divers = {}
 
 function update_divers(dt)
     for p in table.for_each(all_divers) do
-        if check_collision(p.hitbox, _player.hitbox) then
+        if check_collision(p.hitbox, player.hitbox) then
             player.diver_on_board = player.diver_on_board + 1
             diver_HUD:update_display(player.diver_on_board)
             table.remove_item(all_divers, p)
-            _player:play_sound(1)
+            player:play_sound(1)
 
         end
         p:update(dt)
