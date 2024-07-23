@@ -173,6 +173,7 @@ function update_title()
 end
 
 function update_game(dt)
+    o2_bar.value = player.oxygen
     o2_bar:update()
     if string.len(text) > 768 then    -- cleanup when 'text' gets too long
         text = "" 
@@ -257,15 +258,7 @@ end
 
 
 
-function del(_table, _item)
-    for i, v in ipairs(_table) do
-        if v == _item then
-            _table[i] = _table[#_table]
-            _table[#_table] = nil
-            return
-        end
-    end
-end
+
 
 function check_collision(a, b)
     return a.x < b.x + b.w and
@@ -304,6 +297,8 @@ function beginContact(a, b, coll)
     obj_b = b:getUserData()
     if obj_a == "Player" and obj_b == "Shark" then
         print("player made contact with shark")
+    elseif obj_a == "Player" and obj_b == "Surface" then
+        player:play_sound(3)
     end
     -- text = text.."\n"..a:getUserData().." colliding with "..b:getUserData().." with a vector normal of: "..x..", "..y
     -- print(text)

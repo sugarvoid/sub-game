@@ -16,7 +16,7 @@ diver_HUD = {
     end,
     draw = function(self)
         love.graphics.draw(DEBUG_IMAGE, 120,2,0,0.7,0.7)
-        for i in all(self.all_icons) do
+        for i in table.for_each(self.all_icons) do
             
         end
     end

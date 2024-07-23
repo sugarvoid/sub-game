@@ -43,9 +43,19 @@ function print_mouse_pos(x,y, scale)
 end
 
 -- TABLES
-function all(_list)
+function table.for_each(_list)
     local i = 0
     return function()
         i = i + 1; return _list[i]
+    end
+end
+
+function table.remove(_table, _item)
+    for i, v in ipairs(_table) do
+        if v == _item then
+            _table[i] = _table[#_table]
+            _table[#_table] = nil
+            return
+        end
     end
 end

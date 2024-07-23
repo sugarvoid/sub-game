@@ -24,6 +24,9 @@ local surface_rect = {
 function Player:new()
     local _player = setmetatable({}, Player)
     _player.score = 0
+    
+    _player.MAX_OXYGEN = 60
+    _player.oxygen = _player.MAX_OXYGEN
     _player.image = love.graphics.newImage("asset/image/ship_player.png")
     _player.spr_sheet = love.graphics.newImage("asset/image/player/player.png")
     local s_grid = anim8.newGrid(19, 14, _player.spr_sheet:getWidth(), _player.spr_sheet:getHeight())
@@ -65,6 +68,8 @@ end
 
 function Player:update(dt)
     self:move(dt)
+    self.oxygen = clamp(0, self.oxygen - 0.1, self.MAX_OXYGEN)
+    print(self.oxygen)
     
     --print(self.body:isAwake())
     -- if love.keyboard.isDown('d') then

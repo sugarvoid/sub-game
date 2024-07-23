@@ -49,9 +49,9 @@ all_divers = {}
 
 
 function update_divers(dt)
-    for p in all(all_divers) do
+    for p in table.for_each(all_divers) do
         if check_collision(p.hitbox, _player.hitbox) then
-            del(all_divers, p)
+            table.remove(all_divers, p)
             _player:play_sound(1)
         end
         p:update(dt)
@@ -59,7 +59,7 @@ function update_divers(dt)
 end
 
 function draw_divers()
-    for p in all(all_divers) do
+    for p in table.for_each(all_divers) do
         p:draw()
     end
 end
