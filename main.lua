@@ -1,8 +1,8 @@
--- title:   Sub Game
--- author:  sugarvoid
--- desc:    A clone of Seaquest for the Atari 2600 
--- license: MIT License
--- version: 0.1
+-- title:       Sub Game
+-- author:      sugarvoid
+-- description: A clone of Seaquest for the Atari 2600 
+-- license:     MIT License
+-- version:     0.1
 
 love = require("love")
 world = love.physics.newWorld(0,0,false)
@@ -44,7 +44,7 @@ local tick = 0
 local background = love.graphics.newImage("asset/image/background.png")
 local sand = love.graphics.newImage("asset/image/sand_bottom.png")
 --local o2_bar = love.graphics.newImage("asset/image/o2_bar.png")
-local player = Player:new()
+player = Player:new()
 
 
 
@@ -77,6 +77,7 @@ function love.load()
     --title_music:play()
     --title_music:setVolume(0.3)
     --bg_music:setVolume(0.3)
+    love.graphics.scale(4)
     font = love.graphics.newFont("asset/font/c64esque.ttf", 16)
     font:setFilter("nearest")
     love.graphics.setFont(font)
@@ -96,8 +97,12 @@ function love.load()
     table.insert(all_divers, diver_2)
 
 
-    shark_1 = Shark:new(10, 90, player)
+    shark_1 = Shark:new(-10, 30, player)
     table.insert(all_sharks, shark_1)
+    shark_2 = Shark:new(-10, 70, player)
+    table.insert(all_sharks, shark_2)
+    shark_3 = Shark:new(-10, 100, player)
+    table.insert(all_sharks, shark_3)
 
 
     world:setCallbacks(beginContact, endContact, preSolve, postSolve)
@@ -105,13 +110,15 @@ function love.load()
     text       = "" -- we'll use this to put info text on the screen later
     persisting = 0  -- we'll use this to store the state of repeated callback calls
 
+
+    --TODO: Move to separate file. The scale is messing with the hitbox
     surface_rect = {
-    x=0,y=0,w=240,h=16
+    x=0,y=0,w=240*4,h=8*4
     }
 
     surface = {}
     surface.body = love.physics.newBody(world, 0,0, "static") -- "static" makes it not move
-    surface.shape = love.physics.newRectangleShape((240*4),16)      -- set size to 200,50 (x,y)
+    surface.shape = love.physics.newRectangleShape(surface_rect.w,surface_rect.h)      -- set size to 200,50 (x,y)
     surface.fixture = love.physics.newFixture(surface.body, surface.shape)
     surface.body:setAwake(true)
     surface.fixture:setUserData("Surface")
@@ -176,6 +183,7 @@ function update_title()
 end
 
 function update_game(dt)
+    print(#player_torpedos)
     flux.update(dt)
     o2_bar.value = player.oxygen
     o2_bar:update()
@@ -188,7 +196,10 @@ function update_game(dt)
     update_divers(dt)
     update_sharks(dt)
     for t in table.for_each(player_torpedos) do
-        t:update()
+        t:update(dt)
+        if t.x < -20 or t.x > 250 then
+            table.remove_item(player_torpedos, t)
+        end
     end
 end
 
@@ -198,6 +209,7 @@ end
 
 
 function love.draw()
+
     love.graphics.scale(4)
     love.graphics.draw(background, 0, 0)
     love.graphics.draw(sand, 0, 136 - 29)
@@ -217,6 +229,8 @@ function love.draw()
     if gamestate == gamestates.win then
         draw_win()
     end
+
+    --draw_hitbox(surface_rect, "#feae34")
 end
 
 function draw_title()
@@ -333,8 +347,11 @@ function beginContact(a, b, coll)
         print("player made contact with shark")
     end
     if obj_a == "Player" and obj_b == "Surface" then
+        --TODO: Make on_surface function in player
+        --TODO: Prevent player moving until o2 is full
         player:play_sound(3)
         player.is_submerged =  not player.is_submerged
+        player:unload_divers()
     end
     print(obj_a)
     

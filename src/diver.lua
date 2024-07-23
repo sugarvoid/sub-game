@@ -51,8 +51,11 @@ all_divers = {}
 function update_divers(dt)
     for p in table.for_each(all_divers) do
         if check_collision(p.hitbox, _player.hitbox) then
+            player.diver_on_board = player.diver_on_board + 1
+            diver_HUD:update_display(player.diver_on_board)
             table.remove_item(all_divers, p)
             _player:play_sound(1)
+
         end
         p:update(dt)
     end

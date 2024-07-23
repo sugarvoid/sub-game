@@ -37,6 +37,7 @@ function Player:new()
         death = anim8.newAnimation(s_grid(('1-4'), 1), 0.1),
     }
     _player.is_submerged = true
+    _player.diver_on_board = 0
     _player.starting_pos = { x = 100, y = 100 }
     _player.curr_animation = _player.animations["default"]
     _player.rotation = 0
@@ -56,7 +57,7 @@ function Player:new()
     _player.max_speed = 80
     _player.acceleration = 25
     _player.w, _player.h = _player.image:getDimensions()
-    _player.hitbox = { x = _player.x, y = _player.y, w = _player.w, h = _player.h - 6 }
+    _player.hitbox = { x = _player.x, y = _player.y, w = _player.w -2, h = _player.h - 10 }
     
     _player.body = love.physics.newBody(world,_player.x,_player.y,"dynamic")
     _player.shape = love.physics.newRectangleShape(_player.hitbox.w, _player.hitbox.h)
@@ -73,7 +74,9 @@ function Player:update(dt)
     self:move(dt)
     if self.is_submerged then
         self.oxygen = clamp(0, self.oxygen - 0.1, self.MAX_OXYGEN)
-    end
+    else
+        self.oxygen = clamp(0, self.oxygen + 0.5, self.MAX_OXYGEN)
+        end
     --print(self.oxygen)
     
     --print(self.body:isAwake())
@@ -137,6 +140,17 @@ end
 --     end
 -- end
 
+
+function Player:increase_score(amount)
+    self.score = self.score + amount
+end
+
+function Player:unload_divers()
+    --TODO: Make a general update_diver(value) function in player
+    player.diver_on_board = clamp(0, player.diver_on_board - 1, 6)
+    diver_HUD:update_display(player.diver_on_board)
+end
+
 function Player:move(dt)
     local speed = self.speed * dt
     
@@ -158,7 +172,7 @@ function Player:move(dt)
     self.yvel = self.yvel * (1 - math.min(dt * self.friction, 1))
 
     self.x = clamp(20, (self.x + self.xvel * dt), 220)
-    self.y = clamp(14, (self.y + self.yvel * dt), 136)
+    self.y = clamp(16, (self.y + self.yvel * dt), 136)
     
 
 
@@ -187,7 +201,7 @@ function Player:draw()
     self.curr_animation:draw(self.spr_sheet, self.x, self.y - 2, math.rad(self.rotation), self.facing_dir, 1, self.w / 2, self.h / 2)
     --love.graphics.draw(self.image, self.x, self.y, 0, self.facing_dir, 1, self.w/2, self.h/2)
     draw_hitbox(self.hitbox, "#D70040")
-    draw_hitbox(surface_rect, "#feae34")
+    
     love.graphics.points(self.x, self.y+4)
     
 end

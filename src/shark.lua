@@ -51,6 +51,7 @@ end
 function Shark:die(pos)
     --print("im dead????")
     _sfx_die:play()
+    player:increase_score(20)
 end
 
 function Shark:draw()
