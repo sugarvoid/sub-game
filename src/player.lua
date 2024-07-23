@@ -74,8 +74,8 @@ function Player:update(dt)
     self:move(dt)
     if self.is_submerged then
         self.oxygen = clamp(0, self.oxygen - 0.1, self.MAX_OXYGEN)
-    else
-        self.oxygen = clamp(0, self.oxygen + 0.5, self.MAX_OXYGEN)
+    --else
+       -- self.oxygen = clamp(0, self.oxygen + 0.5, self.MAX_OXYGEN)
         end
     --print(self.oxygen)
     
@@ -111,6 +111,16 @@ function Player:update(dt)
     self.hitbox.x = self.x - self.w /2
     self.hitbox.y = (self.y - self.h/2) + 6
     self.body:setPosition(self.hitbox.x,self.hitbox.y)
+end
+
+function Player:on_surfaced()
+    self:refill_o2()
+end
+
+function Player:refill_o2()
+    --TODO: Prevent player movement until full
+    flux.to(self, 3, {oxygen = 60}):oncomplete(function() print("done refilling. Send back down.")end)
+
 end
 
 -- function Player:move(dt)

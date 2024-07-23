@@ -11,10 +11,10 @@ SurfaceSection.__index = SurfaceSection
 local STARTING_Y = 10
 
 
-function SurfaceSection:new(x)
+function SurfaceSection:new(x, y)
 	local _section = setmetatable({}, SurfaceSection)
 	_section.x = x
-	_section.y = STARTING_Y
+	_section.y = y
 
 	return _section
 end
@@ -31,26 +31,26 @@ function SurfaceSection:draw_front()
 end
 
 function SurfaceSection:move_up()
-	flux.to(self, 5, {y = STARTING_Y - 3}):after(self, 5, {y = STARTING_Y}):oncomplete(function() self:move_down() end)
-	--flux.to(self, 5, {y = 7}):oncomplete(self.move_down)
+	--love.math.setRandomSeed(love.timer.getTime())
+	_y = love.math.random( STARTING_Y-3, STARTING_Y+3 )
+	_t = love.math.random( 1, 3 )
+	_d = love.math.random( 0.1, 2.3 )
+	flux.to(self, _t, {y = _y}):after(self, 5, {y = STARTING_Y}):delay(_d):oncomplete(function() self:move_up() end)
 end
 
 function SurfaceSection:move_down()
 	flux.to(self, 5, {y = STARTING_Y + 3}):after(self, 5, {y = STARTING_Y}):oncomplete(function() self:move_up() end)
 end
 
-
 surface_sections={}
 
-
-
 function set_up_surface()
+	love.math.setRandomSeed(love.timer.getTime())
 	for i = 0, 14 do
-
-		local _s_section = SurfaceSection:new(i*16)
-		
-		
+		_y = love.math.random( STARTING_Y-3, STARTING_Y+3 )
+		local _s_section = SurfaceSection:new(i*16, _y)
+		_s_section:move_up()
 		table.insert(surface_sections, _s_section)
 	end	
-	surface_sections[3]:move_up()
+	--surface_sections[3]:move_up()
 end

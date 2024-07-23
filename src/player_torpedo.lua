@@ -16,7 +16,7 @@ function Torpedo:new(x, y, _parent)
 	_torpedo.x = x
 	_torpedo.y = y
 	_torpedo.xvel = 0
-	_torpedo.move_spped = 3
+	_torpedo.move_speed = 3
 	_torpedo.facing_dir = 1
 	_torpedo.trusting = false
 
@@ -44,7 +44,7 @@ function Torpedo:update(dt)
 	if self.trusting then
 		self.xvel = clamp(0, self.xvel + 0.05, 100)
 		self.x = (self.x + (self.xvel * self.facing_dir))
-		--self.x = self.x + self.move_spped * self.facing_dir
+		--self.x = self.x + self.move_speed * self.facing_dir
 	end
 	self.hitbox.x = (self.x - self.w /2)
     self.hitbox.y = (self.y - 1 )

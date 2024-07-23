@@ -23,7 +23,7 @@ function Shark:new(x, y, player)
     _shark.facing_dir = 1
     _shark.x = x
     _shark.y = y
-    _shark.move_spped = 0.4
+    _shark.move_speed = 0.4
     _shark.w, _shark.h = _shark.curr_animation:getDimensions()
 
     _shark.hitbox = { x = _shark.x, y = _shark.y, w = _shark.w-6, h = _shark.h -10}
@@ -42,7 +42,7 @@ end
 function Shark:update(dt)
     --flux.update(dt)
     self.curr_animation:update(dt)
-    self.x = self.x + self.move_spped * self.facing_dir
+    self.x = self.x + self.move_speed * self.facing_dir
     self.hitbox.x = (self.x - self.w /2)+2
     self.hitbox.y = (self.y - self.h/2) +3
     self.body:setPosition(self.hitbox.x,self.hitbox.y)

@@ -18,6 +18,7 @@ require("src.player")
 require("src.shark")
 require("src.surface")
 require("src.mini_sub")
+require("src.o2_bar")
 require("src.diver_hud")
 require("src.player_torpedo")
 
@@ -48,27 +49,34 @@ player = Player:new()
 
 
 
-local o2_bar = {
-    image = love.graphics.newImage("asset/image/o2_bar.png"),
-    max = 60,
-    value = 30,
-    position = {20, 5},
-    draw=function(self)
-        --TODO: Figure out the lines are not lining up with sprite
-        love.graphics.draw(self.image, self.position[1], self.position[2])
-        love.graphics.push("all")
-        change_draw_color("#ffffff")
-        love.graphics.line( self.position[1] + 3, self.position[2]+2.5, self.position[1] + 3 + self.value, self.position[2]+2.5)
-        change_draw_color("#0ce6f2")
-        love.graphics.line( self.position[1] + 3, self.position[2]+3.5, self.position[1] + 3 + self.value, self.position[2]+3.5)
-        change_draw_color("#0098db")
-        love.graphics.line( self.position[1] + 3, self.position[2]+4.5, self.position[1] + 3 + self.value, self.position[2]+4.5)
-        love.graphics.pop()
-    end,
-    update=function(self)
+-- local o2_bar = {
+--     image = love.graphics.newImage("asset/image/o2_bar.png"),
+--     max = 60,
+--     value = 30,
+--     position = {20, 5},
+--     --TODO: Move bar x and y values to a variable, so it is not doing math every frame. 
+--     bar_x = nil,
+--     top={},
+--     middle=nil,
+--     bottom=nil,
+--     draw=function(self)
+--         --TODO: Figure out the lines are not lining up with sprite
+--         love.graphics.draw(self.image, self.position[1], self.position[2])
+--         love.graphics.push("all")
+--         change_draw_color("#ffffff")
+--         love.graphics.line( self.position[1] + 3, self.position[2]+2.5, self.position[1] + 3 + self.value, self.position[2]+2.5)
+--         change_draw_color("#0ce6f2")
+--         love.graphics.line( self.position[1] + 3, self.position[2]+3.5, self.position[1] + 3 + self.value, self.position[2]+3.5)
+--         change_draw_color("#0098db")
+--         love.graphics.line( self.position[1] + 3, self.position[2]+4.5, self.position[1] + 3 + self.value, self.position[2]+4.5)
+--         love.graphics.pop()
+--     end,
+--     update=function(self)
         
-    end,
-}
+--     end,
+-- }
+
+local o2_bar = OxygenBar:new()
 
 
 function love.load()
@@ -273,7 +281,7 @@ end
 function draw_win()
     if math.floor(love.timer.getTime()) % 2 == 0 then
         love.graphics.print("you win", 60, 70, 0, 1, 1)
-        love.graphics.print("thnaks for playing", 60, 80, 0, 1, 1)
+        love.graphics.print("thanks for playing", 60, 80, 0, 1, 1)
     end
 end
 
@@ -324,7 +332,7 @@ end
 
 
 
---TODO: Move to sperate physics file
+--TODO: Move to separate physics file
 
 function beginContact(a, b, coll)
     
@@ -339,7 +347,6 @@ function beginContact(a, b, coll)
         --player:play_sound(3)
         --player.is_submerged =  not player.is_submerged
         --obj_a:setAwake(false)
-        print("Helllllooooo!!")
         obj_a["owner"]:die()
         --table.remove_item(all_sharks, obj_b)
     end
@@ -349,11 +356,13 @@ function beginContact(a, b, coll)
     if obj_a == "Player" and obj_b == "Surface" then
         --TODO: Make on_surface function in player
         --TODO: Prevent player moving until o2 is full
+        player:on_surfaced()
         player:play_sound(3)
         player.is_submerged =  not player.is_submerged
         player:unload_divers()
+        --player:refill_o2()
     end
-    print(obj_a)
+    --print(obj_a)
     
     --text = text.."\n"..a:getUserData().." colliding with "..obj_b["type"].." with a vector normal of: "..x..", "..y
     -- print(text)
@@ -361,7 +370,6 @@ end
 
 
 function endContact(a, b, coll)
-    print("uncolliding")
     persisting = 0    -- reset since they're no longer touching
     --text = text.."\n"..a:getUserData().." uncolliding with "..b:getUserData()
     
@@ -379,7 +387,7 @@ function preSolve(a, b, coll)
     elseif persisting < 20 then    -- then just start counting
         text = text
     end
-    persisting = persisting + 1    -- keep track of how many updates they've been touching for
+    --persisting = persisting + 1    -- keep track of how many updates they've been touching for
 end
 
 function postSolve(a, b, coll, normalimpulse, tangentimpulse)
