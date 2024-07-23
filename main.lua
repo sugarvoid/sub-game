@@ -5,7 +5,7 @@
 -- version: 0.1
 
 love = require("love")
-world = love.physics.newWorld(0,0,true)
+world = love.physics.newWorld(0,0,false)
 love.graphics.setDefaultFilter("nearest", "nearest")
 
 require("lib.kgo.core")
@@ -102,11 +102,15 @@ function love.load()
     text       = "" -- we'll use this to put info text on the screen later
     persisting = 0  -- we'll use this to store the state of repeated callback calls
 
+    surface_rect = {
+    x=0,y=0,w=240,h=16
+    }
 
     surface = {}
-    surface.body = love.physics.newBody(world, 400,400, "static") -- "static" makes it not move
-    surface.shape = love.physics.newRectangleShape(200,50)      -- set size to 200,50 (x,y)
+    surface.body = love.physics.newBody(world, 0,0, "static") -- "static" makes it not move
+    surface.shape = love.physics.newRectangleShape((240*4),16)      -- set size to 200,50 (x,y)
     surface.fixture = love.physics.newFixture(surface.body, surface.shape)
+    surface.body:setAwake(true)
     surface.fixture:setUserData("Surface")
 
 
@@ -220,7 +224,7 @@ function draw_game()
     diver_HUD:draw()
     love.graphics.push("all")
     love.graphics.scale(0.5)
-    love.graphics.print(text, 10, 10)
+    love.graphics.print(text, 10, 40)
     love.graphics.pop()
     o2_bar:draw()
 end
@@ -296,28 +300,33 @@ end
 function beginContact(a, b, coll)
     
     x,y = coll:getNormal()
-    text = text.."\n"..a:getUserData().." colliding with "..b:getUserData().." with a vector normal of: "..x..", "..y
-    print(text)
+    obj_a = a:getUserData()
+    obj_b = b:getUserData()
+    if obj_a == "Player" and obj_b == "Shark" then
+        print("player made contact with shark")
+    end
+    -- text = text.."\n"..a:getUserData().." colliding with "..b:getUserData().." with a vector normal of: "..x..", "..y
+    -- print(text)
 end
 
 
 function endContact(a, b, coll)
     print("uncolliding")
-    --persisting = 0    -- reset since they're no longer touching
+    persisting = 0    -- reset since they're no longer touching
     text = text.."\n"..a:getUserData().." uncolliding with "..b:getUserData()
-    print(text)
     collectgarbage()
 end
 
 function preSolve(a, b, coll)
-    --if persisting == 0 then    -- only say when they first start touching
-    --text = text.."\n"..a:getUserData().." touching "..b:getUserData()
-    --elseif persisting < 20 then    -- then just start counting
-        --text = text.." "..persisting
-    --end
-    --persisting = persisting + 1    -- keep track of how many updates they've been touching for
+    if persisting == 0 then    -- only say when they first start touching
+        text = text.."\n"..a:getUserData().." touching "..b:getUserData()
+    elseif persisting < 20 then    -- then just start counting
+        text = text
+    end
+    persisting = persisting + 1    -- keep track of how many updates they've been touching for
 end
 
 function postSolve(a, b, coll, normalimpulse, tangentimpulse)
--- we won't do anything with this function
+    -- we won't do anything with this function
+    --print(a:getUserData() .. b:getUserData())
 end

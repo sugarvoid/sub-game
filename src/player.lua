@@ -66,7 +66,7 @@ end
 function Player:update(dt)
     self:move(dt)
     
-
+    --print(self.body:isAwake())
     -- if love.keyboard.isDown('d') then
     --     self.facing_dir = 1
     --     self.x = self.x + 1
