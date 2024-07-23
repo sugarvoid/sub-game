@@ -5,14 +5,15 @@
 -- version:     0.1
 
 love = require("love")
+anim8 = require("lib.anim8")
+flux = require("lib.flux")
 world = love.physics.newWorld(0,0,false)
 love.graphics.setDefaultFilter("nearest", "nearest")
 
 require("lib.kgo.core")
 
 require("lib.kgo.timer")
-anim8 = require("lib.anim8")
-flux = require("lib.flux")
+
 require("src.diver")
 require("src.player")
 require("src.shark")
