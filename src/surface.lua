@@ -15,7 +15,6 @@ function SurfaceSection:new(x, y)
 	local _section = setmetatable({}, SurfaceSection)
 	_section.x = x
 	_section.y = y
-
 	return _section
 end
 
@@ -31,7 +30,6 @@ function SurfaceSection:draw_front()
 end
 
 function SurfaceSection:move_up()
-	--love.math.setRandomSeed(love.timer.getTime())
 	_y = love.math.random( STARTING_Y-1, STARTING_Y+1 )
 	_t = love.math.random( 1.5, 3.5 )
 	_d = love.math.random( 0.1, 1 )
@@ -52,5 +50,4 @@ function set_up_surface()
 		_s_section:move_up()
 		table.insert(surface_sections, _s_section)
 	end	
-	--surface_sections[3]:move_up()
 end

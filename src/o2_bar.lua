@@ -14,9 +14,6 @@ local bottom=nil
 function OxygenBar:new()
     local _oxygen_bar = setmetatable({}, OxygenBar)
     _oxygen_bar.value = 0
-    --_oxygen_bar
-    --_oxygen_bar
-    --_oxygen_bar
     return _oxygen_bar
 end
 

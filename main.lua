@@ -220,6 +220,8 @@ function update_game(dt)
             table.remove_item(player_torpedos, t)
         end
     end
+
+    love.window.setTitle("Sub Game - fps: ".. tostring(love.timer.getFPS()))
 end
 
 function update_gameover(dt)

@@ -1,5 +1,5 @@
 
-
+require("src.bubble")
 local spr_torpedo = love.graphics.newImage("asset/image/player_torpedo.png")
 
 
@@ -8,7 +8,6 @@ Torpedo.__index = Torpedo
 
 
 --TODO: Remove body, it is not needed. can use simple AABB
-
 
 local STARTING_Y = 10
 
@@ -39,8 +38,6 @@ function Torpedo:new(x, y, _parent)
    -- _torpedo.fixture = love.physics.newFixture(_torpedo.body, _torpedo.shape)
    -- _torpedo.fixture:setUserData({type="P_Torpedo", owner=_torpedo})
 
-
-
 	return _torpedo
 end
 
@@ -52,8 +49,15 @@ function Torpedo:update(dt)
 		--self.x = self.x + self.move_speed * self.facing_dir
 	end
 	self.hitbox.x = (self.x - self.w /2)
-    self.hitbox.y = (self.y - 1 )
-   --self.body:setPosition(self.hitbox.x,self.hitbox.y)
+    self.hitbox.y = (self.y - 1)
+   
+   	if self.trusting then
+   		table.insert(self.bubbles, Bubble:new(self.x, self.y))
+   end
+	
+   	for b in table.for_each(self.bubbles) do
+		b:update(dt)
+	end
 end
 
 function Torpedo:drop(starting_y)
@@ -62,8 +66,14 @@ end
 
 function Torpedo:draw()
 	love.graphics.draw(spr_torpedo, self.x, self.y, 0, self.facing_dir, 1, 3, 1)
-	
 	draw_hitbox(self.hitbox, "#ff80a4")
+	if self.trusting then
+		for b in table.for_each(self.bubbles) do
+			if b.y > b.starting_y-10 then
+				b:draw()
+			end
+		end
+	end
 end
 
 

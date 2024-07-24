@@ -1,7 +1,7 @@
---color.lua
--- From Lume (https://github.com/rxi/lume/)
+
 
 function _color(str, mul)
+    -- Color code from Lume (https://github.com/rxi/lume/)
     mul = mul or 1
     local r, g, b, a
     r, g, b = str:match("#(%x%x)(%x%x)(%x%x)")

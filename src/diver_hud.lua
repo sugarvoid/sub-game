@@ -1,10 +1,6 @@
 local icon_sheet = love.graphics.newImage("asset/image/ui_diver.png")
 local DEBUG_IMAGE = love.graphics.newImage("asset/image/test_diver_ui_sheet.png")
 
---local diver_quad = love.graphics.newQuad(0, 0, 62, 15, DEBUG_IMAGE)
-local draw_frame = nil
-
-
 
 diver_HUD = {
     frame = 1, 

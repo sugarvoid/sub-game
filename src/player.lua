@@ -1,4 +1,3 @@
---player.lua
 
 Player = {}
 Player.__index = Player
@@ -19,7 +18,6 @@ local sounds = {
 local surface_rect = {
     x=0,y=0,w=240,h=16
 }
-
 
 function Player:new()
     local _player = setmetatable({}, Player)
@@ -73,7 +71,7 @@ end
 function Player:update(dt)
     self:move(dt)
     if self.is_submerged then
-        self.oxygen = clamp(0, self.oxygen - 0.1, self.MAX_OXYGEN)
+        self.oxygen = clamp(0, self.oxygen - 0.05, self.MAX_OXYGEN)
     --else
        -- self.oxygen = clamp(0, self.oxygen + 0.5, self.MAX_OXYGEN)
         end
