@@ -2,9 +2,6 @@
 Player = {}
 Player.__index = Player
 
-
---local flux = require("lib.flux")
-
 local _sfx_diver_saved = love.audio.newSource("asset/audio/diver_saved.ogg", "static")
 local _sfx_diver_killed = love.audio.newSource("asset/audio/diver_death.ogg", "static")
 local _sfx_surface = love.audio.newSource("asset/audio/surface.wav", "stream")
@@ -13,10 +10,6 @@ local sounds = {
     _sfx_diver_saved,
     _sfx_diver_killed,
     _sfx_surface
-}
-
-local surface_rect = {
-    x=0,y=0,w=240,h=16
 }
 
 function Player:new()
@@ -62,9 +55,6 @@ function Player:new()
     _player.fixture = love.physics.newFixture(_player.body, _player.shape)
     _player.fixture:setUserData("Player")
 
-
-
-
     return _player
 end
 
@@ -72,33 +62,7 @@ function Player:update(dt)
     self:move(dt)
     if self.is_submerged then
         self.oxygen = clamp(0, self.oxygen - 0.05, self.MAX_OXYGEN)
-    --else
-       -- self.oxygen = clamp(0, self.oxygen + 0.5, self.MAX_OXYGEN)
-        end
-    --print(self.oxygen)
-    
-    --print(self.body:isAwake())
-    -- if love.keyboard.isDown('d') then
-    --     self.facing_dir = 1
-    --     self.x = self.x + 1
-    --     --vel_x = clamp(self.max_speed, vel_x + self.acceleration, 0)
-
-    -- elseif love.keyboard.isDown('a') then
-    --     self.facing_dir = -1
-    --     self.x = self.x - 1
-    --     --vel_x = clamp(-self.max_speed, vel_x + -self.acceleration, 0)
-    -- end
-
-    -- if love.keyboard.isDown('s') then
-
-    --     self.y = self.y + 1
-    --     --vel_x = clamp(self.max_speed, vel_x + self.acceleration, 0)
-
-    -- elseif love.keyboard.isDown('w') then
-
-    --     self.y = self.y - 1
-    --     --vel_x = clamp(-self.max_speed, vel_x + -self.acceleration, 0)
-    -- end
+    end
 
     self.curr_animation:update(dt)
 
@@ -109,7 +73,6 @@ function Player:update(dt)
     self.hitbox.x = self.x - self.w /2
     self.hitbox.y = (self.y - self.h/2) + 6
     self.body:setPosition(self.hitbox.x,self.hitbox.y)
-    --print(self.y)
 end
 
 function Player:on_surfaced()
@@ -118,8 +81,11 @@ end
 
 function Player:refill_o2()
     --TODO: Prevent player movement until full
-    flux.to(self, 3, {oxygen = 60}):oncomplete(function() print("done refilling. Send back down.")end)
-
+    flux.to(self, 3, { oxygen = 60 }):oncomplete(
+        function()
+            print("done refilling. Send back down.")
+        end
+    )
 end
 
 -- function Player:move(dt)
@@ -196,7 +162,6 @@ end
 function Player:shoot(...)
     if self.can_shoot then
         self.can_shoot = false
-        --print("pew")
         local _x = self.x --+ self.w / 2
         local _y = self.y + 4 --+ self.h / 2
         local new_torpedo = Torpedo:new(_x, _y, self)

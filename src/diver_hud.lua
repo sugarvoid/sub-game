@@ -23,9 +23,7 @@ diver_HUD = {
         { frame = 0 }
     },
     update_display = function(self, new_amount)
-       -- print(new_amount)
         self.frame = new_amount + 1
-        --diver_quad = love.graphics.newQuad((63 * self.frame), 0, 62, 15, DEBUG_IMAGE)
     end,
     draw = function(self)
         love.graphics.draw(DEBUG_IMAGE, self.frames[self.frame], 120, 2, 0, 0.7, 0.7)

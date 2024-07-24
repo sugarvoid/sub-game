@@ -1,8 +1,5 @@
-function round_to_nearest(num, base)
-    n = (num + (base//2))
-    n = n - (n % base)
-    if n == 0 then
-        n = base
-    end
-    return n
+
+function round(num, numDecimalPlaces)
+    local mult = 10^(numDecimalPlaces or 0)
+    return math.floor(num * mult + 0.5) / mult
 end

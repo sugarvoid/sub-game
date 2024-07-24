@@ -175,7 +175,6 @@ function update_title()
 end
 
 function update_game(dt)
-    --print(#player_torpedos)
     flux.update(dt)
     o2_bar.value = player.oxygen
     o2_bar:update()
@@ -206,13 +205,10 @@ end
 
 
 function love.draw()
-
     love.graphics.scale(4)
     love.graphics.draw(background, 0, 0)
     love.graphics.draw(sand, 0, 136 - 29)
     
-    
-    --print_mouse_pos(0,0,4)
     if gamestate == gamestates.title then
         draw_title()
     end
@@ -261,7 +257,6 @@ function draw_game()
     diver_HUD:draw()
     love.graphics.push("all")
     love.graphics.scale(0.5)
-    --love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 100)
     love.graphics.print(text, 10, 40)
     love.graphics.pop()
     o2_bar:draw()
@@ -270,13 +265,12 @@ end
 
 
 function draw_gameover()
-
     love.graphics.print("jump to try again", 65, 70, 0, 1, 1)
 end
 
 function draw_win()
     if math.floor(love.timer.getTime()) % 2 == 0 then
-        love.graphics.print("you win", 60, 70, 0, 1, 1)
+        love.graphics.print("game over", 60, 70, 0, 1, 1)
         love.graphics.print("thanks for playing", 60, 80, 0, 1, 1)
     end
 end
@@ -359,9 +353,6 @@ function beginContact(a, b, coll)
         --player:refill_o2()
     end
     --print(obj_a)
-    
-    --text = text.."\n"..a:getUserData().." colliding with "..obj_b["type"].." with a vector normal of: "..x..", "..y
-    -- print(text)
 end
 
 

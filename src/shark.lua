@@ -51,7 +51,6 @@ function Shark:update(dt)
 end
 
 function Shark:die(pos)
-    --print("im dead????")
     _sfx_die:play()
     player:increase_score(20)
     spawn_shark_peices(self.x, self.y, self.facing_dir)
@@ -77,7 +76,7 @@ function update_sharks(dt)
             if check_collision(p.hitbox, _t.hitbox) then
                 p:die()
                 table.remove_item(player_torpedos, _t)
-                print("SHARK DEAD")
+                print("SHARK KILLED")
             end
         end
         p:update(dt)
