@@ -33,7 +33,7 @@ end
 function SurfaceSection:move_up()
 	--love.math.setRandomSeed(love.timer.getTime())
 	_y = love.math.random( STARTING_Y-1, STARTING_Y+1 )
-	_t = love.math.random( 1, 2.5 )
+	_t = love.math.random( 1.5, 3.5 )
 	_d = love.math.random( 0.1, 1 )
 	flux.to(self, _t, {y = _y}):delay(_d):oncomplete(function() self:move_up() end)
 end
@@ -46,9 +46,9 @@ surface_sections={}
 
 function set_up_surface()
 	love.math.setRandomSeed(love.timer.getTime())
-	for i = 0, 14 do
+	for i = 0, 29 do
 		_y = love.math.random( STARTING_Y-1, STARTING_Y+1 )
-		local _s_section = SurfaceSection:new(i*16, _y)
+		local _s_section = SurfaceSection:new(i*8, _y)
 		_s_section:move_up()
 		table.insert(surface_sections, _s_section)
 	end	

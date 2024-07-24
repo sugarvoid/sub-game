@@ -22,6 +22,8 @@ function Torpedo:new(x, y, _parent)
 	_torpedo.move_speed = 3
 	_torpedo.facing_dir = 1
 	_torpedo.trusting = false
+	_torpedo.bubbles={}
+	
 
 	_torpedo.w, _torpedo.h = spr_torpedo:getDimensions()
 
@@ -55,11 +57,12 @@ function Torpedo:update(dt)
 end
 
 function Torpedo:drop(starting_y)
-	flux.to(self, 1, {y = starting_y + 5}):oncomplete(function() self.trusting = true self.parent.can_shoot = true end)
+	flux.to(self, 0.5, {y = starting_y + 4}):oncomplete(function() self.trusting = true self.parent.can_shoot = true end)
 end
 
 function Torpedo:draw()
 	love.graphics.draw(spr_torpedo, self.x, self.y, 0, self.facing_dir, 1, 3, 1)
+	
 	draw_hitbox(self.hitbox, "#ff80a4")
 end
 

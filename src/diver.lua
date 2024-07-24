@@ -4,7 +4,7 @@ Diver.__index = Diver
 
 local _player = nil
 
-function Diver:new(x, y, player)
+function Diver:new(x, y, facing_dir)
     local _diver = setmetatable({}, Diver)
     _diver.spr_sheet = love.graphics.newImage("asset/image/diver.png")
     local s_grid = anim8.newGrid(17, 16, _diver.spr_sheet:getWidth(), _diver.spr_sheet:getHeight())
@@ -13,7 +13,7 @@ function Diver:new(x, y, player)
     }
     _diver.curr_animation = _diver.animations["default"]
     _diver.is_alive = true
-    _diver.facing_dir = 1
+    _diver.facing_dir = facing_dir
     _diver.x = x
     _diver.y = y
     _diver.move_speed = 0.4

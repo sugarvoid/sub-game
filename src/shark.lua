@@ -13,7 +13,7 @@ local _player = nil
 --TODO: Remove body, it is not needed. can use simple AABB
 
 
-function Shark:new(x, y)
+function Shark:new(x, y, facing_dir)
     local _shark = setmetatable({}, Shark)
     _shark.spr_sheet = love.graphics.newImage("asset/image/shark.png")
     local s_grid = anim8.newGrid(22, 16, _shark.spr_sheet:getWidth(), _shark.spr_sheet:getHeight())
@@ -22,7 +22,7 @@ function Shark:new(x, y)
     }
     _shark.curr_animation = _shark.animations["default"]
     _shark.is_alive = true
-    _shark.facing_dir = 1
+    _shark.facing_dir = facing_dir
     _shark.x = x
     _shark.y = y
     _shark.move_speed = 0.4

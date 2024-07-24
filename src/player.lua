@@ -111,6 +111,7 @@ function Player:update(dt)
     self.hitbox.x = self.x - self.w /2
     self.hitbox.y = (self.y - self.h/2) + 6
     self.body:setPosition(self.hitbox.x,self.hitbox.y)
+    print(self.y)
 end
 
 function Player:on_surfaced()
@@ -182,7 +183,7 @@ function Player:move(dt)
     self.yvel = self.yvel * (1 - math.min(dt * self.friction, 1))
 
     self.x = clamp(20, (self.x + self.xvel * dt), 220)
-    self.y = clamp(16, (self.y + self.yvel * dt), 136)
+    self.y = clamp(16, (self.y + self.yvel * dt), 108)
     
 
 

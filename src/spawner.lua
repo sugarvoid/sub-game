@@ -1,9 +1,15 @@
 local LANES = {
-    30,
+    40,
     50,
+    60,
     70,
-    90
+    80,
+    90,
+    100,
+    110
 }
+
+local SIDES = {left = -15, right=250 }
 
 local SPAWN_TYPES = {
     diver = 0,
@@ -11,9 +17,6 @@ local SPAWN_TYPES = {
     mini_sub = 2
 }
 
---TODO: Check these x values
-local LEFT_X = -30
-local RIGHT_X = 240 + 30
 
 spawner = {
 
