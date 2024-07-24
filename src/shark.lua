@@ -1,6 +1,6 @@
 --local flux = require("lib.flux")
 
-
+require("src.shark_parts")
 
 Shark = {}
 Shark.__index = Shark
@@ -54,6 +54,7 @@ function Shark:die(pos)
     --print("im dead????")
     _sfx_die:play()
     player:increase_score(20)
+    spawn_shark_peices(self.x, self.y, self.facing_dir)
     table.remove_item(all_sharks, self)
 end
 
@@ -75,6 +76,7 @@ function update_sharks(dt)
         for _t in table.for_each(player_torpedos) do
             if check_collision(p.hitbox, _t.hitbox) then
                 p:die()
+                table.remove_item(player_torpedos, _t)
                 print("SHARK DEAD")
             end
         end

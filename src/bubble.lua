@@ -8,13 +8,13 @@ function Bubble:new(x, y)
     _bubble.starting_y = y
     _bubble.y = y 
     _bubble.r = 0.1
-    _bubble.dir = {0,-10}
+    _bubble.dir = {0,-15}
     return _bubble
 end
 
 function Bubble:update(dt)
     --flux.update(dt)
-    --self.y = self.y + self.dir[2] * dt
+    self.y = self.y + self.dir[2] * dt
     self.r = self.r + 0.02
 end
 

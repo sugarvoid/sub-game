@@ -50,33 +50,6 @@ player = Player:new()
 
 
 
--- local o2_bar = {
---     image = love.graphics.newImage("asset/image/o2_bar.png"),
---     max = 60,
---     value = 30,
---     position = {20, 5},
---     --TODO: Move bar x and y values to a variable, so it is not doing math every frame. 
---     bar_x = nil,
---     top={},
---     middle=nil,
---     bottom=nil,
---     draw=function(self)
---         --TODO: Figure out the lines are not lining up with sprite
---         love.graphics.draw(self.image, self.position[1], self.position[2])
---         love.graphics.push("all")
---         change_draw_color("#ffffff")
---         love.graphics.line( self.position[1] + 3, self.position[2]+2.5, self.position[1] + 3 + self.value, self.position[2]+2.5)
---         change_draw_color("#0ce6f2")
---         love.graphics.line( self.position[1] + 3, self.position[2]+3.5, self.position[1] + 3 + self.value, self.position[2]+3.5)
---         change_draw_color("#0098db")
---         love.graphics.line( self.position[1] + 3, self.position[2]+4.5, self.position[1] + 3 + self.value, self.position[2]+4.5)
---         love.graphics.pop()
---     end,
---     update=function(self)
-        
---     end,
--- }
-
 local o2_bar = OxygenBar:new()
 
 
@@ -220,6 +193,9 @@ function update_game(dt)
             table.remove_item(player_torpedos, t)
         end
     end
+    for sp in table.for_each(shark_parts) do
+        sp:update()
+    end
 
     love.window.setTitle("Sub Game - fps: ".. tostring(love.timer.getFPS()))
 end
@@ -271,6 +247,9 @@ function draw_game()
     for t in table.for_each(player_torpedos) do
         t:draw()
     end
+    for sp in table.for_each(shark_parts) do
+        sp:draw()
+    end
 
     for sb in table.for_each(surface_sections) do
         --sb:draw_back()
@@ -282,7 +261,7 @@ function draw_game()
     diver_HUD:draw()
     love.graphics.push("all")
     love.graphics.scale(0.5)
-    love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 100)
+    --love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 100)
     love.graphics.print(text, 10, 40)
     love.graphics.pop()
     o2_bar:draw()

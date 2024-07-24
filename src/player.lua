@@ -109,7 +109,7 @@ function Player:update(dt)
     self.hitbox.x = self.x - self.w /2
     self.hitbox.y = (self.y - self.h/2) + 6
     self.body:setPosition(self.hitbox.x,self.hitbox.y)
-    print(self.y)
+    --print(self.y)
 end
 
 function Player:on_surfaced()
@@ -196,7 +196,7 @@ end
 function Player:shoot(...)
     if self.can_shoot then
         self.can_shoot = false
-        print("pew")
+        --print("pew")
         local _x = self.x --+ self.w / 2
         local _y = self.y + 4 --+ self.h / 2
         local new_torpedo = Torpedo:new(_x, _y, self)

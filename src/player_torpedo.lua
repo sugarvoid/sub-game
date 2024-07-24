@@ -22,6 +22,7 @@ function Torpedo:new(x, y, _parent)
 	_torpedo.facing_dir = 1
 	_torpedo.trusting = false
 	_torpedo.bubbles={}
+	_torpedo.add_bubble = 0
 	
 
 	_torpedo.w, _torpedo.h = spr_torpedo:getDimensions()
@@ -44,15 +45,22 @@ end
 function Torpedo:update(dt)
 	--TODO: Add bubble particles 
 	if self.trusting then
+		self.add_bubble = self.add_bubble + 1
+		print(self.add_bubble)
 		self.xvel = clamp(0, self.xvel + 0.05, 100)
 		self.x = (self.x + (self.xvel * self.facing_dir))
 		--self.x = self.x + self.move_speed * self.facing_dir
+		if self.add_bubble >= 5 then
+   			table.insert(self.bubbles, Bubble:new(self.x, self.y))
+   			self.add_bubble = 0
+    	end
 	end
 	self.hitbox.x = (self.x - self.w /2)
     self.hitbox.y = (self.y - 1)
    
    	if self.trusting then
-   		table.insert(self.bubbles, Bubble:new(self.x, self.y))
+   		
+   		
    end
 	
    	for b in table.for_each(self.bubbles) do
