@@ -22,7 +22,7 @@ function Bubble:update(dt)
 end
 
 function Bubble:die(pos)
-
+    --MAYBE: Add popping effect
 end
 
 function Bubble:draw()

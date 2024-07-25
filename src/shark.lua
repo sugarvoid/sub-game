@@ -11,12 +11,13 @@ local _sfx_die = love.audio.newSource("asset/audio/shark_death.ogg", "stream")
 local _player = nil
 
 --TODO: Remove body, it is not needed. can use simple AABB
+local spr_sheet = love.graphics.newImage("asset/image/shark.png")
 
 
 function Shark:new(x, y, facing_dir)
     local _shark = setmetatable({}, Shark)
-    _shark.spr_sheet = love.graphics.newImage("asset/image/shark.png")
-    local s_grid = anim8.newGrid(22, 16, _shark.spr_sheet:getWidth(), _shark.spr_sheet:getHeight())
+    
+    local s_grid = anim8.newGrid(22, 16, spr_sheet:getWidth(), spr_sheet:getHeight())
     _shark.animations = {
         default = anim8.newAnimation(s_grid(('1-4'), 1), 0.2),
     }
@@ -27,16 +28,7 @@ function Shark:new(x, y, facing_dir)
     _shark.y = y
     _shark.move_speed = 0.4
     _shark.w, _shark.h = _shark.curr_animation:getDimensions()
-
     _shark.hitbox = { x = _shark.x, y = _shark.y, w = _shark.w-6, h = _shark.h -10}
-
-    --TODO: Use hitbox for this and player
-    --_shark.body = love.physics.newBody(world, _shark.hitbox.x,_shark.hitbox.y, "dynamic")
-    --_shark.shape = love.physics.newRectangleShape(_shark.hitbox.w, _shark.hitbox.h)
-   -- _shark.fixture = love.physics.newFixture(_shark.body, _shark.shape)
-    --_shark.fixture:setUserData({type="Shark", owner=_shark})
-
-
     
     return _shark
 end
@@ -51,6 +43,7 @@ function Shark:update(dt)
 end
 
 function Shark:die(pos)
+    --FIXME: If two sharks die back to back, the second one doesn't play sound
     _sfx_die:play()
     player:increase_score(20)
     spawn_shark_peices(self.x, self.y, self.facing_dir)
@@ -58,7 +51,7 @@ function Shark:die(pos)
 end
 
 function Shark:draw()
-    self.curr_animation:draw(self.spr_sheet, self.x, self.y - 2, 0, self.facing_dir, 1, self.w / 2, self.h / 2)
+    self.curr_animation:draw(spr_sheet, self.x, self.y - 2, 0, self.facing_dir, 1, self.w / 2, self.h / 2)
     draw_hitbox(self.hitbox, "#f30909")
 end
 

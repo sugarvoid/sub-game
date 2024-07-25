@@ -27,6 +27,10 @@ end
 function SharkPart:update()
 	self.left_spr.x = self.left_spr.x - (0.5 * self.facing_dir)
 	self.right_spr.x = self.right_spr.x + (0.5 * self.facing_dir)
+
+	self.left_spr.rot = self.left_spr.rot - (0.05 * self.facing_dir)
+	self.right_spr.rot = self.right_spr.rot + (0.05 * self.facing_dir)
+
 	self.right_spr.y = self.right_spr.y + 1
 	self.left_spr.y = self.left_spr.y + 1
 

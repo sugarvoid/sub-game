@@ -84,7 +84,6 @@ function Player:on_surfaced()
 end
 
 function Player:refill_o2()
-    --TODO: Prevent player movement until full
     flux.to(self, 3, { oxygen = 60 }):oncomplete(
         function()
             self.xvel = 0
