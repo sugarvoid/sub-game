@@ -39,6 +39,7 @@ function Player:new()
     _player.is_moving_left = false
     _player.is_moving_right = false
     _player.can_shoot = true
+    _player.can_move = true
     _player.speed = 100
     _player.vel_y = 50
     _player.vel_x = 0
@@ -59,7 +60,10 @@ function Player:new()
 end
 
 function Player:update(dt)
-    self:move(dt)
+    if self.can_move then
+
+        self:move(dt)
+    end
     if self.is_submerged then
         self.oxygen = clamp(0, self.oxygen - 0.05, self.MAX_OXYGEN)
     end
@@ -83,6 +87,14 @@ function Player:refill_o2()
     --TODO: Prevent player movement until full
     flux.to(self, 3, { oxygen = 60 }):oncomplete(
         function()
+            self.xvel = 0
+            self.yvel = 0
+            flux.to(self, 1,{y = 40}):oncomplete(
+                function()
+                    self.can_move = true
+                    self.is_submerged =  not self.is_submerged
+                end
+                )
             print("done refilling. Send back down.")
         end
     )
@@ -160,7 +172,7 @@ function Player:die(pos, condition)
 end
 
 function Player:shoot(...)
-    if self.can_shoot then
+    if self.can_shoot and self.can_move then
         self.can_shoot = false
         local _x = self.x --+ self.w / 2
         local _y = self.y + 4 --+ self.h / 2

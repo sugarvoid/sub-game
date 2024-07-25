@@ -105,7 +105,7 @@ function love.load()
 
     --TODO: Move to separate file. The scale is messing with the hitbox
     surface_rect = {
-    x=0,y=0,w=240*4,h=8*4
+    x=0,y=0,w=240*4,h=8*3
     }
 
     surface = {}
@@ -186,6 +186,7 @@ function update_game(dt)
     player:update(dt)
     update_divers(dt)
     update_sharks(dt)
+    update_bubbles(dt)
     for t in table.for_each(player_torpedos) do
         t:update(dt)
         if t.x < -20 or t.x > 250 then
@@ -243,6 +244,7 @@ function draw_game()
     for t in table.for_each(player_torpedos) do
         t:draw()
     end
+    draw_bubbles()
     for sp in table.for_each(shark_parts) do
         sp:draw()
     end
@@ -346,6 +348,7 @@ function beginContact(a, b, coll)
     if obj_a == "Player" and obj_b == "Surface" then
         --TODO: Make on_surface function in player
         --TODO: Prevent player moving until o2 is full
+        player.can_move = false
         player:on_surfaced()
         player:play_sound(3)
         player.is_submerged =  not player.is_submerged
@@ -362,7 +365,7 @@ function endContact(a, b, coll)
     
     if obj_a == "Player" and obj_b == "Surface" then
         print("Player going back in water")
-        player.is_submerged =  not player.is_submerged
+        
     end
 
     collectgarbage()

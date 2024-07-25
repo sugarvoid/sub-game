@@ -38,17 +38,16 @@ function Torpedo:update(dt)
 		self.x = (self.x + (self.xvel * self.facing_dir))
 		--self.x = self.x + self.move_speed * self.facing_dir
 		if self.add_bubble >= 5 then
-			table.insert(self.bubbles, Bubble:new(self.x, self.y))
+			table.insert(all_bubbles, Bubble:new(self.x, self.y))
 			self.add_bubble = 0
 		end
+		
 	end
 
 	self.hitbox.x = (self.x - self.w / 2)
 	self.hitbox.y = (self.y - 1)
 
-	for b in table.for_each(self.bubbles) do
-		b:update(dt)
-	end
+	
 end
 
 function Torpedo:drop(starting_y)
@@ -62,11 +61,8 @@ function Torpedo:draw()
 	love.graphics.draw(spr_torpedo, self.x, self.y, 0, self.facing_dir, 1, 3, 1)
 	draw_hitbox(self.hitbox, "#ff80a4")
 	if self.trusting then
-		for b in table.for_each(self.bubbles) do
-			if b.y > b.starting_y - 10 then
-				b:draw()
-			end
-		end
+
+		
 	end
 end
 
