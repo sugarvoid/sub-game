@@ -59,3 +59,12 @@ function table.remove_item(_table, _item)
         end
     end
 end
+
+function table.has_value(tbl, value)
+    for k, v in ipairs(tbl) do -- iterate table (for sequential tables only)
+        if v == value or (type(v) == "table" and table.has_value(v, value)) then -- Compare value from the table directly with the value we are looking for, otherwise if the value is table, check its content for this value.
+            return true -- Found in this or nested table
+        end
+    end
+    return false -- Not found
+end

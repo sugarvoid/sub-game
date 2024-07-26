@@ -17,11 +17,13 @@ require("lib.kgo.timer")
 require("src.diver")
 require("src.player")
 require("src.shark")
+require("src.spawner")
 require("src.surface")
 require("src.mini_sub")
 require("src.o2_bar")
 require("src.diver_hud")
 require("src.player_torpedo")
+
 
 
 
@@ -69,32 +71,36 @@ function love.load()
 
     gamestate = gamestates.title
 
-    diver_1 = Diver:new(100, 40, 1)
-    table.insert(all_divers, diver_1)
+    -- diver_1 = Diver:new(100, 40, 1)
+    -- table.insert(all_divers, diver_1)
 
-    diver_3 = Diver:new(50, 100, 1)
-    table.insert(all_divers, diver_3)
+    -- diver_3 = Diver:new(50, 100, 1)
+    -- table.insert(all_divers, diver_3)
 
-    diver_2 = Diver:new(10, 67, 1)
-    table.insert(all_divers, diver_2)
+    -- diver_2 = Diver:new(10, 67, 1)
+    -- table.insert(all_divers, diver_2)
+
+    spawner.spawn_actor(0, 1, 2)
+    spawner.spawn_actor(0, 1, 3)
+    spawner.spawn_actor(1, 2, 2)
 
 
-    shark_1 = Shark:new(-15, 40, 1)
-    table.insert(all_sharks, shark_1)
-    shark_11 = Shark:new(250, 50, -1)
-    table.insert(all_sharks, shark_11)
-    shark_12 = Shark:new(-15, 60, 1)
-    table.insert(all_sharks, shark_12)
-    shark_2 = Shark:new(-15, 70, 1)
-    table.insert(all_sharks, shark_2)
-    shark_3 = Shark:new(-15, 80, 1)
-    table.insert(all_sharks, shark_3)
-    shark_4 = Shark:new(-15, 90, 1)
-    table.insert(all_sharks, shark_4)
-    shark_5 = Shark:new(-15, 100, 1)
-    table.insert(all_sharks, shark_5)
-    shark_6 = Shark:new(-15, 110, 1)
-    table.insert(all_sharks, shark_6)
+    -- shark_1 = Shark:new(-15, 40, 1)
+    -- table.insert(all_sharks, shark_1)
+    -- shark_11 = Shark:new(250, 50, -1)
+    -- table.insert(all_sharks, shark_11)
+    -- shark_12 = Shark:new(-15, 60, 1)
+    -- table.insert(all_sharks, shark_12)
+    -- shark_2 = Shark:new(-15, 70, 1)
+    -- table.insert(all_sharks, shark_2)
+    -- shark_3 = Shark:new(-15, 80, 1)
+    -- table.insert(all_sharks, shark_3)
+    -- shark_4 = Shark:new(-15, 90, 1)
+    -- table.insert(all_sharks, shark_4)
+    -- shark_5 = Shark:new(-15, 100, 1)
+    -- table.insert(all_sharks, shark_5)
+    -- shark_6 = Shark:new(-15, 110, 1)
+    -- table.insert(all_sharks, shark_6)
 
 
     world:setCallbacks(beginContact, endContact, preSolve, postSolve)
