@@ -17,9 +17,17 @@ SIDES = {
 print(SIDES[1])
 
 SPAWN_TYPES = {
-    0,
-    1,
-    2
+    0, --Diver
+    1, --Shark
+    2  --MiniSub
+}
+
+WAVES = {
+    {
+        {1, 2, 2},
+        {1, 2, 3},
+        {1, 2, 4},
+    }
 }
 
 
@@ -36,6 +44,11 @@ spawner = {
             table.insert(all_sharks, _shark)
         elseif type == 2 then
             --spawn mini sub
+        end
+    end,
+    spawn_something=function()
+        for w in table.for_each(WAVES[1]) do
+            spawner.spawn_actor(w[1], w[2], w[3])
         end
     end,
 }

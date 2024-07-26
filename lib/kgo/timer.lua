@@ -3,12 +3,12 @@
 Timer = {}
 Timer.__index = Timer
 
-function Timer:new(finished_time, callback, _loop)
+function Timer:new(callback, _loop)
     local _timer = setmetatable({}, Timer)
     _timer.time = 0
     _timer.loop = _loop
     _timer.is_paused = true
-    _timer.finished_time = finished_time or 1
+    _timer.finished_time = 0
     _timer.is_finished = false
     _timer.is_running = false
     _timer.on_done_func = callback or function() _timer:print_done() end
@@ -26,7 +26,8 @@ function Timer:update()
     end
 end
 
-function Timer:start()
+function Timer:start(finished_time)
+    self.finished_time = finished_time
     self.time = 0
     self.is_finished = false
     self.is_running = true
@@ -50,7 +51,7 @@ end
 function Timer:on_done()
     self.on_done_func()
     if self.loop == true then
-        self:start()
+        self:start(self.finished_time)
     end
 end
 

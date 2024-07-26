@@ -44,6 +44,8 @@ local gamestates = {
 local gamestate = nil
 local level = 1
 local tick = 0
+local spawn_interval = 6*60
+local trm_spawn_wave = Timer:new(function() spawner:spawn_something() end, true)
 
 local background = love.graphics.newImage("asset/image/background.png")
 local sand = love.graphics.newImage("asset/image/sand_bottom.png")
@@ -149,6 +151,7 @@ function love.keypressed(key)
 
     if gamestate == gamestates.retry then
         if key == "space" then
+            
             reset_game()
             gamestate = gamestates.game
         end
@@ -157,6 +160,7 @@ function love.keypressed(key)
     if gamestate == gamestates.title then
         if key == "space" then
             gamestate = gamestates.game
+            trm_spawn_wave:start(spawn_interval)
             start_game()
         end
     end
@@ -178,6 +182,7 @@ end
 
 function update_game(dt)
     flux.update(dt)
+    trm_spawn_wave:update()
     o2_bar.value = player.oxygen
     o2_bar:update()
     if string.len(text) > 768 then -- cleanup when 'text' gets too long
