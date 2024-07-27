@@ -10,7 +10,7 @@ player_torpedos = {}
 
 function Torpedo:new(x, y, _parent)
 	local _torpedo = setmetatable({}, Torpedo)
-	_torpedo.parent = _parent
+	_torpedo.parent = _parent --TODO: Remove??
 	_torpedo.x = x
 	_torpedo.y = y
 	_torpedo.xvel = 0
@@ -20,6 +20,7 @@ function Torpedo:new(x, y, _parent)
 	_torpedo.bubbles = {}
 	_torpedo.add_bubble = 0
 	_torpedo.w, _torpedo.h = spr_torpedo:getDimensions()
+	_torpedo.h = 1
 	_torpedo.hitbox = {
 		x = _torpedo.x,
 		y = _torpedo.y,
@@ -53,17 +54,13 @@ end
 function Torpedo:drop(starting_y)
 	flux.to(self, 0.5, { y = starting_y + 4 }):oncomplete(function()
 		self.trusting = true
-		self.parent.can_shoot = true
+		player.can_shoot = true
 	end)
 end
 
 function Torpedo:draw()
 	love.graphics.draw(spr_torpedo, self.x, self.y, 0, self.facing_dir, 1, 3, 1)
 	draw_hitbox(self.hitbox, "#ff80a4")
-	if self.trusting then
-
-		
-	end
 end
 
 

@@ -30,9 +30,9 @@ function SurfaceSection:draw_front()
 end
 
 function SurfaceSection:move_up()
-	_y = love.math.random( STARTING_Y-1, STARTING_Y+1 )
-	_t = love.math.random( 1.5, 3.5 )
-	_d = love.math.random( 0.1, 1 )
+	local _y = love.math.random( STARTING_Y-1, STARTING_Y+1 )
+	local _t = love.math.random( 1.5, 3.5 )
+	local _d = love.math.random( 0.1, 1 )
 	flux.to(self, _t, {y = _y}):delay(_d):oncomplete(function() self:move_up() end)
 end
 

@@ -147,6 +147,7 @@ function love.keypressed(key)
     if gamestate == gamestates.game then
         if key == "space" then
             player:shoot()
+            for n in pairs(_G) do print(n) end
         end
     end
 
@@ -169,6 +170,7 @@ end
 
 function love.update(dt)
     --love.audio.update()
+
     if gamestate == gamestates.title then
         update_title()
     elseif gamestate == gamestates.game then
