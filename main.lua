@@ -11,6 +11,7 @@ world = love.physics.newWorld(0, 0, false)
 love.graphics.setDefaultFilter("nearest", "nearest")
 
 require("lib.kgo.core")
+require("lib.kgo.sound_manager")
 
 require("lib.kgo.timer")
 
@@ -167,6 +168,7 @@ function love.keypressed(key)
 end
 
 function love.update(dt)
+    --love.audio.update()
     if gamestate == gamestates.title then
         update_title()
     elseif gamestate == gamestates.game then

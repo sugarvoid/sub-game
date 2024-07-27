@@ -45,6 +45,7 @@ end
 function Shark:die(pos)
     --FIXME: If two sharks die back to back, the second one doesn't play sound
     _sfx_die:play()
+    --love.audio.play(_sfx_die)
     player:increase_score(20)
     spawn_shark_peices(self.x, self.y, self.facing_dir)
     table.remove_item(all_sharks, self)
