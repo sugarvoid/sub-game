@@ -1,4 +1,3 @@
-
 local spr_left = love.graphics.newImage("asset/image/shark_left.png")
 local spr_right = love.graphics.newImage("asset/image/shark_right.png")
 
@@ -6,7 +5,7 @@ SharkPart = {}
 SharkPart.__index = SharkPart
 
 
-shark_parts={}
+shark_parts = {}
 
 
 function SharkPart:new(x, y, dir)
@@ -14,12 +13,12 @@ function SharkPart:new(x, y, dir)
 	_shark_part.base_x = x
 	_shark_part.base_y = y
 	_shark_part.alpha = 1
-	_shark_part.left_spr = {x=x, y=y, rot=0}
-	_shark_part.right_spr = {x=x, y=y, rot=0}
+	_shark_part.left_spr = { x = x, y = y, rot = 0 }
+	_shark_part.right_spr = { x = x, y = y, rot = 0 }
 	_shark_part.xvel = 0
 	_shark_part.move_speed = 3
 	_shark_part.facing_dir = dir
-	_shark_part.origin={x=11, y=8}
+	_shark_part.origin = { x = 11, y = 8 }
 
 	return _shark_part
 end
@@ -40,7 +39,10 @@ function SharkPart:update()
 end
 
 function SharkPart:fade_away(starting_y)
-	flux.to(self, 0.5, {y = starting_y + 4}):oncomplete(function() self.trusting = true self.parent.can_shoot = true end)
+	flux.to(self, 0.5, { y = starting_y + 4 }):oncomplete(function()
+		self.trusting = true
+		self.parent.can_shoot = true
+	end)
 end
 
 function SharkPart:draw()
@@ -50,11 +52,7 @@ function SharkPart:draw()
 	love.graphics.draw(spr_right, self.right_spr.x, self.right_spr.y, self.right_spr.rot, self.facing_dir, 1, self.origin.x, self.origin.y)
 end
 
-function spawn_shark_peices(x,y,dir)
-	_sp = SharkPart:new(x,y,dir)
+function spawn_shark_peices(x, y, dir)
+	_sp = SharkPart:new(x, y, dir)
 	table.insert(shark_parts, _sp)
 end
-
-
-
-

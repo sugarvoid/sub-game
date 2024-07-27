@@ -38,7 +38,7 @@ local gamestates = {
 local gamestate = nil
 local level = 1
 local tick = 0
-local spawn_interval = 6*60
+local spawn_interval = 3*60
 local trm_spawn_wave = Timer:new(function() spawner:spawn_something() end, true)
 
 local background = love.graphics.newImage("asset/image/background.png")
@@ -184,6 +184,7 @@ function update_game(dt)
     player:update(dt)
     update_divers(dt)
     update_sharks(dt)
+    update_mini_subs(dt)
     update_bubbles(dt)
     for t in table.for_each(player_torpedos) do
         t:update(dt)
@@ -235,6 +236,7 @@ function draw_game()
     player:draw()
     draw_divers()
     draw_sharks()
+    draw_mini_subs()
     draw_torpedos()
     
 
@@ -361,4 +363,13 @@ end
 function postSolve(a, b, coll, normalimpulse, tangentimpulse)
     -- we won't do anything with this function
     --print(a:getUserData() .. b:getUserData())
+end
+
+
+function get_kill_value(e_type)
+    if e_type == "shark" then
+        return 20
+    elseif e_type == "mini_sub" then
+        return 20
+    end
 end

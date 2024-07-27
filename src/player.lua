@@ -105,13 +105,18 @@ end
 
 function Player:unload_divers()
     --TODO: Make a general update_diver(value) function in player
-    player.diver_on_board = clamp(0, player.diver_on_board - 1, 6)
-    diver_HUD:update_display(player.diver_on_board)
+    if player.diver_on_board > 0 then
+        player.diver_on_board = clamp(0, player.diver_on_board - 1, 6)
+        diver_HUD:update_display(player.diver_on_board)
+    else
+        print("Kill player...")
+    end
+    
 end
 
 function Player:move(dt)
     local speed = self.speed * dt
-    
+
     if love.keyboard.isDown("d") then
         self.xvel = math.min(self.xvel + speed, self.speed)
         self.facing_dir = 1
@@ -131,9 +136,6 @@ function Player:move(dt)
 
     self.x = clamp(20, (self.x + self.xvel * dt), 220)
     self.y = clamp(16, (self.y + self.yvel * dt), 108)
-    
-
-
 end
 
 function Player:die(pos, condition)
@@ -156,11 +158,7 @@ end
 
 function Player:draw()
     self.curr_animation:draw(self.spr_sheet, self.x, self.y - 2, math.rad(self.rotation), self.facing_dir, 1, self.w / 2, self.h / 2)
-    --love.graphics.draw(self.image, self.x, self.y, 0, self.facing_dir, 1, self.w/2, self.h/2)
     draw_hitbox(self.hitbox, "#D70040")
-    
-    love.graphics.points(self.x, self.y+4)
-    
 end
 
 function Player:reset()

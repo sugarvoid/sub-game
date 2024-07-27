@@ -34,7 +34,7 @@ local FACR_RIGHT = 1
 
 local WAVES = {
     {
-        {SPAWN_SHARK, SPAWN_RIGHT_X, 2},
+        {SPAWN_SUB, SPAWN_RIGHT_X, 2},
         {SPAWN_SHARK, SPAWN_RIGHT_X, 3},
         {SPAWN_SHARK, SPAWN_RIGHT_X, 4},
     },
@@ -63,7 +63,8 @@ spawner = {
             _shark = Shark:new(side, LANES[lane], _facing_dir)
             table.insert(all_sharks, _shark)
         elseif type == 2 then
-            --spawn mini sub
+            _mini_sub = MiniSub:new(side, LANES[lane], _facing_dir)
+            table.insert(all_mini_subs, _mini_sub)
         end
     end,
     spawn_something=function()
