@@ -50,6 +50,8 @@ function update_divers(dt)
             diver_HUD:update_display(player.diver_on_board)
             table.remove_item(all_divers, p)
             player:play_sound(1)
+            love.audio.play_sfx(_sfx_diver_saved)
+
 
         end
         p:update(dt)

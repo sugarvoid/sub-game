@@ -147,7 +147,7 @@ function love.keypressed(key)
     if gamestate == gamestates.game then
         if key == "space" then
             player:shoot()
-            for n in pairs(_G) do print(n) end
+           -- for n in pairs(_G) do print(n) end
         end
     end
 
