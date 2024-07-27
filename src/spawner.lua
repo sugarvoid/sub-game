@@ -1,4 +1,4 @@
-LANES = {
+local LANES = {
     40,
     50,
     60,
@@ -9,38 +9,58 @@ LANES = {
     110
 }
 
-SIDES = {
+local SIDES = {
     { x = -15, f_dir = 1 },
     { x = 250, f_dir = -1 }
 }
 
-print(SIDES[1])
-
-SPAWN_TYPES = {
+local SPAWN_TYPES = {
     0, --Diver
     1, --Shark
     2  --MiniSub
 }
 
-WAVES = {
+
+local SPAWN_DIVER = 0
+local SPAWN_SHARK = 1
+local SPAWN_SUB = 2
+
+local SPAWN_LEFT_X = -15
+local SPAWN_RIGHT_X = 250
+
+local FACE_LEFT = -1
+local FACR_RIGHT = 1
+
+
+local WAVES = {
+    {
+        {SPAWN_SHARK, SPAWN_RIGHT_X, 2},
+        {SPAWN_SHARK, SPAWN_RIGHT_X, 3},
+        {SPAWN_SHARK, SPAWN_RIGHT_X, 4},
+    },
     {
         {1, 2, 2},
-        {1, 2, 3},
+        {0, 2, 3},
         {1, 2, 4},
-    }
+    },
 }
 
 
 spawner = {
     spawn_actor = function(type, side, lane)
+        local _facing_dir
+        if side == SPAWN_RIGHT_X then
+            _facing_dir = -1
+        else
+            _facing_dir = 1
+        end
+
         if type == 0 then
             --spawn diver
-            _diver = Diver:new(SIDES[side]["x"], LANES[lane], SIDES[side]["f_dir"])
-            print(LANES[lane])
+            _diver = Diver:new(side, LANES[lane], _facing_dir)
             table.insert(all_divers, _diver)
         elseif type == 1 then
-            _shark = Shark:new(SIDES[side]["x"], LANES[lane], SIDES[side]["f_dir"])
-            print(LANES[lane])
+            _shark = Shark:new(side, LANES[lane], _facing_dir)
             table.insert(all_sharks, _shark)
         elseif type == 2 then
             --spawn mini sub

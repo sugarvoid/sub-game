@@ -99,34 +99,6 @@ function Player:refill_o2()
     )
 end
 
--- function Player:move(dt)
---     if self.xvel < 0 then
---         self.facing_dir = -1
---     else
---         self.facing_dir = 1
---     end
---     if love.keyboard.isDown("d") and
---         self.xvel < self.speed then
---         self.xvel = self.xvel + self.speed * dt
---     end
-
---     if love.keyboard.isDown("a") and
---         self.xvel > -self.speed then
---         self.xvel = self.xvel - self.speed * dt
---     end
-
---     if love.keyboard.isDown("s") and
---         self.yvel < self.speed then
---         self.yvel = self.yvel + self.speed * dt
---     end
-
---     if love.keyboard.isDown("w") and
---         self.yvel > -self.speed then
---         self.yvel = self.yvel - self.speed * dt
---     end
--- end
-
-
 function Player:increase_score(amount)
     self.score = self.score + amount
 end

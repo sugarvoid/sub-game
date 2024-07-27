@@ -63,4 +63,10 @@ function Torpedo:draw()
 	draw_hitbox(self.hitbox, "#ff80a4")
 end
 
+function draw_torpedos()
+	for t in table.for_each(player_torpedos) do
+        t:draw()
+    end
+end
+
 

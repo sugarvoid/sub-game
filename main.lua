@@ -12,7 +12,6 @@ love.graphics.setDefaultFilter("nearest", "nearest")
 
 require("lib.kgo.core")
 require("lib.kgo.sound_manager")
-
 require("lib.kgo.timer")
 
 require("src.diver")
@@ -24,12 +23,6 @@ require("src.mini_sub")
 require("src.o2_bar")
 require("src.diver_hud")
 require("src.player_torpedo")
-
-
-
-
-add = table.insert
-
 
 
 local font = nil
@@ -50,12 +43,10 @@ local trm_spawn_wave = Timer:new(function() spawner:spawn_something() end, true)
 
 local background = love.graphics.newImage("asset/image/background.png")
 local sand = love.graphics.newImage("asset/image/sand_bottom.png")
---local o2_bar = love.graphics.newImage("asset/image/o2_bar.png")
+local o2_bar = OxygenBar:new()
+
 player = Player:new()
 
-
-
-local o2_bar = OxygenBar:new()
 
 
 function love.load()
@@ -68,10 +59,6 @@ function love.load()
     font = love.graphics.newFont("asset/font/c64esque.ttf", 16)
     font:setFilter("nearest")
     love.graphics.setFont(font)
-
-
-
-
     gamestate = gamestates.title
 
     -- diver_1 = Diver:new(100, 40, 1)
@@ -83,9 +70,9 @@ function love.load()
     -- diver_2 = Diver:new(10, 67, 1)
     -- table.insert(all_divers, diver_2)
 
-    spawner.spawn_actor(0, 1, 2)
-    spawner.spawn_actor(0, 1, 3)
-    spawner.spawn_actor(1, 2, 2)
+    -- spawner.spawn_actor(0, 1, 2)
+    -- spawner.spawn_actor(0, 1, 3)
+    -- spawner.spawn_actor(1, 2, 2)
 
 
     -- shark_1 = Shark:new(-15, 40, 1)
@@ -243,26 +230,19 @@ end
 function draw_game()
     --love.graphics.push("all")
     --love.graphics.pop()
-    for sb in table.for_each(surface_sections) do
-        sb:draw_back()
-        --sb:draw_front()
-    end
+    draw_surface_back()
     draw_bubbles()
     player:draw()
     draw_divers()
     draw_sharks()
-    for t in table.for_each(player_torpedos) do
-        t:draw()
-    end
+    draw_torpedos()
+    
 
     for sp in table.for_each(shark_parts) do
         sp:draw()
     end
-
-    for sb in table.for_each(surface_sections) do
-        --sb:draw_back()
-        sb:draw_front()
-    end
+    draw_surface_front()
+    
 
 
 

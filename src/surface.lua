@@ -2,13 +2,12 @@
 
 local spr_surface_back = love.graphics.newImage("asset/image/surface_back.png")
 local spr_surface_front = love.graphics.newImage("asset/image/surface_front.png")
-
+local STARTING_Y = 10
 
 SurfaceSection = {}
 SurfaceSection.__index = SurfaceSection
 
-
-local STARTING_Y = 10
+local surface_sections={}
 
 
 function SurfaceSection:new(x, y)
@@ -40,8 +39,6 @@ function SurfaceSection:move_down()
 	flux.to(self, 5, {y = STARTING_Y + 3}):after(self, 5, {y = STARTING_Y}):oncomplete(function() self:move_up() end)
 end
 
-surface_sections={}
-
 function set_up_surface()
 	love.math.setRandomSeed(love.timer.getTime())
 	for i = 0, 29 do
@@ -50,4 +47,18 @@ function set_up_surface()
 		_s_section:move_up()
 		table.insert(surface_sections, _s_section)
 	end	
+end
+
+function draw_surface_back()
+	for sb in table.for_each(surface_sections) do
+        sb:draw_back()
+        --sb:draw_front()
+    end
+end
+
+function draw_surface_front()
+	for sb in table.for_each(surface_sections) do
+        --sb:draw_back()
+        sb:draw_front()
+    end
 end
