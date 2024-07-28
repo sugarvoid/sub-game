@@ -4,6 +4,8 @@
 -- license:     MIT License
 -- version:     0.1
 
+ProFi = require 'lib.profi'
+
 love = require("love")
 anim8 = require("lib.anim8")
 flux = require("lib.flux")
@@ -60,6 +62,7 @@ table.insert(all_mines, _sm)
 
 
 function love.load()
+     ProFi:start()
     love.graphics.setDefaultFilter("nearest", "nearest")
     --load_game()
     --title_music:play()
@@ -138,6 +141,8 @@ end
 
 function love.keypressed(key)
     if key == "escape" then
+        ProFi:stop()
+        ProFi:writeReport( 'MyProfilingReport.txt' )
         love.event.quit()
     end
 
@@ -168,7 +173,12 @@ function love.keypressed(key)
 end
 
 function love.update(dt)
+    collectgarbage("step", 1)
     --love.audio.update()
+
+    
+
+    --print(dt)
 
     if gamestate == gamestates.title then
         update_title()
@@ -184,7 +194,7 @@ function update_title()
 end
 
 function update_game(dt)
-    print(love.timer.getDelta())
+    
     flux.update(dt)
     spawner:update(dt)
     battleship:update(dt)
