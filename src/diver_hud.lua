@@ -27,6 +27,6 @@ diver_HUD = {
         self.frame = new_amount + 1
     end,
     draw = function(self)
-        love.graphics.draw(DEBUG_IMAGE, self.frames[self.frame], 120, 2, 0, 0.7, 0.7)
+        love.graphics.draw(DEBUG_IMAGE, self.frames[self.frame], 110, 125, 0, 0.7, 0.7)
     end
 }

@@ -208,7 +208,10 @@ end
 function love.draw()
     love.graphics.scale(4)
     love.graphics.draw(background, 0, 0)
-    love.graphics.draw(sand, 0, 136 - 29)
+    love.graphics.draw(sand, 0, 136 - 31)
+    change_draw_color("#000000")
+    love.graphics.rectangle("fill", 0, 126, 250, 10)
+    change_draw_color("#ffffff")
 
     if gamestate == gamestates.title then
         draw_title()
@@ -237,7 +240,7 @@ function draw_game()
     draw_surface_back()
     draw_bubbles()
    
-    love.graphics.draw(battleship, 80, -12)
+    love.graphics.draw(battleship, 80, 4, 0, 1, 1, battleship:getWidth()/2, battleship:getHeight()/2)
      player:draw()
     draw_divers()
     draw_sharks()
@@ -259,7 +262,7 @@ function draw_game()
     love.graphics.print(text, 10, 40)
     love.graphics.pop()
     o2_bar:draw()
-    love.graphics.print(string.format("%05d", player.score), 200, 0)
+    love.graphics.print(string.format("%05d", player.score), 200, 124)
 end
 
 function draw_gameover()

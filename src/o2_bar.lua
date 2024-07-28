@@ -5,7 +5,7 @@ OxygenBar.__index = OxygenBar
 
 local O2_BAR_BG = love.graphics.newImage("asset/image/o2_bar.png")
 local MAX = 60
-local BASE_POSITION = {20,5}
+local BASE_POSITION = {10,128}
 local bar_x = BASE_POSITION[1] + 3
 
 local top=      {x=BASE_POSITION[1] + 3, y=BASE_POSITION[2] + 2.5}
