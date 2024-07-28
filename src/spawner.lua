@@ -73,4 +73,7 @@ spawner = {
             spawner.spawn_actor(w[1], w[2], w[3])
         end
     end,
+    spawn_battleship=function()
+        
+    end,
 }

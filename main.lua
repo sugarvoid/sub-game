@@ -23,6 +23,7 @@ require("src.mini_sub")
 require("src.o2_bar")
 require("src.diver_hud")
 require("src.player_torpedo")
+require("src.battleship")
 
 
 local font = nil
@@ -38,17 +39,17 @@ local gamestates = {
 local gamestate = nil
 local level = 1
 local tick = 0
-local spawn_interval = 3*60
+local spawn_interval = 6*60
 local trm_spawn_wave = Timer:new(function() spawner:spawn_something() end, true)
 
 local background = love.graphics.newImage("asset/image/background.png")
 local sand = love.graphics.newImage("asset/image/sand_bottom.png")
 local o2_bar = OxygenBar:new()
 
-local battleship = love.graphics.newImage("asset/image/battleship.png")
+
 
 player = Player:new()
-
+battleship = Battleship:new()
 
 
 function love.load()
@@ -136,6 +137,7 @@ function love.keypressed(key)
     if gamestate == gamestates.game then
         if key == "space" then
             player:shoot()
+            battleship:pass_by("north")
            -- for n in pairs(_G) do print(n) end
         end
     end
@@ -175,6 +177,7 @@ end
 
 function update_game(dt)
     flux.update(dt)
+    battleship:update(dt)
     trm_spawn_wave:update()
     o2_bar.value = player.oxygen
     o2_bar:update()
@@ -240,8 +243,8 @@ function draw_game()
     draw_surface_back()
     draw_bubbles()
    
-    love.graphics.draw(battleship, 80, 4, 0, 1, 1, battleship:getWidth()/2, battleship:getHeight()/2)
-     player:draw()
+    battleship:draw()
+    player:draw()
     draw_divers()
     draw_sharks()
     draw_mini_subs()
