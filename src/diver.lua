@@ -36,7 +36,7 @@ end
 
 function Diver:draw()
     self.curr_animation:draw(self.spr_sheet, self.x, self.y - 2, 0, self.facing_dir, 0.7, self.w / 2, self.h / 2)
-    draw_hitbox(self.hitbox, "#3e8948")
+    --draw_hitbox(self.hitbox, "#3e8948")
 end
 
 
@@ -44,18 +44,35 @@ all_divers = {}
 
 
 function update_divers(dt)
-    for p in table.for_each(all_divers) do
-        if check_collision(p.hitbox, player.hitbox) then
+
+
+    for _, d in ipairs(all_divers) do
+        print(d.x)
+        --s:draw_front()  -- Call the draw method on each sprite
+        if check_collision(d.hitbox, player.hitbox) then
             player.diver_on_board = player.diver_on_board + 1
             diver_HUD:update_display(player.diver_on_board)
-            table.remove_item(all_divers, p)
+            table.remove_item(all_divers, d)
             player:play_sound(1)
             love.audio.play_sfx(_sfx_diver_saved)
 
 
         end
-        p:update(dt)
+        d:update(dt)
     end
+
+    -- for p in table.for_each(all_divers) do
+    --     if check_collision(p.hitbox, player.hitbox) then
+    --         player.diver_on_board = player.diver_on_board + 1
+    --         diver_HUD:update_display(player.diver_on_board)
+    --         table.remove_item(all_divers, p)
+    --         player:play_sound(1)
+    --         love.audio.play_sfx(_sfx_diver_saved)
+
+
+    --     end
+    --     p:update(dt)
+    -- end
 end
 
 function draw_divers()

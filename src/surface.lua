@@ -57,8 +57,7 @@ function draw_surface_back()
 end
 
 function draw_surface_front()
-	for sb in table.for_each(surface_sections) do
-        --sb:draw_back()
-        sb:draw_front()
+	for _, s in ipairs(surface_sections) do
+        s:draw_front()  -- Call the draw method on each sprite
     end
 end

@@ -23,7 +23,8 @@ function _color(str, mul)
 end
 
 function change_draw_color(hex)
-    love.graphics.setColor(_color(hex))
+    set_draw_color_from_hex(hex)
+    --love.graphics.setColor(_color(hex))
 end
 
 function changeBgColor(hex)
@@ -32,7 +33,8 @@ end
 
 function draw_hitbox(obj, color)
     love.graphics.push("all")
-    change_draw_color(color)
+    --change_draw_color(color)
+    set_draw_color_from_hex(color)
     love.graphics.rectangle("line", obj.x, obj.y, obj.w, obj.h)
     love.graphics.pop()
 end

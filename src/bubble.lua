@@ -33,13 +33,14 @@ function Bubble:draw()
 end
 
 function update_bubbles(dt)
-    for b in table.for_each(all_bubbles) do
+    for _, b in ipairs(all_bubbles) do
         b:update(dt)
+        
     end
 end
 
 function draw_bubbles()
-    for b in table.for_each(all_bubbles) do
+    for _, b in ipairs(all_bubbles) do
             if b.y > b.starting_y - 25 then
                 b:draw()
             end

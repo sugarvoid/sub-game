@@ -12,6 +12,7 @@ flux = require("lib.flux")
 world = love.physics.newWorld(0, 0, false)
 love.graphics.setDefaultFilter("nearest", "nearest")
 
+require("lib.color")
 require("lib.kgo.core")
 require("lib.kgo.sound_manager")
 require("lib.kgo.timer")
