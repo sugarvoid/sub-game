@@ -24,6 +24,8 @@ require("src.o2_bar")
 require("src.diver_hud")
 require("src.player_torpedo")
 require("src.battleship")
+require("src.sea_mine")
+require("src.spawner")
 
 
 local font = nil
@@ -40,16 +42,21 @@ local gamestate = nil
 local level = 1
 local tick = 0
 local spawn_interval = 6*60
-local trm_spawn_wave = Timer:new(function() spawner:spawn_something() end, true)
+--local trm_spawn_wave = Timer:new(function() spawner:spawn_something() end, true)
 
 local background = love.graphics.newImage("asset/image/background.png")
 local sand = love.graphics.newImage("asset/image/sand_bottom.png")
 local o2_bar = OxygenBar:new()
 
+local spawner = Spawner:new()
 
 
 player = Player:new()
 battleship = Battleship:new()
+
+
+_sm = SeaMine:new(20)
+table.insert(all_mines, _sm)
 
 
 function love.load()
@@ -137,6 +144,7 @@ function love.keypressed(key)
     if gamestate == gamestates.game then
         if key == "space" then
             player:shoot()
+            spawner.spawn_battleship()
             battleship:pass_by("north")
            -- for n in pairs(_G) do print(n) end
         end
@@ -153,7 +161,7 @@ function love.keypressed(key)
     if gamestate == gamestates.title then
         if key == "space" then
             gamestate = gamestates.game
-            trm_spawn_wave:start(spawn_interval)
+            --trm_spawn_wave:start(spawn_interval)
             start_game()
         end
     end
@@ -176,9 +184,11 @@ function update_title()
 end
 
 function update_game(dt)
+    print(love.timer.getDelta())
     flux.update(dt)
+    spawner:update(dt)
     battleship:update(dt)
-    trm_spawn_wave:update()
+    --trm_spawn_wave:update()
     o2_bar.value = player.oxygen
     o2_bar:update()
     if string.len(text) > 768 then -- cleanup when 'text' gets too long
@@ -189,6 +199,7 @@ function update_game(dt)
     player:update(dt)
     update_divers(dt)
     update_sharks(dt)
+    update_mines(dt)
     update_mini_subs(dt)
     update_bubbles(dt)
     for t in table.for_each(player_torpedos) do
@@ -249,6 +260,7 @@ function draw_game()
     draw_sharks()
     draw_mini_subs()
     draw_torpedos()
+    draw_mines()
     
 
     for sp in table.for_each(shark_parts) do

@@ -13,7 +13,7 @@ function Battleship:new()
     _battleship.x = -50
 	_battleship.y = 4
 	_battleship.moving_dir = 1
-	_battleship.move_speed = 150
+	_battleship.move_speed = 2
 	_battleship.time_on_screen = 0 --To know when to stop updating and drawing the ship
 	_battleship.is_in_game = false
 	_battleship.ox = _battleship.sprite:getWidth()/2
@@ -27,9 +27,7 @@ function Battleship:update(dt)
     if self.is_in_game then
     	self.time_on_screen = self.time_on_screen + 1
     	--flux.update(dt)
-	    self.x = self.x + self.move_speed * self.moving_dir * dt
-	    --self.hitbox.x = (self.x - self.w / 2) + 2
-	    --self.hitbox.y = (self.y - self.h / 2) + 3
+	    self.x = self.x + self.move_speed * self.moving_dir --* dt
 	    if self.time_on_screen == 300 then
 	    	self.is_in_game = false
 	    	self.tmr_delay:stop()

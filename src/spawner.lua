@@ -39,17 +39,54 @@ local WAVES = {
         {SPAWN_DIVER, SPAWN_RIGHT_X, 4},
     },
     {
-        {1, 2, 2},
+        {SPAWN_SHARK, 2, 2},
         {SPAWN_DIVER, SPAWN_RIGHT_X, 5},
         {SPAWN_DIVER, SPAWN_LEFT_X, 4},
-        {1, 2, 6},
     },
 }
 
 
-spawner = {
-    spawn_actor = function(type, side, lane)
-        local _facing_dir
+
+local die = {
+    roll=function(self, sides)
+        local _sides = sides or 6
+        return love.math.random(_sides)
+    end
+}
+
+
+
+----------------------------------------------------------------------------------------------------------------
+
+
+Spawner = {}
+Spawner.__index = Spawner
+
+function Spawner:new()
+    love.math.setRandomSeed(love.timer.getTime())
+    local _spawner = setmetatable({}, Spawner)
+    _spawner.spawn_interval = 6*60
+    _spawner.tmr_spawn_battleship = Timer:new(function() _spawner:spawn_battleship() end, true)
+    _spawner.tmr_spawn_wave = Timer:new(function() _spawner:spawn_something() end, true)
+
+
+
+    _spawner.tmr_spawn_battleship:start(10*60)
+    _spawner.tmr_spawn_wave:start(6*60)
+    return _spawner
+end
+
+function Spawner:reset()    
+end
+
+function Spawner:update(dt)
+    self.tmr_spawn_wave:update()
+    self.tmr_spawn_battleship:update()
+end
+
+function Spawner:spawn_actor(type, side, lane)
+    print("ding")
+    local _facing_dir
         if side == SPAWN_RIGHT_X then
             _facing_dir = -1
         else
@@ -67,13 +104,24 @@ spawner = {
             _mini_sub = MiniSub:new(side, LANES[lane], _facing_dir)
             table.insert(all_mini_subs, _mini_sub)
         end
-    end,
-    spawn_something=function()
-        for w in table.for_each(WAVES[2]) do
-            spawner.spawn_actor(w[1], w[2], w[3])
+end
+function Spawner:spawn_something()
+    print("in spawn something")
+    for w in table.for_each(WAVES[2]) do
+        self:spawn_actor(w[1], w[2], w[3])
+    end
+end
+function Spawner:spawn_battleship()
+       -- run every 10 sec
+        -- dice roll
+        -- 2/6 chance to spawn
+        --print(die.roll())
+
+        local d = die:roll(6)
+
+        if d >= 5 then
+            print("dice roll was " .. d)
+        else
+            print("dice was: " .. d)
         end
-    end,
-    spawn_battleship=function()
-        
-    end,
-}
+end

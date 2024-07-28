@@ -16,7 +16,7 @@ function Diver:new(x, y, facing_dir)
     _diver.facing_dir = facing_dir
     _diver.x = x
     _diver.y = y
-    _diver.move_speed = 0.4
+    _diver.move_speed = 30
     _diver.w, _diver.h = _diver.curr_animation:getDimensions()
     _diver.hitbox = { x = _diver.x, y = _diver.y, w = _diver.w-6, h = _diver.h -10}
     return _diver
@@ -25,7 +25,7 @@ end
 function Diver:update(dt)
     --flux.update(dt)
     self.curr_animation:update(dt)
-    self.x = self.x + self.move_speed * self.facing_dir
+    self.x = self.x + self.move_speed * self.facing_dir * dt
     self.hitbox.x = (self.x - self.w /2)+2
     self.hitbox.y = (self.y - self.h/2) +3
 end

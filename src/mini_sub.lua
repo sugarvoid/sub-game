@@ -19,7 +19,7 @@ function MiniSub:new(x, y, facing_dir)
     _mini_sub.facing_dir = facing_dir
     _mini_sub.x = x
     _mini_sub.y = y
-    _mini_sub.move_speed = 0.4
+    _mini_sub.move_speed = 60
     _mini_sub.w, _mini_sub.h = _mini_sub.curr_animation:getDimensions()
     _mini_sub.hitbox = { x = _mini_sub.x, y = _mini_sub.y, w = _mini_sub.w-6, h = _mini_sub.h -5}
     return _mini_sub
@@ -28,7 +28,7 @@ end
 function MiniSub:update(dt)
     --flux.update(dt)
     self.curr_animation:update(dt)
-    self.x = self.x + self.move_speed * self.facing_dir
+    self.x = self.x + self.move_speed * self.facing_dir * dt
     self.hitbox.x = (self.x - self.w /2)+2
     self.hitbox.y = (self.y - self.h/2) + 2
     

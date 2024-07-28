@@ -20,7 +20,7 @@ function Shark:new(x, y, facing_dir)
     _shark.facing_dir = facing_dir
     _shark.x = x
     _shark.y = y
-    _shark.move_speed = 0.4
+    _shark.move_speed = 50
     _shark.w, _shark.h = _shark.curr_animation:getDimensions()
     _shark.hitbox = { x = _shark.x, y = _shark.y, w = _shark.w - 6, h = _shark.h - 10 }
 
@@ -30,7 +30,7 @@ end
 function Shark:update(dt)
     --flux.update(dt)
     self.curr_animation:update(dt)
-    self.x = self.x + self.move_speed * self.facing_dir
+    self.x = self.x + self.move_speed * self.facing_dir * dt
     self.hitbox.x = (self.x - self.w / 2) + 2
     self.hitbox.y = (self.y - self.h / 2) + 3
 end
