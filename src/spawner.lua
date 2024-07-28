@@ -36,12 +36,13 @@ local WAVES = {
     {
         {SPAWN_SUB, SPAWN_RIGHT_X, 2},
         {SPAWN_SHARK, SPAWN_RIGHT_X, 3},
-        {SPAWN_SHARK, SPAWN_RIGHT_X, 4},
+        {SPAWN_DIVER, SPAWN_RIGHT_X, 4},
     },
     {
         {1, 2, 2},
-        {0, 2, 3},
-        {1, 2, 4},
+        {SPAWN_DIVER, SPAWN_RIGHT_X, 5},
+        {SPAWN_DIVER, SPAWN_LEFT_X, 4},
+        {1, 2, 6},
     },
 }
 
@@ -68,7 +69,7 @@ spawner = {
         end
     end,
     spawn_something=function()
-        for w in table.for_each(WAVES[1]) do
+        for w in table.for_each(WAVES[2]) do
             spawner.spawn_actor(w[1], w[2], w[3])
         end
     end,

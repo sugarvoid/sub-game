@@ -45,6 +45,8 @@ local background = love.graphics.newImage("asset/image/background.png")
 local sand = love.graphics.newImage("asset/image/sand_bottom.png")
 local o2_bar = OxygenBar:new()
 
+local battleship = love.graphics.newImage("asset/image/battleship.png")
+
 player = Player:new()
 
 
@@ -213,6 +215,7 @@ function love.draw()
     end
     if gamestate == gamestates.game then
         draw_game()
+
     end
     if gamestate == gamestates.retry then
         draw_gameover()
@@ -233,7 +236,9 @@ function draw_game()
     --love.graphics.pop()
     draw_surface_back()
     draw_bubbles()
-    player:draw()
+   
+    love.graphics.draw(battleship, 80, -12)
+     player:draw()
     draw_divers()
     draw_sharks()
     draw_mini_subs()

@@ -22,6 +22,7 @@ diver_HUD = {
     --     { frame = 0 },
     --     { frame = 0 }
     -- },
+    --FIXME: Game crashes if player gets more 6 divers
     update_display = function(self, new_amount)
         self.frame = new_amount + 1
     end,
