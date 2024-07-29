@@ -44,13 +44,9 @@ local gamestates = {
 local gamestate = nil
 local level = 1
 local tick = 0
-local spawn_interval = 6*60
---local trm_spawn_wave = Timer:new(function() spawner:spawn_something() end, true)
-
 local background = love.graphics.newImage("asset/image/background.png")
 local sand = love.graphics.newImage("asset/image/sand_bottom.png")
 local o2_bar = OxygenBar:new()
-
 local spawner = Spawner:new()
 
 
@@ -63,7 +59,7 @@ table.insert(all_mines, _sm)
 
 
 function love.load()
-     ProFi:start()
+    ProFi:start()
     love.graphics.setDefaultFilter("nearest", "nearest")
     --load_game()
     --title_music:play()
@@ -109,8 +105,7 @@ function love.load()
 
     world:setCallbacks(beginContact, endContact, preSolve, postSolve)
 
-    text       = "" -- we'll use this to put info text on the screen later
-    persisting = 0  -- we'll use this to store the state of repeated callback calls
+
 
 
     --TODO: Move to separate file. The scale is messing with the hitbox
@@ -195,16 +190,12 @@ function update_title()
 end
 
 function update_game(dt)
-    
     flux.update(dt)
     spawner:update(dt)
     battleship:update(dt)
     --trm_spawn_wave:update()
     o2_bar.value = player.oxygen
     o2_bar:update()
-    if string.len(text) > 768 then -- cleanup when 'text' gets too long
-        text = ""
-    end
     world:update(dt)
     tick = tick + 1
     player:update(dt)
@@ -285,7 +276,6 @@ function draw_game()
     diver_HUD:draw()
     love.graphics.push("all")
     love.graphics.scale(0.5)
-    love.graphics.print(text, 10, 40)
     love.graphics.pop()
     o2_bar:draw()
     love.graphics.print(string.format("%05d", player.score), 200, 124)

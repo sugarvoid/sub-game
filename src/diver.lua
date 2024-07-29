@@ -47,7 +47,7 @@ function update_divers(dt)
 
 
     for _, d in ipairs(all_divers) do
-        print(d.x)
+        --print(d.x)
         --s:draw_front()  -- Call the draw method on each sprite
         if check_collision(d.hitbox, player.hitbox) then
             player.diver_on_board = player.diver_on_board + 1

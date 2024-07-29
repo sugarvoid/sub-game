@@ -58,6 +58,6 @@ end
 
 function draw_surface_front()
 	for _, s in ipairs(surface_sections) do
-        s:draw_front()  -- Call the draw method on each sprite
+        s:draw_front()
     end
 end
