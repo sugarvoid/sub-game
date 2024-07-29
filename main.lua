@@ -81,8 +81,8 @@ function love.load()
     }
 
     surface = {}
-    surface.body = love.physics.newBody(world, 0, 0, "static")                    -- "static" makes it not move
-    surface.shape = love.physics.newRectangleShape(surface_rect.w, surface_rect.h) -- set size to 200,50 (x,y)
+    surface.body = love.physics.newBody(world, 0, 0, "static")
+    surface.shape = love.physics.newRectangleShape(surface_rect.w, surface_rect.h)
     surface.fixture = love.physics.newFixture(surface.body, surface.shape)
     surface.body:setAwake(true)
     surface.fixture:setUserData("Surface")
@@ -170,8 +170,6 @@ function update_game(dt)
     for sp in table.for_each(shark_parts) do
         sp:update()
     end
-
-    love.window.setTitle("Sub Game - fps: " .. tostring(love.timer.getFPS()))
 end
 
 function update_gameover(dt)
@@ -188,19 +186,13 @@ function love.draw()
 
     if gamestate == gamestates.title then
         draw_title()
-    end
-    if gamestate == gamestates.game then
+    elseif gamestate == gamestates.game then
         draw_game()
-
-    end
-    if gamestate == gamestates.retry then
+    elseif gamestate == gamestates.retry then
         draw_gameover()
-    end
-    if gamestate == gamestates.win then
+    elseif gamestate == gamestates.win then
         draw_win()
     end
-
-    --draw_hitbox(surface_rect, "#feae34")
 end
 
 function draw_title()
