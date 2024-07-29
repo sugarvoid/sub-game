@@ -85,7 +85,6 @@ function Spawner:update(dt)
 end
 
 function Spawner:spawn_actor(type, side, lane)
-    print("ding")
     local _facing_dir
         if side == SPAWN_RIGHT_X then
             _facing_dir = -1
@@ -120,9 +119,9 @@ function Spawner:spawn_battleship()
         local d = die:roll(6)
 
         if d >= 5 then
-            print("dice roll was " .. d)
+            --print("dice roll was " .. d)
             battleship:pass_by("left")
         else
-            print("dice was: " .. d)
+            --print("dice was: " .. d)
         end
 end

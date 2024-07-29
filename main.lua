@@ -7,6 +7,9 @@
 ProFi = require 'lib.profi'
 
 love = require("love")
+
+love.profiler = require('lib.profile') 
+
 anim8 = require("lib.anim8")
 flux = require("lib.flux")
 world = love.physics.newWorld(0, 0, false)
@@ -59,7 +62,8 @@ table.insert(all_mines, _sm)
 
 
 function love.load()
-    ProFi:start()
+    love.profiler.start()
+    --ProFi:start()
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.graphics.scale(4)
     font = love.graphics.newFont("asset/font/c64esque.ttf", 16)
@@ -101,8 +105,11 @@ end
 
 function love.keypressed(key)
     if key == "escape" then
-        ProFi:stop()
-        ProFi:writeReport( 'MyProfilingReport.txt' )
+        --ProFi:stop()
+        --ProFi:writeReport( 'MyProfilingReport.txt' )
+        love.profiler.stop()
+        -- report for the top 10 functions, sorted by execution time
+        print(love.profiler.report(30))
         love.event.quit()
     end
 
