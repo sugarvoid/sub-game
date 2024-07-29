@@ -4,11 +4,14 @@
 -- license:     MIT License
 -- version:     0.1
 
-ProFi = require 'lib.profi'
+DEBUG = false
+
 
 love = require("love")
 
-love.profiler = require('lib.profile') 
+if DEBUG then
+    love.profiler = require('lib.profile')
+end
 
 anim8 = require("lib.anim8")
 flux = require("lib.flux")
@@ -43,7 +46,6 @@ local gamestates = {
     retry = 1.1,
     win = 2
 }
-
 local gamestate = nil
 local level = 1
 local background = love.graphics.newImage("asset/image/background.png")
@@ -61,19 +63,17 @@ table.insert(all_mines, _sm)
 
 
 function love.load()
-    love.profiler.start()
-    --ProFi:start()
+    if DEBUG then
+        love.profiler.start()
+    end
+
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.graphics.scale(4)
     font = love.graphics.newFont("asset/font/c64esque.ttf", 16)
     font:setFilter("nearest")
     love.graphics.setFont(font)
     gamestate = gamestates.title
-
     world:setCallbacks(beginContact, endContact, preSolve, postSolve)
-
-
-
 
     --TODO: Move to separate file. The scale is messing with the hitbox
     surface_rect = {
@@ -104,11 +104,10 @@ end
 
 function love.keypressed(key)
     if key == "escape" then
-        --ProFi:stop()
-        --ProFi:writeReport( 'MyProfilingReport.txt' )
-        love.profiler.stop()
-        -- report for the top 10 functions, sorted by execution time
-        print(love.profiler.report(30))
+        if DEBUG then
+            love.profiler.stop()
+            print(love.profiler.report(30))
+        end
         love.event.quit()
     end
 
@@ -120,7 +119,6 @@ function love.keypressed(key)
 
     if gamestate == gamestates.retry then
         if key == "space" then
-            
             reset_game()
             gamestate = gamestates.game
         end
