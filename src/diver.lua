@@ -14,6 +14,8 @@ function Diver:new(x, y, facing_dir)
     _diver.curr_animation = _diver.animations["default"]
     _diver.is_alive = true
     _diver.facing_dir = facing_dir
+    _diver.sx = 0.6 * facing_dir
+    _diver.sy = 0.6
     _diver.x = x
     _diver.y = y
     _diver.move_speed = 30
@@ -35,7 +37,7 @@ function Diver:die(pos)
 end
 
 function Diver:draw()
-    self.curr_animation:draw(self.spr_sheet, self.x, self.y - 2, 0, self.facing_dir, 0.7, self.w / 2, self.h / 2)
+    self.curr_animation:draw(self.spr_sheet, self.x, self.y - 2, 0, self.sx, self.sy, self.w / 2, self.h / 2)
     --draw_hitbox(self.hitbox, "#3e8948")
 end
 
