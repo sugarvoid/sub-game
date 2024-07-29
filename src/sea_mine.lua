@@ -44,9 +44,9 @@ function update_mines(dt)
 end
 
 function draw_mines()
-	for m in table.for_each(all_mines) do 
+	for _, m in ipairs(all_mines) do
 		m:draw()
-	end
+	 end
 end
 
 

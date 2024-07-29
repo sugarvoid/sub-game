@@ -1,221 +1,236 @@
 ###############################################################################################################
-#####  ProFi, a lua profiler. This profile was generated on: Sun Jul 28 19:33:02 2024
+#####  ProFi, a lua profiler. This profile was generated on: 07/29/24 11:08:21
 #####  ProFi is created by Luke Perkin 2012 under the MIT Licence, www.locofilm.co.uk
 #####  Version 1.3. Get the most recent version at this gist: https://gist.github.com/2838755
 ###############################################################################################################
 
-| TOTAL TIME = 4.939842
+| TOTAL TIME = 23.235000
 | FILE                                              : FUNCTION                                : LINE                : TIME        : RELATIVE    : CALLED      |
-| src/surface.lua                                   : draw_back                               :   23                : 53992.648   : 1093003.53% :     142     |
-| src/surface.lua                                   : draw_front                              :   27                : 53900.956   : 1091147.36% :     167     |
-| src/bubble.lua                                    : draw                                    :   28                : 2327.882    : 47124.62%   :      43     |
-| src/player.lua                                    : move                                    :  117                : 1467.317    : 29703.71%   :      84     |
-| src/sea_mine.lua                                  : draw                                    :   30                : 754.357     : 15270.87%   :     302     |
-| [love "callbacks.lua"]                            : anonymous                               :  144                : 4.906       : 99.32%      :     809     |
-| main.lua                                          : draw                                    :  224                : 2.681       : 54.27%      :     808     |
-| main.lua                                          : draw_game                               :  253                : 2.193       : 44.40%      :     776     |
-| main.lua                                          : update                                  :  171                : 1.528       : 30.93%      :     808     |
-| main.lua                                          : update_game                             :  192                : 1.498       : 30.33%      :     776     |
-| lib/flux.lua                                      : update                                  :  147                : 0.833       : 16.87%      :    1552     |
-| src/surface.lua                                   : draw_surface_back                       :   52                : 0.778       : 15.75%      :     776     |
-| lib/color.lua                                     : set_draw_color_from_hex                 :   34                : 0.777       : 15.73%      :    5865     |
-| lib/kgo/core.lua                                  : change_draw_color                       :   25                : 0.596       : 12.07%      :    3944     |
-| src/player.lua                                    : update                                  :   62                : 0.543       : 10.98%      :     776     |
-| lib/kgo/core.lua                                  : draw_hitbox                             :   34                : 0.516       : 10.44%      :    1232     |
-| [love "wrap_Math.lua"]                            : colorFromBytes                          :   72                : 0.420       : 8.50%       :    5865     |
-| src/o2_bar.lua                                    : draw                                    :   25                : 0.327       : 6.62%       :     776     |
-| src/surface.lua                                   : draw_surface_front                      :   59                : 0.323       : 6.53%       :     776     |
-| lib/kgo/core.lua                                  : (for generator)                         :   50                : 0.245       : 4.96%       :   36128     |
-| [string "return function(p)     p = 1 - p..."]    : anonymous                               :    1                : 0.204       : 4.12%       :   37408     |
-| src/player.lua                                    : draw                                    :  159                : 0.193       : 3.91%       :     776     |
-| src/sea_mine.lua                                  : draw_mines                              :   46                : 0.151       : 3.06%       :     776     |
-| src/bubble.lua                                    : draw_bubbles                            :   41                : 0.113       : 2.28%       :     776     |
-| src/surface.lua                                   : move_up                                 :   31                : 0.082       : 1.66%       :     268     |
-| src/diver.lua                                     : update_divers                           :   46                : 0.081       : 1.65%       :     776     |
-| src/surface.lua                                   : _oncomplete                             :   35                : 0.079       : 1.61%       :     238     |
-| lib/anim8.lua                                     : update                                  :  226                : 0.067       : 1.35%       :    1891     |
-| src/diver.lua                                     : draw_divers                             :   78                : 0.064       : 1.30%       :     776     |
-| src/bubble.lua                                    : update_bubbles                          :   35                : 0.064       : 1.29%       :     776     |
-| lib/anim8.lua                                     : draw                                    :  265                : 0.057       : 1.15%       :    1890     |
-| lib/kgo/core.lua                                  : for_each                                :   48                : 0.052       : 1.06%       :    9487     |
-| src/sea_mine.lua                                  : update_mines                            :   36                : 0.050       : 1.01%       :     776     |
-| src/player_torpedo.lua                            : draw_torpedos                           :   66                : 0.049       : 0.99%       :     776     |
-| src/shark.lua                                     : draw_sharks                             :   70                : 0.048       : 0.98%       :     776     |
-| src/shark.lua                                     : update_sharks                           :   53                : 0.044       : 0.89%       :     776     |
-| src/diver.lua                                     : update                                  :   25                : 0.043       : 0.87%       :     942     |
-| src/spawner.lua                                   : update                                  :   82                : 0.033       : 0.67%       :     776     |
-| src/diver.lua                                     : draw                                    :   37                : 0.032       : 0.65%       :     942     |
-| lib/anim8.lua                                     : seekFrameIndex                          :  211                : 0.032       : 0.65%       :    1891     |
-| src/player_torpedo.lua                            : draw                                    :   61                : 0.030       : 0.60%       :     197     |
-| src/shark.lua                                     : draw                                    :   45                : 0.028       : 0.58%       :     172     |
-| src/mini_sub.lua                                  : update_mini_subs                        :   53                : 0.022       : 0.44%       :     776     |
-| lib/kgo/timer.lua                                 : update                                  :   18                : 0.021       : 0.42%       :    2328     |
-| [love "RandomGenerator.lua"]                      : random                                  :   33                : 0.018       : 0.37%       :     834     |
-| lib/kgo/sound_manager.lua                         : play_sfx                                :    2                : 0.018       : 0.37%       :       4     |
-| main.lua                                          : anonymous                               :  138                : 0.018       : 0.36%       :      20     |
-| src/mini_sub.lua                                  : draw_mini_subs                          :   70                : 0.017       : 0.34%       :     776     |
-| src/bubble.lua                                    : update                                  :   18                : 0.017       : 0.34%       :    3118     |
-| src/battleship.lua                                : pass_by                                 :   38                : 0.016       : 0.33%       :       3     |
-| src/battleship.lua                                : update                                  :   25                : 0.015       : 0.30%       :     776     |
-| src/diver_hud.lua                                 : draw                                    :   29                : 0.012       : 0.25%       :     776     |
-| main.lua                                          : check_collision                         :  308                : 0.012       : 0.25%       :    1973     |
-| lib/anim8.lua                                     : getFrameInfo                            :  269                : 0.011       : 0.22%       :    1890     |
-| lib/flux.lua                                      : new                                     :   88                : 0.008       : 0.17%       :     271     |
-| src/battleship.lua                                : draw                                    :   53                : 0.008       : 0.17%       :     776     |
-| src/surface.lua                                   : set_up_surface                          :   42                : 0.008       : 0.16%       :       1     |
-| src/shark.lua                                     : update                                  :   30                : 0.007       : 0.15%       :     173     |
-| [love "wrap_Event.lua"]                           : poll                                    :   25                : 0.007       : 0.14%       :     809     |
-| lib/flux.lua                                      : delay                                   :   68                : 0.007       : 0.13%       :     268     |
-| lib/kgo/timer.lua                                 : on_done                                 :   51                : 0.006       : 0.12%       :       4     |
-| lib/flux.lua                                      : init                                    :  106                : 0.006       : 0.12%       :     265     |
-| src/spawner.lua                                   : on_done_func                            :   70                : 0.006       : 0.11%       :       2     |
-| src/spawner.lua                                   : spawn_something                         :  108                : 0.006       : 0.11%       :       2     |
-| src/spawner.lua                                   : spawn_actor                             :   87                : 0.005       : 0.11%       :       6     |
-| src/player_torpedo.lua                            : update                                  :   34                : 0.005       : 0.10%       :     198     |
-| [builtin:rad]                                     : rad                                     :   -1                : 0.005       : 0.10%       :     776     |
-| src/sea_mine.lua                                  : update                                  :   23                : 0.005       : 0.10%       :     776     |
-| lib/flux.lua                                      : oncomplete                              :   56                : 0.005       : 0.10%       :     271     |
-| src/o2_bar.lua                                    : update                                  :   21                : 0.004       : 0.09%       :     776     |
-| lib/flux.lua                                      : to                                      :  186                : 0.004       : 0.08%       :     271     |
-| src/diver.lua                                     : new                                     :    7                : 0.004       : 0.08%       :       4     |
-| lib/flux.lua                                      : clear                                   :  177                : 0.003       : 0.07%       :     265     |
-| lib/flux.lua                                      : checkfn                                 :   81                : 0.003       : 0.06%       :     268     |
-| src/shark.lua                                     : die                                     :   38                : 0.002       : 0.05%       :       1     |
-| [builtin:remove]                                  : remove                                  :   -1                : 0.002       : 0.05%       :     272     |
-| main.lua                                          : draw_title                              :  249                : 0.002       : 0.04%       :      32     |
-| lib/anim8.lua                                     : newGrid                                 :  100                : 0.001       : 0.03%       :       6     |
-| src/shark.lua                                     : new                                     :   11                : 0.001       : 0.03%       :       2     |
-| lib/anim8.lua                                     : s_grid                                  :   78                : 0.001       : 0.02%       :       6     |
-| src/player.lua                                    : shoot                                   :  147                : 0.001       : 0.02%       :       3     |
-| lib/anim8.lua                                     : assertPositiveInteger                   :   35                : 0.001       : 0.02%       :      24     |
-| [love "callbacks.lua"]                            : anonymous                               :   37                : 0.001       : 0.01%       :      97     |
-| src/player_torpedo.lua                            : drop                                    :   54                : 0.001       : 0.01%       :       3     |
-| src/shark_parts.lua                               : draw                                    :   48                : 0.001       : 0.01%       :      19     |
-| src/bubble.lua                                    : new                                     :    7                : 0.001       : 0.01%       :      31     |
-| src/spawner.lua                                   : spawn_battleship                        :  114                : 0.000       : 0.01%       :       4     |
-| lib/anim8.lua                                     : parseInterval                           :   68                : 0.000       : 0.01%       :      12     |
-| lib/anim8.lua                                     : f                                       :  169                : 0.000       : 0.01%       :      52     |
-| lib/anim8.lua                                     : getOrCreateFrame                        :   57                : 0.000       : 0.01%       :      16     |
-| src/shark_parts.lua                               : update                                  :   26                : 0.000       : 0.00%       :      20     |
-| src/surface.lua                                   : new                                     :   13                : 0.000       : 0.00%       :      30     |
-| main.lua                                          : update_title                            :  188                : 0.000       : 0.00%       :      32     |
-| main.lua                                          : start_game                              :  130                : 0.000       : 0.00%       :       1     |
-| [love "callbacks.lua"]                            : anonymous                               :   34                : 0.000       : 0.00%       :      19     |
-| src/spawner.lua                                   : on_done_func                            :   69                : 0.000       : 0.00%       :       1     |
-| lib/anim8.lua                                     : getDimensions                           :  292                : 0.000       : 0.00%       :       6     |
-| [love "callbacks.lua"]                            : anonymous                               :   91                : 0.000       : 0.00%       :       1     |
-| lib/anim8.lua                                     : parseDurations                          :  139                : 0.000       : 0.00%       :       6     |
-| main.lua                                          : reset_game                              :  126                : 0.000       : 0.00%       :       1     |
-| src/player_torpedo.lua                            : new                                     :   11                : 0.000       : 0.00%       :       3     |
-| [love "RandomGenerator.lua"]                      : roll                                    :   33                : 0.000       : 0.00%       :       4     |
-| lib/kgo/core.lua                                  : remove_item                             :   55                : 0.000       : 0.00%       :       5     |
-| src/player.lua                                    : reset                                   :  164                : 0.000       : 0.00%       :       1     |
-| src/battleship.lua                                : on_done_func                            :   11                : 0.000       : 0.00%       :       1     |
-| lib/anim8.lua                                     : parseIntervals                          :  159                : 0.000       : 0.00%       :       6     |
-| lib/anim8.lua                                     : cloneArray                              :  133                : 0.000       : 0.00%       :       6     |
-| lib/kgo/timer.lua                                 : start                                   :   29                : 0.000       : 0.00%       :       6     |
-| src/battleship.lua                                : go                                      :   44                : 0.000       : 0.00%       :       1     |
-| src/shark_parts.lua                               : spawn_shark_peices                      :   55                : 0.000       : 0.00%       :       1     |
-| src/player_torpedo.lua                            : _oncomplete                             :   55                : 0.000       : 0.00%       :       3     |
-| lib/anim8.lua                                     : gotoFrame                               :  244                : 0.000       : 0.00%       :       1     |
-| lib/anim8.lua                                     : resume                                  :  261                : 0.000       : 0.00%       :       1     |
-| src/shark_parts.lua                               : new                                     :   11                : 0.000       : 0.00%       :       1     |
-| [love "callbacks.lua"]                            : anonymous                               :   97                : 0.000       : 0.00%       :       1     |
-| [love "callbacks.lua"]                            : anonymous                               :   40                : 0.000       : 0.00%       :       1     |
-| main.lua                                          : get_kill_value                          :  393                : 0.000       : 0.00%       :       1     |
-| lib/profi.lua                                     : shouldReturn                            :  199                : 0.000       : 0.00%       :       1     |
-| src/player.lua                                    : increase_score                          :  102                : 0.000       : 0.00%       :       1     |
-| [C]                                               : getViewport                             :   -1                : 0.000       : 0.00%       :       6     |
-| lib/profi.lua                                     : stop                                    :   85                : 0.000       : 0.00%       :       1     |
-| [C]                                               : next                                    :   -1                : 0.000       : 0.00%       :     241     |
-| [C]                                               : newImage                                :   -1                : 0.000       : 0.00%       :       4     |
-| [C]                                               : play                                    :   -1                : 0.000       : 0.00%       :       4     |
-| src/spawner.lua                                   : roll                                    :   51                : 0.000       : 0.00%       :       4     |
-| [C]                                               : circle                                  :   -1                : 0.000       : 0.00%       :    3088     |
-| [love "RandomGenerator.lua"]                      : roll                                    :   75                : 0.000       : 0.00%       :       4     |
-| [C]                                               : getHeight                               :   -1                : 0.000       : 0.00%       :       6     |
-| [C]                                               : gsub                                    :   -1                : 0.000       : 0.00%       :       6     |
-| [C]                                               : getGridKey                              :   -1                : 0.000       : 0.00%       :       6     |
-| [love "wrap_Math.lua"]                            : roll                                    :   37                : 0.000       : 0.00%       :       4     |
-| lib/anim8.lua                                     : getGridKey                              :   53                : 0.000       : 0.00%       :       6     |
-| [C]                                               : newAnimation                            :   -1                : 0.000       : 0.00%       :       6     |
-| [C]                                               : getWidth                                :   -1                : 0.000       : 0.00%       :       6     |
-| [C]                                               : match                                   :   -1                : 0.000       : 0.00%       :       6     |
-| [C]                                               : createFrame                             :   -1                : 0.000       : 0.00%       :       6     |
-| lib/anim8.lua                                     : newAnimation                            :  171                : 0.000       : 0.00%       :       6     |
-| [C]                                               : getDimensions                           :   -1                : 0.000       : 0.00%       :       3     |
-| lib/anim8.lua                                     : createFrame                             :   41                : 0.000       : 0.00%       :       6     |
-| [C]                                               : assert                                  :   -1                : 0.000       : 0.00%       :       6     |
-| [C]                                               : stop                                    :   -1                : 0.000       : 0.00%       :       4     |
-| lib/flux.lua                                      : remove                                  :  198                : 0.000       : 0.00%       :     241     |
+| src/bubble.lua                                    : draw                                    :   28                : 45873.090   : 197430.99%  :      24     |
+| src/surface.lua                                   : draw_surface_back                       :   73                : 12720.313   : 54746.34%   :     141     |
+| src/sea_mine.lua                                  : draw                                    :   30                : 12209.972   : 52549.91%   :     166     |
+| src/player.lua                                    : move                                    :  117                : 9205.588    : 39619.49%   :     282     |
+| [love "callbacks.lua"]                            : anonymous                               :  144                : 23.227      : 99.97%      :    1394     |
+| main.lua                                          : draw                                    :  187                : 1.629       : 7.01%       :    1393     |
+| main.lua                                          : update                                  :  133                : 1.606       : 6.91%       :    1393     |
+| main.lua                                          : update_game                             :  154                : 1.596       : 6.87%       :    1376     |
+| main.lua                                          : draw_game                               :  216                : 1.266       : 5.45%       :    1376     |
+| lib/kgo/core.lua                                  : draw_hitbox                             :   34                : 0.810       : 3.49%       :    2210     |
+| lib/color.lua                                     : set_draw_color_from_hex                 :   34                : 0.579       : 2.49%       :   10907     |
+| lib/flux.lua                                      : update                                  :  147                : 0.344       : 1.48%       :    2752     |
+| lib/kgo/core.lua                                  : change_draw_color                       :   25                : 0.327       : 1.41%       :    6914     |
+| [love "wrap_Math.lua"]                            : colorFromBytes                          :   72                : 0.317       : 1.36%       :   10907     |
+| src/player.lua                                    : draw                                    :  159                : 0.243       : 1.05%       :    1376     |
+| src/player.lua                                    : update                                  :   62                : 0.243       : 1.05%       :    1376     |
+| src/diver.lua                                     : draw_divers                             :   78                : 0.210       : 0.90%       :    1376     |
+| src/o2_bar.lua                                    : draw                                    :   25                : 0.191       : 0.82%       :    1376     |
+| lib/anim8.lua                                     : draw                                    :  265                : 0.150       : 0.65%       :    5575     |
+| src/surface.lua                                   : update_surfaces                         :   65                : 0.143       : 0.62%       :    1376     |
+| src/shark.lua                                     : draw_sharks                             :   70                : 0.138       : 0.59%       :    1376     |
+| src/diver.lua                                     : draw                                    :   37                : 0.125       : 0.54%       :    3454     |
+| src/bubble.lua                                    : draw_bubbles                            :   43                : 0.113       : 0.49%       :    1376     |
+| src/diver.lua                                     : update_divers                           :   46                : 0.108       : 0.46%       :    1376     |
+| src/shark.lua                                     : draw                                    :   45                : 0.107       : 0.46%       :     745     |
+| src/sea_mine.lua                                  : draw_mines                              :   46                : 0.100       : 0.43%       :    1376     |
+| [string "return function(p)     p = 1 - p..."]    : anonymous                               :    1                : 0.099       : 0.43%       :   66982     |
+| src/bubble.lua                                    : update_bubbles                          :   37                : 0.097       : 0.42%       :    1376     |
+| lib/kgo/core.lua                                  : (for generator)                         :   50                : 0.089       : 0.38%       :   22085     |
+| src/player_torpedo.lua                            : draw_torpedos                           :   66                : 0.077       : 0.33%       :    1376     |
+| src/diver.lua                                     : update                                  :   25                : 0.067       : 0.29%       :    3454     |
+| lib/anim8.lua                                     : update                                  :  226                : 0.066       : 0.28%       :    5577     |
+| src/player_torpedo.lua                            : draw                                    :   61                : 0.060       : 0.26%       :     496     |
+| src/shark.lua                                     : update_sharks                           :   53                : 0.058       : 0.25%       :    1376     |
+| src/sea_mine.lua                                  : update_mines                            :   36                : 0.051       : 0.22%       :    1376     |
+| lib/kgo/core.lua                                  : for_each                                :   48                : 0.047       : 0.20%       :   14510     |
+| src/bubble.lua                                    : update                                  :   18                : 0.037       : 0.16%       :    7947     |
+| src/surface.lua                                   : move_up                                 :   35                : 0.036       : 0.15%       :     468     |
+| src/surface.lua                                   : _oncomplete                             :   39                : 0.035       : 0.15%       :     438     |
+| lib/anim8.lua                                     : seekFrameIndex                          :  211                : 0.034       : 0.15%       :    5577     |
+| src/surface.lua                                   : draw_surface_front                      :   80                : 0.030       : 0.13%       :    1376     |
+| src/spawner.lua                                   : update                                  :   82                : 0.025       : 0.11%       :    1376     |
+| src/mini_sub.lua                                  : update_mini_subs                        :   53                : 0.024       : 0.10%       :    1376     |
+| lib/kgo/timer.lua                                 : update                                  :   18                : 0.020       : 0.09%       :    4128     |
+| lib/anim8.lua                                     : getFrameInfo                            :  269                : 0.019       : 0.08%       :    5575     |
+| src/mini_sub.lua                                  : draw_mini_subs                          :   70                : 0.018       : 0.08%       :    1376     |
+| lib/kgo/timer.lua                                 : on_done                                 :   51                : 0.016       : 0.07%       :       6     |
+| src/shark.lua                                     : update                                  :   30                : 0.015       : 0.06%       :     747     |
+| main.lua                                          : check_collision                         :  269                : 0.014       : 0.06%       :    5749     |
+| src/spawner.lua                                   : spawn_something                         :  108                : 0.013       : 0.06%       :       3     |
+| src/spawner.lua                                   : on_done_func                            :   70                : 0.013       : 0.06%       :       3     |
+| src/spawner.lua                                   : spawn_actor                             :   87                : 0.011       : 0.05%       :       9     |
+| [love "RandomGenerator.lua"]                      : random                                  :   33                : 0.010       : 0.04%       :    1434     |
+| src/player_torpedo.lua                            : update                                  :   34                : 0.010       : 0.04%       :     498     |
+| src/battleship.lua                                : draw                                    :   53                : 0.009       : 0.04%       :    1376     |
+| src/spawner.lua                                   : spawn_battleship                        :  114                : 0.009       : 0.04%       :       8     |
+| src/diver_hud.lua                                 : draw                                    :   29                : 0.008       : 0.03%       :    1376     |
+| src/surface.lua                                   : set_up_surface                          :   46                : 0.007       : 0.03%       :       1     |
+| main.lua                                          : anonymous                               :  102                : 0.007       : 0.03%       :      32     |
+| src/sea_mine.lua                                  : update                                  :   23                : 0.006       : 0.03%       :    1376     |
+| lib/kgo/sound_manager.lua                         : play_sfx                                :    2                : 0.006       : 0.03%       :       5     |
+| [builtin:rad]                                     : rad                                     :   -1                : 0.006       : 0.03%       :    1376     |
+| src/diver.lua                                     : new                                     :    7                : 0.006       : 0.03%       :       6     |
+| src/battleship.lua                                : update                                  :   25                : 0.006       : 0.03%       :    1376     |
+| lib/flux.lua                                      : delay                                   :   68                : 0.004       : 0.02%       :     468     |
+| lib/flux.lua                                      : new                                     :   88                : 0.004       : 0.02%       :     476     |
+| lib/flux.lua                                      : init                                    :  106                : 0.003       : 0.01%       :     470     |
+| lib/flux.lua                                      : checkfn                                 :   81                : 0.003       : 0.01%       :     468     |
+| src/shark.lua                                     : die                                     :   38                : 0.003       : 0.01%       :       2     |
+| lib/flux.lua                                      : to                                      :  186                : 0.003       : 0.01%       :     476     |
+| src/battleship.lua                                : pass_by                                 :   38                : 0.003       : 0.01%       :       1     |
+| main.lua                                          : draw_title                              :  212                : 0.003       : 0.01%       :      17     |
+| [love "wrap_Event.lua"]                           : poll                                    :   25                : 0.003       : 0.01%       :    1394     |
+| src/o2_bar.lua                                    : update                                  :   21                : 0.002       : 0.01%       :    1376     |
+| lib/flux.lua                                      : oncomplete                              :   56                : 0.002       : 0.01%       :     476     |
+| main.lua                                          : anonymous                               :  328                : 0.002       : 0.01%       :       1     |
+| src/spawner.lua                                   : on_done_func                            :   69                : 0.002       : 0.01%       :       2     |
+| [builtin:remove]                                  : remove                                  :   -1                : 0.001       : 0.00%       :     525     |
+| [love "callbacks.lua"]                            : anonymous                               :   37                : 0.001       : 0.00%       :     149     |
+| src/battleship.lua                                : on_done_func                            :   11                : 0.001       : 0.00%       :       1     |
+| lib/anim8.lua                                     : parseDurations                          :  139                : 0.001       : 0.00%       :       9     |
+| src/bubble.lua                                    : new                                     :    7                : 0.001       : 0.00%       :      79     |
+| src/shark.lua                                     : new                                     :   11                : 0.001       : 0.00%       :       3     |
+| src/battleship.lua                                : go                                      :   44                : 0.001       : 0.00%       :       1     |
+| src/player.lua                                    : unload_divers                           :  106                : 0.001       : 0.00%       :       1     |
+| src/player.lua                                    : _oncomplete                             :   88                : 0.001       : 0.00%       :       1     |
+| main.lua                                          : anonymous                               :  297                : 0.001       : 0.00%       :       1     |
+| lib/anim8.lua                                     : f                                       :  169                : 0.001       : 0.00%       :     153     |
+| src/player_torpedo.lua                            : drop                                    :   54                : 0.000       : 0.00%       :       6     |
+| [C]                                               : getDimensions                           :   -1                : 0.000       : 0.00%       :       6     |
+| [love "RandomGenerator.lua"]                      : roll                                    :   33                : 0.000       : 0.00%       :       8     |
+| [love "RandomGenerator.lua"]                      : roll                                    :   75                : 0.000       : 0.00%       :       8     |
+| [C]                                               : next                                    :   -1                : 0.000       : 0.00%       :     446     |
+| lib/flux.lua                                      : remove                                  :  198                : 0.000       : 0.00%       :     446     |
+| src/spawner.lua                                   : roll                                    :   51                : 0.000       : 0.00%       :       8     |
+| [love "wrap_Math.lua"]                            : roll                                    :   37                : 0.000       : 0.00%       :       8     |
 | lib/profi.lua                                     : startHooks                              :  234                : 0.000       : 0.00%       :       0     |
-| [C]                                               : line                                    :   -1                : 0.000       : 0.00%       :    2328     |
-| [C]                                               : type                                    :   -1                : 0.000       : 0.00%       :    8953     |
-| [C]                                               : floor                                   :   -1                : 0.000       : 0.00%       :   23778     |
-| [C]                                               : setmetatable                            :   -1                : 0.000       : 0.00%       :     348     |
-| [C]                                               : tonumber                                :   -1                : 0.000       : 0.00%       :   24310     |
-| [C]                                               : __index                                 :   -1                : 0.000       : 0.00%       :     838     |
-| [C]                                               : random                                  :   -1                : 0.000       : 0.00%       :     838     |
-| [love "RandomGenerator.lua"]                      : random                                  :   75                : 0.000       : 0.00%       :     834     |
-| lib/flux.lua                                      : to                                      :  218                : 0.000       : 0.00%       :     271     |
-| [C]                                               : pairs                                   :   -1                : 0.000       : 0.00%       :   38450     |
-| [C]                                               : step                                    :   -1                : 0.000       : 0.00%       :     809     |
+| lib/anim8.lua                                     : newGrid                                 :  100                : 0.000       : 0.00%       :       9     |
+| [C]                                               : circle                                  :   -1                : 0.000       : 0.00%       :    7871     |
+| src/shark_parts.lua                               : update                                  :   26                : 0.000       : 0.00%       :      40     |
+| src/shark_parts.lua                               : draw                                    :   48                : 0.000       : 0.00%       :      38     |
+| [C]                                               : getNormal                               :   -1                : 0.000       : 0.00%       :       1     |
+| [C]                                               : getUserData                             :   -1                : 0.000       : 0.00%       :       2     |
+| src/shark_parts.lua                               : new                                     :   11                : 0.000       : 0.00%       :       2     |
+| src/player.lua                                    : increase_score                          :  102                : 0.000       : 0.00%       :       2     |
+| src/shark_parts.lua                               : spawn_shark_peices                      :   55                : 0.000       : 0.00%       :       2     |
+| [C]                                               : play                                    :   -1                : 0.000       : 0.00%       :       8     |
+| main.lua                                          : get_kill_value                          :  354                : 0.000       : 0.00%       :       2     |
+| [C]                                               : stop                                    :   -1                : 0.000       : 0.00%       :       5     |
+| src/player.lua                                    : on_surfaced                             :   82                : 0.000       : 0.00%       :       1     |
+| src/player.lua                                    : play_sound                              :  171                : 0.000       : 0.00%       :       3     |
+| src/diver_hud.lua                                 : update_display                          :   26                : 0.000       : 0.00%       :       2     |
+| lib/profi.lua                                     : stop                                    :   85                : 0.000       : 0.00%       :       1     |
+| lib/profi.lua                                     : shouldReturn                            :  199                : 0.000       : 0.00%       :       1     |
+| src/player.lua                                    : refill_o2                               :   86                : 0.000       : 0.00%       :       1     |
+| lib/kgo/timer.lua                                 : stop                                    :   37                : 0.000       : 0.00%       :       1     |
+| main.lua                                          : anonymous                               :  348                : 0.000       : 0.00%       :      92     |
+| src/player.lua                                    : _oncomplete                             :   92                : 0.000       : 0.00%       :       1     |
+| main.lua                                          : anonymous                               :  339                : 0.000       : 0.00%       :      92     |
+| src/player_torpedo.lua                            : _oncomplete                             :   55                : 0.000       : 0.00%       :       6     |
+| lib/kgo/timer.lua                                 : start                                   :   29                : 0.000       : 0.00%       :       6     |
+| [C]                                               : getViewport                             :   -1                : 0.000       : 0.00%       :       9     |
+| [C]                                               : getGridKey                              :   -1                : 0.000       : 0.00%       :       9     |
+| lib/anim8.lua                                     : s_grid                                  :   78                : 0.000       : 0.00%       :       9     |
+| lib/anim8.lua                                     : parseInterval                           :   68                : 0.000       : 0.00%       :      18     |
+| [C]                                               : gsub                                    :   -1                : 0.000       : 0.00%       :       9     |
+| lib/anim8.lua                                     : getGridKey                              :   53                : 0.000       : 0.00%       :       9     |
+| [C]                                               : getHeight                               :   -1                : 0.000       : 0.00%       :       9     |
+| lib/anim8.lua                                     : assertPositiveInteger                   :   35                : 0.000       : 0.00%       :      36     |
+| lib/kgo/core.lua                                  : remove_item                             :   55                : 0.000       : 0.00%       :      12     |
+| [C]                                               : getWidth                                :   -1                : 0.000       : 0.00%       :       9     |
+| [C]                                               : newImage                                :   -1                : 0.000       : 0.00%       :       6     |
+| [C]                                               : match                                   :   -1                : 0.000       : 0.00%       :       9     |
+| lib/anim8.lua                                     : getOrCreateFrame                        :   57                : 0.000       : 0.00%       :      24     |
+| lib/anim8.lua                                     : cloneArray                              :  133                : 0.000       : 0.00%       :       9     |
+| [C]                                               : newAnimation                            :   -1                : 0.000       : 0.00%       :       9     |
+| lib/anim8.lua                                     : getDimensions                           :  292                : 0.000       : 0.00%       :       9     |
+| [C]                                               : assert                                  :   -1                : 0.000       : 0.00%       :       9     |
+| lib/anim8.lua                                     : parseIntervals                          :  159                : 0.000       : 0.00%       :       9     |
+| [C]                                               : createFrame                             :   -1                : 0.000       : 0.00%       :       6     |
+| lib/anim8.lua                                     : newAnimation                            :  171                : 0.000       : 0.00%       :       9     |
+| lib/anim8.lua                                     : createFrame                             :   41                : 0.000       : 0.00%       :       6     |
+| src/player_torpedo.lua                            : new                                     :   11                : 0.000       : 0.00%       :       6     |
+| [C]                                               : tostring                                :   -1                : 0.000       : 0.00%       :    1376     |
+| [love "callbacks.lua"]                            : anonymous                               :   34                : 0.000       : 0.00%       :      31     |
+| lib/flux.lua                                      : to                                      :  218                : 0.000       : 0.00%       :     476     |
+| lib/flux.lua                                      : to                                      :  142                : 0.000       : 0.00%       :     476     |
+| [C]                                               : pairs                                   :   -1                : 0.000       : 0.00%       :   68844     |
+| [C]                                               : insert                                  :   -1                : 0.000       : 0.00%       :     602     |
+| [C]                                               : setmetatable                            :   -1                : 0.000       : 0.00%       :     611     |
+| [C]                                               : floor                                   :   -1                : 0.000       : 0.00%       :   49440     |
+| src/surface.lua                                   : new                                     :   16                : 0.000       : 0.00%       :      30     |
+| [C]                                               : type                                    :   -1                : 0.000       : 0.00%       :   16344     |
+| [C]                                               : tonumber                                :   -1                : 0.000       : 0.00%       :   45088     |
+| [C]                                               : getmetatable                            :   -1                : 0.000       : 0.00%       :     476     |
+| [C]                                               : ipairs                                  :   -1                : 0.000       : 0.00%       :    5517     |
 | [love "callbacks.lua"]                            : anonymous                               :  135                : 0.000       : 0.00%       :       0     |
-| lib/flux.lua                                      : to                                      :  142                : 0.000       : 0.00%       :     271     |
-| main.lua                                          : load                                    :   61                : 0.000       : 0.00%       :       0     |
-| [C]                                               : insert                                  :   -1                : 0.000       : 0.00%       :     342     |
-| [C]                                               : getmetatable                            :   -1                : 0.000       : 0.00%       :     271     |
 | [love "boot.lua"]                                 : anonymous                               :  355                : 0.000       : 0.00%       :       0     |
-| [love "wrap_Math.lua"]                            : random                                  :   37                : 0.000       : 0.00%       :     834     |
-| [love "wrap_Math.lua"]                            : setRandomSeed                           :   45                : 0.000       : 0.00%       :       1     |
-| [C]                                               : scale                                   :   -1                : 0.000       : 0.00%       :    4673     |
+| [C]                                               : yield                                   :   -1                : 0.000       : 0.00%       :    1394     |
+| [C]                                               : clear                                   :   -1                : 0.000       : 0.00%       :    1395     |
+| [C]                                               : step                                    :   -1                : 0.000       : 0.00%       :    1394     |
+| [C]                                               : add                                     :   -1                : 0.000       : 0.00%       :      60     |
+| main.lua                                          : load                                    :   61                : 0.000       : 0.00%       :       0     |
+| [C]                                               : (for generator)                         :   -1                : 0.000       : 0.00%       :   27887     |
+| [C]                                               : xpcall                                  :   -1                : 0.000       : 0.00%       :    1394     |
+| [C]                                               : random                                  :   -1                : 0.000       : 0.00%       :    1442     |
+| [love "RandomGenerator.lua"]                      : random                                  :   75                : 0.000       : 0.00%       :    1434     |
 | [C]                                               : newFont                                 :   -1                : 0.000       : 0.00%       :       1     |
 | [C]                                               : anonymous                               :   -1                : 0.000       : 0.00%       :       1     |
+| [C]                                               : setFilter                               :   -1                : 0.000       : 0.00%       :       1     |
+| [C]                                               : setFont                                 :   -1                : 0.000       : 0.00%       :       1     |
+| [C]                                               : scale                                   :   -1                : 0.000       : 0.00%       :    1394     |
+| lib/profi.lua                                     : start                                   :   67                : 0.000       : 0.00%       :       0     |
 | [C]                                               : setDefaultFilter                        :   -1                : 0.000       : 0.00%       :       1     |
 | [C]                                               : getTime                                 :   -1                : 0.000       : 0.00%       :       3     |
-| lib/profi.lua                                     : start                                   :   67                : 0.000       : 0.00%       :       0     |
-| [C]                                               : setRandomSeed                           :   -1                : 0.000       : 0.00%       :       1     |
-| [C]                                               : setFilter                               :   -1                : 0.000       : 0.00%       :       1     |
+| [C]                                               : __index                                 :   -1                : 0.000       : 0.00%       :    1442     |
 | [C]                                               : setCallbacks                            :   -1                : 0.000       : 0.00%       :       1     |
+| [C]                                               : newRectangleShape                       :   -1                : 0.000       : 0.00%       :       1     |
+| [C]                                               : setRandomSeed                           :   -1                : 0.000       : 0.00%       :       1     |
+| [love "wrap_Math.lua"]                            : random                                  :   37                : 0.000       : 0.00%       :    1434     |
+| [C]                                               : newBody                                 :   -1                : 0.000       : 0.00%       :       1     |
+| [love "wrap_Math.lua"]                            : setRandomSeed                           :   45                : 0.000       : 0.00%       :       1     |
 | [C]                                               : setAwake                                :   -1                : 0.000       : 0.00%       :       1     |
 | [C]                                               : setUserData                             :   -1                : 0.000       : 0.00%       :       1     |
-| [C]                                               : setFont                                 :   -1                : 0.000       : 0.00%       :       1     |
 | [C]                                               : newFixture                              :   -1                : 0.000       : 0.00%       :       1     |
-| [C]                                               : newBody                                 :   -1                : 0.000       : 0.00%       :       1     |
-| [C]                                               : newRectangleShape                       :   -1                : 0.000       : 0.00%       :       1     |
-| [C]                                               : format                                  :   -1                : 0.000       : 0.00%       :     782     |
-| [C]                                               : yield                                   :   -1                : 0.000       : 0.00%       :     809     |
-| [C]                                               : pump                                    :   -1                : 0.000       : 0.00%       :     809     |
-| [C]                                               : min                                     :   -1                : 0.000       : 0.00%       :    5134     |
-| main.lua                                          : clamp                                   :  304                : 0.000       : 0.00%       :    3263     |
-| [C]                                               : clamp                                   :   -1                : 0.000       : 0.00%       :    3263     |
-| [C]                                               : isDown                                  :   -1                : 0.000       : 0.00%       :    2785     |
-| lib/flux.lua                                      : update                                  :  219                : 0.000       : 0.00%       :    1552     |
-| [C]                                               : update                                  :   -1                : 0.000       : 0.00%       :     776     |
-| [love "callbacks.lua"]                            : anonymous                               :   31                : 0.000       : 0.00%       :      20     |
-| [C]                                               : setPosition                             :   -1                : 0.000       : 0.00%       :     776     |
+| src/player.lua                                    : shoot                                   :  147                : 0.000       : 0.00%       :       6     |
+| [C]                                               : pump                                    :   -1                : 0.000       : 0.00%       :    1394     |
+| [love "callbacks.lua"]                            : anonymous                               :   91                : 0.000       : 0.00%       :       1     |
+| [C]                                               : min                                     :   -1                : 0.000       : 0.00%       :    8574     |
+| main.lua                                          : clamp                                   :  265                : 0.000       : 0.00%       :    5431     |
+| [C]                                               : clamp                                   :   -1                : 0.000       : 0.00%       :    5431     |
+| [C]                                               : setPosition                             :   -1                : 0.000       : 0.00%       :    1376     |
+| [C]                                               : isDown                                  :   -1                : 0.000       : 0.00%       :    4387     |
+| lib/flux.lua                                      : update                                  :  219                : 0.000       : 0.00%       :    2752     |
+| [C]                                               : update                                  :   -1                : 0.000       : 0.00%       :    1376     |
+| lib/anim8.lua                                     : gotoFrame                               :  244                : 0.000       : 0.00%       :       1     |
+| lib/anim8.lua                                     : resume                                  :  261                : 0.000       : 0.00%       :       1     |
+| [C]                                               : set                                     :   -1                : 0.000       : 0.00%       :   82560     |
 | lib/profi.lua                                     : stopHooks                               :  238                : 0.000       : 0.00%       :       1     |
-| [C]                                               : push                                    :   -1                : 0.000       : 0.00%       :    6561     |
-| [C]                                               : pop                                     :   -1                : 0.000       : 0.00%       :    6561     |
-| [C]                                               : ipairs                                  :   -1                : 0.000       : 0.00%       :    3109     |
-| [C]                                               : setTitle                                :   -1                : 0.000       : 0.00%       :     776     |
-| [C]                                               : getFPS                                  :   -1                : 0.000       : 0.00%       :     776     |
-| [C]                                               : tostring                                :   -1                : 0.000       : 0.00%       :     776     |
-| [C]                                               : xpcall                                  :   -1                : 0.000       : 0.00%       :     809     |
-| [C]                                               : sleep                                   :   -1                : 0.000       : 0.00%       :     808     |
-| [C]                                               : print                                   :   -1                : 0.000       : 0.00%       :     822     |
-| [C]                                               : origin                                  :   -1                : 0.000       : 0.00%       :     808     |
-| [C]                                               : getBackgroundColor                      :   -1                : 0.000       : 0.00%       :     808     |
-| [C]                                               : clear                                   :   -1                : 0.000       : 0.00%       :     808     |
-| [C]                                               : isActive                                :   -1                : 0.000       : 0.00%       :     808     |
-| [C]                                               : (for generator)                         :   -1                : 0.000       : 0.00%       :   34515     |
-| [C]                                               : collectgarbage                          :   -1                : 0.000       : 0.00%       :     808     |
-| [C]                                               : present                                 :   -1                : 0.000       : 0.00%       :     808     |
-| [C]                                               : draw                                    :   -1                : 0.000       : 0.00%       :   52759     |
-| [love "wrap_Math.lua"]                            : clamp01                                 :   31                : 0.000       : 0.00%       :   17595     |
-| [C]                                               : rectangle                               :   -1                : 0.000       : 0.00%       :    2729     |
-| [C]                                               : sub                                     :   -1                : 0.000       : 0.00%       :   23460     |
-| [C]                                               : setColor                                :   -1                : 0.000       : 0.00%       :    5865     |
-| [C]                                               : max                                     :   -1                : 0.000       : 0.00%       :   17970     |
-| [C]                                               : clamp01                                 :   -1                : 0.000       : 0.00%       :   17595     |
+| [C]                                               : format                                  :   -1                : 0.000       : 0.00%       :    1385     |
+| lib/flux.lua                                      : clear                                   :  177                : 0.000       : 0.00%       :     470     |
+| [C]                                               : getFPS                                  :   -1                : 0.000       : 0.00%       :    1376     |
+| [C]                                               : line                                    :   -1                : 0.000       : 0.00%       :    4128     |
+| [C]                                               : push                                    :   -1                : 0.000       : 0.00%       :    5369     |
+| [C]                                               : pop                                     :   -1                : 0.000       : 0.00%       :    5369     |
+| [C]                                               : setTitle                                :   -1                : 0.000       : 0.00%       :    1376     |
+| [love "callbacks.lua"]                            : anonymous                               :   97                : 0.000       : 0.00%       :       1     |
+| src/player.lua                                    : reset                                   :  164                : 0.000       : 0.00%       :       1     |
+| main.lua                                          : start_game                              :   94                : 0.000       : 0.00%       :       1     |
+| [C]                                               : origin                                  :   -1                : 0.000       : 0.00%       :    1393     |
+| [C]                                               : getBackgroundColor                      :   -1                : 0.000       : 0.00%       :    1393     |
+| [C]                                               : draw                                    :   -1                : 0.000       : 0.00%       :   16112     |
+| [C]                                               : sub                                     :   -1                : 0.000       : 0.00%       :   43628     |
+| [C]                                               : isActive                                :   -1                : 0.000       : 0.00%       :    1393     |
+| [C]                                               : collectgarbage                          :   -1                : 0.000       : 0.00%       :    1394     |
+| main.lua                                          : update_title                            :  150                : 0.000       : 0.00%       :      17     |
+| [love "callbacks.lua"]                            : anonymous                               :   40                : 0.000       : 0.00%       :       1     |
+| main.lua                                          : reset_game                              :   90                : 0.000       : 0.00%       :       1     |
+| [love "wrap_Math.lua"]                            : clamp01                                 :   31                : 0.000       : 0.00%       :   32721     |
+| [C]                                               : clamp01                                 :   -1                : 0.000       : 0.00%       :   32721     |
+| [C]                                               : sleep                                   :   -1                : 0.000       : 0.00%       :    1393     |
+| [love "callbacks.lua"]                            : anonymous                               :   31                : 0.000       : 0.00%       :      32     |
+| [C]                                               : max                                     :   -1                : 0.000       : 0.00%       :   33383     |
+| [C]                                               : present                                 :   -1                : 0.000       : 0.00%       :    1393     |
+| [C]                                               : rectangle                               :   -1                : 0.000       : 0.00%       :    5386     |
+| [C]                                               : print                                   :   -1                : 0.000       : 0.00%       :    1419     |
+| [C]                                               : setColor                                :   -1                : 0.000       : 0.00%       :   10907     |
 | [C]                                               : sethook                                 :   -1                : 0.000       : 0.00%       :       1     |

@@ -9,6 +9,9 @@ SurfaceSection.__index = SurfaceSection
 
 local surface_sections={}
 
+local s_batch = love.graphics.newSpriteBatch(spr_surface_front, 30)
+local s_batch_back = love.graphics.newSpriteBatch(spr_surface_back, 30)
+
 
 function SurfaceSection:new(x, y)
 	local _section = setmetatable({}, SurfaceSection)
@@ -18,6 +21,7 @@ function SurfaceSection:new(x, y)
 end
 
 function SurfaceSection:update()
+
 end
 
 function SurfaceSection:draw_back()
@@ -41,23 +45,43 @@ end
 
 function set_up_surface()
 	love.math.setRandomSeed(love.timer.getTime())
+	
 	for i = 0, 29 do
 		_y = love.math.random( STARTING_Y-1, STARTING_Y+1 )
 		local _s_section = SurfaceSection:new(i*8, _y)
 		_s_section:move_up()
 		table.insert(surface_sections, _s_section)
-	end	
+	end
+
+	s_batch:clear()
+	s_batch_back:clear()
+
+	for _, entity in ipairs(surface_sections) do
+		s_batch:add(entity.x, entity.y)
+		s_batch_back:add(entity.x, entity.y)
+	end
+end
+
+function update_surfaces()
+	for i = 0, 29 do
+		local _index = i + 1
+		s_batch:set((_index), surface_sections[_index].x, surface_sections[_index].y)
+		s_batch_back:set((_index), surface_sections[_index].x, surface_sections[_index].y)
+	end
 end
 
 function draw_surface_back()
-	for sb in table.for_each(surface_sections) do
-        sb:draw_back()
-        --sb:draw_front()
-    end
+	--for _, sb in ipairs(surface_sections) do
+    --   sb:draw_back()
+   -- end
+   love.graphics.draw(s_batch_back)
 end
 
 function draw_surface_front()
-	for _, s in ipairs(surface_sections) do
-        s:draw_front()
-    end
+	--for _, s in ipairs(surface_sections) do
+    --   s:draw_front()
+    --end
+	
+	
+	love.graphics.draw(s_batch)
 end

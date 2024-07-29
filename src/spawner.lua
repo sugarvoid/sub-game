@@ -121,6 +121,7 @@ function Spawner:spawn_battleship()
 
         if d >= 5 then
             print("dice roll was " .. d)
+            battleship:pass_by("left")
         else
             print("dice was: " .. d)
         end
