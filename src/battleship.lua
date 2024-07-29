@@ -38,7 +38,7 @@ end
 function Battleship:pass_by()
 	love.audio.play_sfx(self.warning_sfx)
 	self.x = -50
-    self.tmr_delay:start(3*60)
+    self.tmr_delay:start(2*60)
 end
 
 function Battleship:go( ... )

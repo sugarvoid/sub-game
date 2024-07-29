@@ -46,7 +46,6 @@ local gamestates = {
 
 local gamestate = nil
 local level = 1
-local tick = 0
 local background = love.graphics.newImage("asset/image/background.png")
 local sand = love.graphics.newImage("asset/image/sand_bottom.png")
 local o2_bar = OxygenBar:new()
@@ -116,7 +115,6 @@ function love.keypressed(key)
     if gamestate == gamestates.game then
         if key == "space" then
             player:shoot()
-            spawner.spawn_battleship()
         end
     end
 
@@ -138,13 +136,6 @@ function love.keypressed(key)
 end
 
 function love.update(dt)
-    collectgarbage("step", 1)
-    --love.audio.update()
-
-    
-
-    --print(dt)
-
     if gamestate == gamestates.title then
         update_title()
     elseif gamestate == gamestates.game then
@@ -162,11 +153,9 @@ function update_game(dt)
     flux.update(dt)
     spawner:update(dt)
     battleship:update(dt)
-    --trm_spawn_wave:update()
     o2_bar.value = player.oxygen
     o2_bar:update()
     world:update(dt)
-    tick = tick + 1
     player:update(dt)
     update_surfaces()
     update_divers(dt)
@@ -305,9 +294,6 @@ function beginContact(a, b, coll)
     x, y = coll:getNormal()
     obj_a = a:getUserData()
     obj_b = b:getUserData()
-
-
-
     --if obj_a["type"] == "P_Torpedo" and obj_b["type"] == "Shark" or
     -- obj_b["type"] == "P_Torpedo" and obj_a["type"] == "Shark" then
     --player:play_sound(3)
@@ -321,26 +307,18 @@ function beginContact(a, b, coll)
     --end
     if obj_a == "Player" and obj_b == "Surface" then
         --TODO: Make on_surface function in player
-        --TODO: Prevent player moving until o2 is full
         player.can_move = false
         player:on_surfaced()
         player:play_sound(3)
         player.is_submerged = not player.is_submerged
         player:unload_divers()
-        --player:refill_o2()
     end
-    --print(obj_a)
 end
 
 function endContact(a, b, coll)
-    persisting = 0 -- reset since they're no longer touching
-    --text = text.."\n"..a:getUserData().." uncolliding with "..b:getUserData()
-
     if obj_a == "Player" and obj_b == "Surface" then
         print("Player going back in water")
     end
-
-    collectgarbage()
 end
 
 function preSolve(a, b, coll)

@@ -3,11 +3,7 @@ function love.conf(t)
     t.window.icon = "asset/image/icon.png"
     t.window.width = 240*4
     t.window.height = 136*4
-    --t.window.width = 640
-    --t.window.height = 360
     t.window.vsync = 1
-     t.window.fullscreen = false
-  
-
+    t.window.fullscreen = false
     t.console = true
 end
