@@ -32,11 +32,15 @@ function SeaMine:draw()
 	draw_hitbox(self.hitbox, "#3e8948")
 end
 
+function spawn_mine(x, y)
+	_sm = SeaMine:new(x)
+	table.insert(all_mines, _sm)
+end
 
 function update_mines(dt)
 	for m in table.for_each(all_mines) do 
 		if check_collision(m.hitbox, player.hitbox) then
-            --remove_item(all_sharks, p)
+            remove_item(all_mines, m)
             print("player hit mine")
         end
 		m:update(dt)
@@ -46,7 +50,7 @@ end
 function draw_mines()
 	for _, m in ipairs(all_mines) do
 		m:draw()
-	 end
+	end
 end
 
 

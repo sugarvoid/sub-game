@@ -58,8 +58,7 @@ player = Player:new()
 battleship = Battleship:new()
 
 
-_sm = SeaMine:new(20)
-table.insert(all_mines, _sm)
+
 
 
 function love.load()

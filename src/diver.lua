@@ -46,35 +46,18 @@ all_divers = {}
 
 
 function update_divers(dt)
-
-
     for _, d in ipairs(all_divers) do
-        --print(d.x)
-        --s:draw_front()  -- Call the draw method on each sprite
-        if check_collision(d.hitbox, player.hitbox) then
-            player.diver_on_board = player.diver_on_board + 1
-            diver_HUD:update_display(player.diver_on_board)
-            table.remove_item(all_divers, d)
-            player:play_sound(1)
-            love.audio.play_sfx(_sfx_diver_saved)
-
-
-        end
         d:update(dt)
+        if check_collision(d.hitbox, player.hitbox) then
+            if player.diver_on_board > 6 then
+                player.diver_on_board = player.diver_on_board + 1
+                diver_HUD:update_display(player.diver_on_board)
+                table.remove_item(all_divers, d)
+                player:play_sound(1)
+                love.audio.play_sfx(_sfx_diver_saved)
+            end
+        end
     end
-
-    -- for p in table.for_each(all_divers) do
-    --     if check_collision(p.hitbox, player.hitbox) then
-    --         player.diver_on_board = player.diver_on_board + 1
-    --         diver_HUD:update_display(player.diver_on_board)
-    --         table.remove_item(all_divers, p)
-    --         player:play_sound(1)
-    --         love.audio.play_sfx(_sfx_diver_saved)
-
-
-    --     end
-    --     p:update(dt)
-    -- end
 end
 
 function draw_divers()

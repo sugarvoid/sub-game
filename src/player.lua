@@ -88,7 +88,7 @@ function Player:refill_o2()
         function()
             self.xvel = 0
             self.yvel = 0
-            flux.to(self, 1,{y = 40}):oncomplete(
+            flux.to(self, 1,{y = 30}):oncomplete(
                 function()
                     self.can_move = true
                     self.is_submerged =  not self.is_submerged
