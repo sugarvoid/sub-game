@@ -43,12 +43,11 @@ end
 
 function Battleship:go( ... )
 	self.is_in_game = true
-	--[[
-	TODO: Figure out a way to
-		make it look like mine are being dropped
-		by the ship
-	]]-- 
-	spawn_mine(40)
+	spawn_mine(40, 4)
+	spawn_mine(82, -2)
+	spawn_mine(124, -7)
+	spawn_mine(166, -12)
+	spawn_mine(208, -17)
 	print("start moving")
 end
 

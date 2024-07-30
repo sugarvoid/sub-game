@@ -47,9 +47,10 @@ all_divers = {}
 
 function update_divers(dt)
     for _, d in ipairs(all_divers) do
-        d:update(dt)
+        
         if check_collision(d.hitbox, player.hitbox) then
-            if player.diver_on_board > 6 then
+
+            if player.diver_on_board < 6 then
                 player.diver_on_board = player.diver_on_board + 1
                 diver_HUD:update_display(player.diver_on_board)
                 table.remove_item(all_divers, d)
@@ -57,6 +58,7 @@ function update_divers(dt)
                 love.audio.play_sfx(_sfx_diver_saved)
             end
         end
+        d:update(dt)
     end
 end
 

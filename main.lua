@@ -90,6 +90,10 @@ function love.load()
 end
 
 function reset_game()
+    -- reset spawner
+    -- reset score
+    -- clear actors
+    -- reset player
     player:reset()
 end
 
@@ -113,6 +117,7 @@ function love.keypressed(key)
     if gamestate == gamestates.game then
         if key == "space" then
             player:shoot()
+            spawner:spawn_battleship()
         end
     end
 
@@ -178,10 +183,8 @@ end
 function love.draw()
     love.graphics.scale(4)
     love.graphics.draw(background, 0, 0)
-    love.graphics.draw(sand, 0, 136 - 31)
-    change_draw_color("#000000")
-    love.graphics.rectangle("fill", 0, 126, 250, 10)
-    change_draw_color("#ffffff")
+    
+    
 
     if gamestate == gamestates.title then
         draw_title()
@@ -211,24 +214,23 @@ function draw_game()
     draw_mini_subs()
     draw_torpedos()
     draw_mines()
-    
-
     for sp in table.for_each(shark_parts) do
         sp:draw()
     end
     draw_surface_front()
     
 
-
-
+    love.graphics.draw(sand, 0, 136 - 31)
+    change_draw_color("#000000")
+    love.graphics.rectangle("fill", 0, 126, 250, 10)
+    change_draw_color("#ffffff")
     diver_HUD:draw()
-
     o2_bar:draw()
     love.graphics.print(string.format("%05d", player.score), 200, 124)
 end
 
 function draw_gameover()
-    love.graphics.print("jump to try again", 65, 70, 0, 1, 1)
+    love.graphics.print("[space] to try again", 65, 70, 0, 1, 1)
 end
 
 function draw_win()

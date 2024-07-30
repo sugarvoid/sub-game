@@ -1,9 +1,10 @@
---local flux = require("lib.flux")
 
 require("src.shark_parts")
 
 Shark = {}
 Shark.__index = Shark
+
+all_sharks = {}
 
 local _sfx_die = love.audio.newSource("asset/audio/shark_death.ogg", "stream")
 local spr_sheet = love.graphics.newImage("asset/image/shark.png")
@@ -28,14 +29,13 @@ function Shark:new(x, y, facing_dir)
 end
 
 function Shark:update(dt)
-    --flux.update(dt)
     self.curr_animation:update(dt)
     self.x = self.x + self.move_speed * self.facing_dir * dt
     self.hitbox.x = (self.x - self.w / 2) + 2
     self.hitbox.y = (self.y - self.h / 2) + 3
 end
 
-function Shark:die(pos)
+function Shark:die()
     love.audio.play_sfx(_sfx_die)
     player:increase_score(get_kill_value("shark"))
     spawn_shark_peices(self.x, self.y, self.facing_dir)
@@ -44,31 +44,29 @@ end
 
 function Shark:draw()
     self.curr_animation:draw(spr_sheet, self.x, self.y - 2, 0, self.facing_dir, 1, self.w / 2, self.h / 2)
-    draw_hitbox(self.hitbox, "#f30909")
+    --draw_hitbox(self.hitbox, "#f30909")
 end
 
-all_sharks = {}
-
-
 function update_sharks(dt)
-    for p in table.for_each(all_sharks) do
+    for s in table.for_each(all_sharks) do
         if check_collision(p.hitbox, player.hitbox) then
-            --remove_item(all_sharks, p)
+            table.remove_item(all_sharks, s)
             print("player die")
+            player:die()
         end
         for _t in table.for_each(player_torpedos) do
-            if check_collision(p.hitbox, _t.hitbox) then
-                p:die()
+            if check_collision(s.hitbox, _t.hitbox) then
+                s:die()
                 table.remove_item(player_torpedos, _t)
                 print("SHARK KILLED")
             end
         end
-        p:update(dt)
+        s:update(dt)
     end
 end
 
 function draw_sharks()
-    for p in table.for_each(all_sharks) do
-        p:draw()
+    for s in table.for_each(all_sharks) do
+        s:draw()
     end
 end

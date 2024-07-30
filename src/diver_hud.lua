@@ -13,15 +13,7 @@ diver_HUD = {
         love.graphics.newQuad(310, 0, 62, 15, DEBUG_IMAGE),
         love.graphics.newQuad(372, 0, 62, 15, DEBUG_IMAGE),
     },
-    -- current_divers = 0,
-    -- all_icons = {
-    --     { frame = 0 },
-    --     { frame = 0 },
-    --     { frame = 0 },
-    --     { frame = 0 },
-    --     { frame = 0 },
-    --     { frame = 0 }
-    -- },
+
     --FIXME: Game crashes if player gets more 6 divers
     update_display = function(self, new_amount)
         self.frame = new_amount + 1

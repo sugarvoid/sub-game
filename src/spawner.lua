@@ -39,10 +39,14 @@ local WAVES = {
         {SPAWN_DIVER, SPAWN_RIGHT_X, 4},
     },
     {
-        {SPAWN_SHARK, 2, 2},
+        {SPAWN_SHARK, SPAWN_LEFT_X, 2},
         {SPAWN_DIVER, SPAWN_RIGHT_X, 5},
         {SPAWN_DIVER, SPAWN_LEFT_X, 4},
     },
+    {
+        {SPAWN_SHARK, SPAWN_LEFT_X, 3},
+        {SPAWN_SHARK, SPAWN_LEFT_X, 6},
+    }
 }
 
 
@@ -72,7 +76,7 @@ function Spawner:new()
 
 
     _spawner.tmr_spawn_battleship:start(10*60)
-    _spawner.tmr_spawn_wave:start(6*60)
+    _spawner.tmr_spawn_wave:start(_spawner.spawn_interval)
     return _spawner
 end
 
@@ -85,6 +89,7 @@ function Spawner:update(dt)
 end
 
 function Spawner:spawn_actor(type, side, lane)
+    local _lane = math.max(1, math.min(lane, 8))
     local _facing_dir
         if side == SPAWN_RIGHT_X then
             _facing_dir = -1
@@ -94,18 +99,17 @@ function Spawner:spawn_actor(type, side, lane)
 
         if type == 0 then
             --spawn diver
-            _diver = Diver:new(side, LANES[lane], _facing_dir)
+            _diver = Diver:new(side, LANES[_lane], _facing_dir)
             table.insert(all_divers, _diver)
         elseif type == 1 then
-            _shark = Shark:new(side, LANES[lane], _facing_dir)
+            _shark = Shark:new(side, LANES[_lane], _facing_dir)
             table.insert(all_sharks, _shark)
         elseif type == 2 then
-            _mini_sub = MiniSub:new(side, LANES[lane], _facing_dir)
+            _mini_sub = MiniSub:new(side, LANES[_lane], _facing_dir)
             table.insert(all_mini_subs, _mini_sub)
         end
 end
 function Spawner:spawn_something()
-    print("in spawn something")
     for w in table.for_each(WAVES[2]) do
         self:spawn_actor(w[1], w[2], w[3])
     end
@@ -119,9 +123,6 @@ function Spawner:spawn_battleship()
         local d = die:roll(6)
 
         if d >= 5 then
-            --print("dice roll was " .. d)
-            battleship:pass_by("left")
-        else
-            --print("dice was: " .. d)
+            battleship:pass_by()
         end
 end
