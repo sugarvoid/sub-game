@@ -9,10 +9,12 @@ DEBUG = false
 
 love = require("love")
 
+
 if DEBUG then
     love.profiler = require('lib.profile')
 end
 
+logger = require "lib.log"
 anim8 = require("lib.anim8")
 flux = require("lib.flux")
 world = love.physics.newWorld(0, 0, false)
@@ -68,8 +70,14 @@ battleship = Battleship:new()
 
 function love.load()
     if DEBUG then
+        logger.level = logger.Level.DEBUG
+        logger.debug("Entering debug mode")
         love.profiler.start()
+    else
+        logger.level = logger.Level.INFO
+        logger.info("logger in INFO mode")
     end
+    
 
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.graphics.scale(4)
@@ -96,6 +104,7 @@ end
 
 function reset_game()
     -- reset spawner
+    spawner:reset()
     -- reset score
     -- clear actors
     -- reset player
@@ -104,6 +113,7 @@ end
 
 function start_game()
     reset_game()
+    spawner:start()
 end
 
 function on_player_win()
@@ -122,21 +132,15 @@ function love.keypressed(key)
     if gamestate == gamestates.game then
         if key == "space" then
             player:shoot()
-            spawner:spawn_battleship()
         end
-    end
-
-    if gamestate == gamestates.retry then
+    elseif gamestate == gamestates.retry then
         if key == "space" then
-            reset_game()
-            gamestate = gamestates.game
+            --reset_game()
+            gamestate = gamestates.title
         end
-    end
-
-    if gamestate == gamestates.title then
+    elseif gamestate == gamestates.title then
         if key == "space" then
             gamestate = gamestates.game
-            --trm_spawn_wave:start(spawn_interval)
             start_game()
         end
     end
@@ -256,6 +260,7 @@ function playSound(_sound)
 end
 
 function go_to_gameover()
+    
     gamestate = gamestates.retry
 end
 
@@ -318,7 +323,7 @@ end
 
 function endContact(a, b, coll)
     if obj_a == "Player" and obj_b == "Surface" then
-        print("Player going back in water")
+        logger.debug("Player going back in water")
     end
 end
 

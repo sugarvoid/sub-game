@@ -60,7 +60,7 @@ end
 
 function Torpedo:draw()
 	love.graphics.draw(spr_torpedo, self.x, self.y, 0, self.facing_dir, 1, 3, 1)
-	draw_hitbox(self.hitbox, "#ff80a4")
+	--draw_hitbox(self.hitbox, "#ff80a4")
 end
 
 function draw_torpedos()

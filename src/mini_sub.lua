@@ -60,7 +60,6 @@ function update_mini_subs(dt)
             if check_collision(p.hitbox, _t.hitbox) then
                 p:die()
                 table.remove_item(player_torpedos, _t)
-                print("SHARK KILLED")
             end
         end
         p:update(dt)

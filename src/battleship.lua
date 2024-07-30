@@ -2,6 +2,8 @@
 Battleship = {}
 Battleship.__index = Battleship
 
+local STARTING_X = -50
+
 function Battleship:new()
     local _battleship = setmetatable({}, Battleship)
 
@@ -10,7 +12,7 @@ function Battleship:new()
 
     _battleship.tmr_delay = Timer:new(function() _battleship:go() end, false)
 
-    _battleship.x = -50
+    _battleship.x = STARTING_X
 	_battleship.y = 4
 	_battleship.moving_dir = 1
 	_battleship.move_speed = 2
@@ -26,10 +28,12 @@ function Battleship:update(dt)
     self.tmr_delay:update()
     if self.is_in_game then
     	self.time_on_screen = self.time_on_screen + 1
-    	--flux.update(dt)
 	    self.x = self.x + self.move_speed * self.moving_dir --* dt
-	    if self.time_on_screen == 300 then
+	    if self.time_on_screen >= 200 then
+			logger.info("battleship  done")
 	    	self.is_in_game = false
+			self.x = STARTING_X
+			self.time_on_screen = 0
 	    	self.tmr_delay:stop()
 	    end
     end
@@ -37,7 +41,6 @@ end
 
 function Battleship:pass_by()
 	love.audio.play_sfx(self.warning_sfx)
-	self.x = -50
     self.tmr_delay:start(2*60)
 end
 
@@ -48,7 +51,7 @@ function Battleship:go( ... )
 	spawn_mine(124, -7)
 	spawn_mine(166, -12)
 	spawn_mine(208, -17)
-	print("start moving")
+	logger.info("Shipping coming through")
 end
 
 function Battleship:Reset()

@@ -70,3 +70,10 @@ function table.has_value(tbl, value)
     end
     return false -- Not found
 end
+
+
+function table.clear(tbl)
+    for k, _ in pairs(tbl) do
+        tbl[k] = nil
+    end
+end

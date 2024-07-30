@@ -51,14 +51,12 @@ function update_sharks(dt)
     for s in table.for_each(all_sharks) do
         if check_collision(s.hitbox, player.hitbox) then
             table.remove_item(all_sharks, s)
-            print("player die")
             player:die()
         end
-        for _t in table.for_each(player_torpedos) do
-            if check_collision(s.hitbox, _t.hitbox) then
+        for t in table.for_each(player_torpedos) do
+            if check_collision(s.hitbox, t.hitbox) then
                 s:die()
-                table.remove_item(player_torpedos, _t)
-                print("SHARK KILLED")
+                table.remove_item(player_torpedos, t)
             end
         end
         s:update(dt)

@@ -58,7 +58,6 @@ function update_divers(dt)
         end
         for _, t in ipairs(player_torpedos) do
             if check_collision(d.hitbox, t.hitbox) then
-                print('you hit diver')
                 d:flee()
                 table.remove(player_torpedos, _)
                 

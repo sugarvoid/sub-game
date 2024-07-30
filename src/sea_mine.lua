@@ -4,12 +4,13 @@ SeaMine.__index = SeaMine
 
 all_mines = {}
 
+clink_sfx = love.audio.newSource("asset/audio/drop_mine.wav", "stream")
+
 function SeaMine:new(_x, _y)
-	print(_y)
     local _sea_mine = setmetatable({}, SeaMine)
 
     _sea_mine.sprite = love.graphics.newImage("asset/image/sea_mine.png")
-    _sea_mine.warning_sfx = love.audio.newSource("asset/audio/battleship_warning.ogg", "stream")
+    
     _sea_mine.x = _x
 	_sea_mine.y = _y --or 25
 	_sea_mine.ox = _sea_mine.sprite:getWidth()/2
@@ -25,6 +26,9 @@ function SeaMine:update(dt)
 	self.y = self.y + 20 * dt
 	self.hitbox.x = (self.x - self.w/2)
     self.hitbox.y = (self.y - self.h/2)
+	if self.y >= 24.5 and self.y <= 25.5 then
+		love.audio.play_sfx(clink_sfx)
+	end 
 end
 
 

@@ -69,18 +69,16 @@ Spawner.__index = Spawner
 function Spawner:new()
     love.math.setRandomSeed(love.timer.getTime())
     local _spawner = setmetatable({}, Spawner)
-    _spawner.spawn_interval = 6*60
+    _spawner.spawn_interval = 5*60
     _spawner.tmr_spawn_battleship = Timer:new(function() _spawner:spawn_battleship() end, true)
     _spawner.tmr_spawn_wave = Timer:new(function() _spawner:spawn_something() end, true)
-
-
-
-    _spawner.tmr_spawn_battleship:start(10*60)
-    _spawner.tmr_spawn_wave:start(_spawner.spawn_interval)
     return _spawner
 end
 
-function Spawner:reset()    
+function Spawner:start()
+    logger.debug("timers have started")
+    self.tmr_spawn_battleship:start(10*60)
+    self.tmr_spawn_wave:start(self.spawn_interval)
 end
 
 function Spawner:update(dt)
@@ -125,4 +123,14 @@ function Spawner:spawn_battleship()
         if d >= 5 then
             battleship:pass_by()
         end
+end
+
+function Spawner:reset()
+    self.tmr_spawn_battleship:stop()
+    self.tmr_spawn_wave:stop()
+    table.clear(all_divers)
+    table.clear(all_mines)
+    table.clear(all_sharks)
+    table.clear(all_mini_subs)
+    table.clear(player_torpedos)
 end

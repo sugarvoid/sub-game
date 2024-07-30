@@ -45,7 +45,7 @@ function Timer:pause()
 end
 
 function Timer:print_done()
-    print("I'm done")
+    logger.error("Timer ended without a function attched to it.")
 end
 
 function Timer:on_done()

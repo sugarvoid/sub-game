@@ -38,13 +38,13 @@ function Player:new()
     _player.draw_sheet = _player.spr_sheet
     _player.is_submerged = true
     _player.diver_on_board = 0
-    _player.starting_pos = { x = 100, y = 100 }
+    _player.STARTING_POS = { x = 100, y = 100 }
     _player.curr_animation = _player.animations["default"]
     _player.rotation = 0
     _player.is_alive = true
     _player.facing_dir = 1
-    _player.x = _player.starting_pos.x
-    _player.y = _player.starting_pos.y
+    _player.x = _player.STARTING_POS.x
+    _player.y = _player.STARTING_POS.y
     _player.is_moving_left = false
     _player.is_moving_right = false
     _player.can_shoot = true
@@ -56,6 +56,7 @@ function Player:new()
     _player.yvel = 0
     _player.friction = 1.1
     _player.max_speed = 80
+    _player.o2_tween = nil
     _player.acceleration = 25
     _player.w, _player.h = _player.image:getDimensions()
     _player.hitbox = { x = _player.x, y = _player.y, w = _player.w -2, h = _player.h - 10 }
@@ -100,17 +101,17 @@ function Player:on_surfaced()
 end
 
 function Player:refill_o2()
-    flux.to(self, 3, { oxygen = 60 }):oncomplete(
+    self.o2_tween = flux.to(self, 3, { oxygen = 60 }):oncomplete(
         function()
             self.xvel = 0
             self.yvel = 0
-            flux.to(self, 1,{y = 30}):oncomplete(
+            local _t = flux.to(self, 1,{y = 30}):oncomplete(
                 function()
                     self.can_move = true
                     self.is_submerged =  not self.is_submerged
                 end
                 )
-            print("done refilling. Send back down.")
+            logger.info("done refilling. Send back down.")
         end
     )
 end
@@ -125,7 +126,6 @@ function Player:unload_divers()
         player.diver_on_board = clamp(0, player.diver_on_board - 1, 6)
         diver_HUD:update_display(player.diver_on_board)
     else
-        print("Kill player...")
         self:die()
     end
     
@@ -158,6 +158,7 @@ function Player:move(dt)
 end
 
 function Player:die(pos, condition)
+    self.o2_tween:stop()
     self:play_sound(4)
     self.is_alive = false
     self.draw_sheet = self.death_sheet
@@ -181,7 +182,7 @@ end
 
 function Player:draw()
     self.curr_animation:draw(self.draw_sheet, self.x, self.y - 2, math.rad(self.rotation), self.facing_dir, 1, self.w / 2, self.h / 2)
-    draw_hitbox(self.hitbox, "#D70040")
+    --draw_hitbox(self.hitbox, "#D70040")
 end
 
 function Player:reset()
@@ -191,6 +192,12 @@ function Player:reset()
     self.animations["death"]:gotoFrame(1)
     self.is_alive = true
     self.curr_animation = self.animations["default"]
+    self.x = self.STARTING_POS.x
+    self.y = self.STARTING_POS.y
+    self.xvel = 0
+    self.yvel = 0
+    self.can_move = true
+    self.is_submerged = true
 end
 
 function Player:play_sound(num)
