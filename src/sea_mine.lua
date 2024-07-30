@@ -17,15 +17,15 @@ function SeaMine:new(_x, _y)
 	_sea_mine.oy = _sea_mine.sprite:getHeight()/2
 
 	_sea_mine.w, _sea_mine.h = _sea_mine.sprite:getDimensions()
-    _sea_mine.hitbox = { x = _sea_mine.x, y = _sea_mine.y, w = _sea_mine.w, h = _sea_mine.h}
+    _sea_mine.hitbox = { x = _sea_mine.x, y = _sea_mine.y, w = _sea_mine.w-4, h = _sea_mine.h-4}
 
     return _sea_mine
 end
 
 function SeaMine:update(dt)
 	self.y = self.y + 20 * dt
-	self.hitbox.x = (self.x - self.w/2)
-    self.hitbox.y = (self.y - self.h/2)
+	self.hitbox.x = (self.x - self.w/2+2)
+    self.hitbox.y = (self.y - self.h/2+2)
 	if self.y >= 24.5 and self.y <= 25.5 then
 		love.audio.play_sfx(clink_sfx)
 	end 

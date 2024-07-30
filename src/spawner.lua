@@ -119,6 +119,7 @@ function Spawner:spawn_battleship()
         --print(die.roll())
 
         local d = die:roll(6)
+        --d = 5
 
         if d >= 5 then
             battleship:pass_by()
@@ -126,6 +127,7 @@ function Spawner:spawn_battleship()
 end
 
 function Spawner:reset()
+    battleship:reset()
     self.tmr_spawn_battleship:stop()
     self.tmr_spawn_wave:stop()
     table.clear(all_divers)

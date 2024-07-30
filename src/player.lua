@@ -97,6 +97,8 @@ function Player:update(dt)
 end
 
 function Player:on_surfaced()
+    level = level + 1
+    logger.info("Entering level: " .. level)
     self:refill_o2()
 end
 
@@ -158,7 +160,9 @@ function Player:move(dt)
 end
 
 function Player:die(pos, condition)
-    self.o2_tween:stop()
+    if self.o2_tween then
+        self.o2_tween:stop()
+    end
     self:play_sound(4)
     self.is_alive = false
     self.draw_sheet = self.death_sheet
@@ -186,6 +190,8 @@ function Player:draw()
 end
 
 function Player:reset()
+    self.diver_on_board = 0
+    diver_HUD:update_display(self.diver_on_board)
     self.oxygen = self.MAX_OXYGEN
     self.draw_sheet = self.spr_sheet
     self.animations["death"]:resume()

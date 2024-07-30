@@ -49,7 +49,7 @@ local gamestates = {
     win = 2
 }
 local gamestate = nil
-local level = 1
+level = 1
 local background = love.graphics.newImage("asset/image/background.png")
 local sand = love.graphics.newImage("asset/image/sand_bottom.png")
 
@@ -106,6 +106,7 @@ function reset_game()
     -- reset spawner
     spawner:reset()
     -- reset score
+    level = 1
     -- clear actors
     -- reset player
     player:reset()

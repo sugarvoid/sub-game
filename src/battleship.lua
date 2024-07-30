@@ -30,11 +30,7 @@ function Battleship:update(dt)
     	self.time_on_screen = self.time_on_screen + 1
 	    self.x = self.x + self.move_speed * self.moving_dir --* dt
 	    if self.time_on_screen >= 200 then
-			logger.info("battleship  done")
-	    	self.is_in_game = false
-			self.x = STARTING_X
-			self.time_on_screen = 0
-	    	self.tmr_delay:stop()
+			self:reset()
 	    end
     end
 end
@@ -54,8 +50,12 @@ function Battleship:go( ... )
 	logger.info("Shipping coming through")
 end
 
-function Battleship:Reset()
-    
+function Battleship:reset()
+    logger.info("battleship done. resetting")
+	self.is_in_game = false
+	self.x = STARTING_X
+	self.time_on_screen = 0
+	self.tmr_delay:stop()
 end
 
 function Battleship:draw()
