@@ -2,8 +2,10 @@
 Player = {}
 Player.__index = Player
 
-_sfx_diver_saved = love.audio.newSource("asset/audio/diver_saved.ogg", "static")
-local _sfx_diver_killed = love.audio.newSource("asset/audio/diver_death.ogg", "static")
+
+_sfx_diver_saved = love.audio.newSource("asset/audio/on_collect.wav", "static")
+--local _sfx_diver_killed = love.audio.newSource("asset/audio/diver_death.ogg", "static")
+local _sfx_diver_killed = nil
 local _sfx_surface = love.audio.newSource("asset/audio/surface.wav", "stream")
 local _sfx_die = love.audio.newSource("asset/audio/player_die.wav", "static")
 

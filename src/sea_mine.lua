@@ -44,7 +44,7 @@ function update_mines(dt)
 	for _, m in ipairs(all_mines) do 
 		if check_collision(m.hitbox, player.hitbox) then
 			table.remove(all_mines, _)
-            print("player hit mine")
+			player:die()
         end
 		m:update(dt)
 	end

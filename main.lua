@@ -50,6 +50,11 @@ local gamestate = nil
 local level = 1
 local background = love.graphics.newImage("asset/image/background.png")
 local sand = love.graphics.newImage("asset/image/sand_bottom.png")
+
+local title_bg = love.graphics.newImage("asset/image/titlescreen.png")
+local gameover_bg = love.graphics.newImage("asset/image/gameover.png")
+
+
 local o2_bar = OxygenBar:new()
 local spawner = Spawner:new()
 
@@ -182,7 +187,7 @@ end
 
 function love.draw()
     love.graphics.scale(4)
-    love.graphics.draw(background, 0, 0)
+    
     
     
 
@@ -198,10 +203,13 @@ function love.draw()
 end
 
 function draw_title()
+    love.graphics.draw(title_bg, 0, 0)
+    love.graphics.print("sub game", 80, 40, 0, 1, 1)
     love.graphics.print("[space] to play", 70, 80, 0, 1, 1)
 end
 
 function draw_game()
+    love.graphics.draw(background, 0, 0)
     --love.graphics.push("all")
     --love.graphics.pop()
     draw_surface_back()
@@ -230,6 +238,8 @@ function draw_game()
 end
 
 function draw_gameover()
+    love.graphics.draw(gameover_bg, 0, 0)
+    
     love.graphics.print("[space] to try again", 65, 70, 0, 1, 1)
 end
 

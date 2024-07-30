@@ -1,9 +1,10 @@
-local icon_sheet = love.graphics.newImage("asset/image/ui_diver.png")
 local DEBUG_IMAGE = love.graphics.newImage("asset/image/test_diver_ui_sheet.png")
+local diver_null = love.graphics.newImage("asset/image/diver_null.png")
+
 
 
 diver_HUD = {
-    frame = 1, 
+    frame = 1,
     frames = {
         love.graphics.newQuad(0, 0, 62, 15, DEBUG_IMAGE),
         love.graphics.newQuad(62, 0, 62, 15, DEBUG_IMAGE),
@@ -13,12 +14,12 @@ diver_HUD = {
         love.graphics.newQuad(310, 0, 62, 15, DEBUG_IMAGE),
         love.graphics.newQuad(372, 0, 62, 15, DEBUG_IMAGE),
     },
-
-    --FIXME: Game crashes if player gets more 6 divers
     update_display = function(self, new_amount)
         self.frame = new_amount + 1
     end,
     draw = function(self)
         love.graphics.draw(DEBUG_IMAGE, self.frames[self.frame], 110, 125, 0, 0.7, 0.7)
+        --TODO: add lowering available seats for player
+        --love.graphics.draw(diver_null, 110+7+7+7+7+7, 125, 0, 0.7, 0.7)
     end
 }

@@ -6,13 +6,13 @@ Shark.__index = Shark
 
 all_sharks = {}
 
-local _sfx_die = love.audio.newSource("asset/audio/shark_death.ogg", "stream")
+local _sfx_die = love.audio.newSource("asset/audio/player_die_2.wav", "stream")
 local spr_sheet = love.graphics.newImage("asset/image/shark.png")
+local s_grid = anim8.newGrid(22, 16, spr_sheet:getWidth(), spr_sheet:getHeight())
 
 function Shark:new(x, y, facing_dir)
     local _shark = setmetatable({}, Shark)
 
-    local s_grid = anim8.newGrid(22, 16, spr_sheet:getWidth(), spr_sheet:getHeight())
     _shark.animations = {
         default = anim8.newAnimation(s_grid(('1-4'), 1), 0.2),
     }
@@ -49,7 +49,7 @@ end
 
 function update_sharks(dt)
     for s in table.for_each(all_sharks) do
-        if check_collision(p.hitbox, player.hitbox) then
+        if check_collision(s.hitbox, player.hitbox) then
             table.remove_item(all_sharks, s)
             print("player die")
             player:die()
