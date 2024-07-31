@@ -209,6 +209,7 @@ function Player:reset()
     self.xvel = 0
     self.yvel = 0
     self.can_move = true
+    self.score = 0 
     self.is_submerged = true
 end
 
