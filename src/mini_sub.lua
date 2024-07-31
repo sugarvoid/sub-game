@@ -8,7 +8,7 @@ MiniSub.__index = MiniSub
 local _sfx_die = love.audio.newSource("asset/audio/bad_ship_die.wav", "stream")
 local spr_sheet = love.graphics.newImage("asset/image/mini_submarine/mini_sub.png")
 
-function MiniSub:new(x, y, facing_dir)
+function MiniSub:new(x, y, facing_dir, speed_multiplier)
     local _mini_sub = setmetatable({}, MiniSub)
     local s_grid = anim8.newGrid(20, 12, spr_sheet:getWidth(), spr_sheet:getHeight())
     _mini_sub.animations = {
@@ -19,7 +19,8 @@ function MiniSub:new(x, y, facing_dir)
     _mini_sub.facing_dir = facing_dir
     _mini_sub.x = x
     _mini_sub.y = y
-    _mini_sub.move_speed = 60
+    _mini_sub.BASE_SPEED = 20
+    _mini_sub.move_speed = _mini_sub.BASE_SPEED + (10 * speed_multiplier)
     _mini_sub.w, _mini_sub.h = _mini_sub.curr_animation:getDimensions()
     _mini_sub.hitbox = { x = _mini_sub.x, y = _mini_sub.y, w = _mini_sub.w-6, h = _mini_sub.h -5}
     return _mini_sub

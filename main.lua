@@ -20,6 +20,8 @@ flux = require("lib.flux")
 world = love.physics.newWorld(0, 0, false)
 love.graphics.setDefaultFilter("nearest", "nearest")
 
+kb_manager = require("lib.kgo.keyboard_manager")
+
 require("lib.color")
 require("lib.kgo.core")
 require("lib.kgo.sound_manager")
@@ -77,6 +79,8 @@ function love.load()
         logger.level = logger.Level.INFO
         logger.info("logger in INFO mode")
     end
+
+    kb_manager:init()
     
 
     love.graphics.setDefaultFilter("nearest", "nearest")
@@ -121,8 +125,34 @@ function on_player_win()
     gamestate = gamestates.win
 end
 
-function love.keypressed(key)
-    if key == "escape" then
+--function love.keypressed(key)
+    -- if key == "escape" then
+    --     if DEBUG then
+    --         love.profiler.stop()
+    --         print(love.profiler.report(30))
+    --     end
+    --     love.event.quit()
+    -- end
+
+    -- if gamestate == gamestates.game then
+    --     -- if key == "space" then
+    --     --     player:shoot()
+    --     -- end
+    -- elseif gamestate == gamestates.retry then
+    --     if key == "space" then
+    --         --reset_game()
+    --         gamestate = gamestates.title
+    --     end
+    -- elseif gamestate == gamestates.title then
+    --     -- if key == "space" then
+    --     --     gamestate = gamestates.game
+    --     --     start_game()
+    --     -- end
+    -- end
+--end
+
+function love.update(dt)
+    if kb_manager:just_pressed("escape") then
         if DEBUG then
             love.profiler.stop()
             print(love.profiler.report(30))
@@ -130,24 +160,6 @@ function love.keypressed(key)
         love.event.quit()
     end
 
-    if gamestate == gamestates.game then
-        if key == "space" then
-            player:shoot()
-        end
-    elseif gamestate == gamestates.retry then
-        if key == "space" then
-            --reset_game()
-            gamestate = gamestates.title
-        end
-    elseif gamestate == gamestates.title then
-        if key == "space" then
-            gamestate = gamestates.game
-            start_game()
-        end
-    end
-end
-
-function love.update(dt)
     if gamestate == gamestates.title then
         update_title()
     elseif gamestate == gamestates.game then
@@ -155,13 +167,23 @@ function love.update(dt)
     else
         update_gameover(dt)
     end
+    kb_manager:update(dt)
 end
 
 function update_title()
-    return
+    if kb_manager:just_pressed("space") then
+        gamestate = gamestates.game
+        start_game()
+    end
 end
 
 function update_game(dt)
+
+
+    if kb_manager:just_pressed("space") then
+        player:shoot()
+    end
+
     flux.update(dt)
     spawner:update(dt)
     battleship:update(dt)
@@ -187,7 +209,9 @@ function update_game(dt)
 end
 
 function update_gameover(dt)
-    return
+    if kb_manager:just_pressed("space") then
+        gamestate = gamestates.title
+    end
 end
 
 function love.draw()

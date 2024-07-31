@@ -97,13 +97,13 @@ function Spawner:spawn_actor(type, side, lane)
 
         if type == 0 then
             --spawn diver
-            _diver = Diver:new(side, LANES[_lane], _facing_dir)
+            _diver = Diver:new(side, LANES[_lane], _facing_dir, level)
             table.insert(all_divers, _diver)
         elseif type == 1 then
-            _shark = Shark:new(side, LANES[_lane], _facing_dir)
+            _shark = Shark:new(side, LANES[_lane], _facing_dir, level)
             table.insert(all_sharks, _shark)
         elseif type == 2 then
-            _mini_sub = MiniSub:new(side, LANES[_lane], _facing_dir)
+            _mini_sub = MiniSub:new(side, LANES[_lane], _facing_dir, level)
             table.insert(all_mini_subs, _mini_sub)
         end
 end

@@ -7,7 +7,7 @@ all_divers = {}
 local spr_sheet = love.graphics.newImage("asset/image/diver.png")
 local s_grid = anim8.newGrid(17, 16, spr_sheet:getWidth(), spr_sheet:getHeight())
 
-function Diver:new(x, y, facing_dir)
+function Diver:new(x, y, facing_dir, speed_multiplier)
     local _diver = setmetatable({}, Diver)
     
     _diver.animations = {
@@ -20,11 +20,13 @@ function Diver:new(x, y, facing_dir)
     _diver.sy = 0.6
     _diver.x = x
     _diver.y = y
-    _diver.move_speed = 30
+    _diver.BASE_SPEED = 20
+    _diver.move_speed = _diver.BASE_SPEED+ (10 * speed_multiplier)
     _diver.w, _diver.h = _diver.curr_animation:getDimensions()
     _diver.hitbox = { x = _diver.x, y = _diver.y, w = _diver.w-6, h = _diver.h -10}
     return _diver
 end
+
 
 function Diver:update(dt)
     self.curr_animation:update(dt)

@@ -137,17 +137,18 @@ function Player:move(dt)
     if self.is_alive then
         local speed = self.speed * dt
 
-        if love.keyboard.isDown("d") then
+        --if love.keyboard.isDown("d") then
+        if kb_manager:is_held("d") then
             self.xvel = math.min(self.xvel + speed, self.speed)
             self.facing_dir = 1
-        elseif love.keyboard.isDown("a") then
+        elseif kb_manager:is_held("a") then
             self.xvel = math.max(self.xvel - speed, -self.speed)
             self.facing_dir = -1
         end
 
-        if love.keyboard.isDown("s") then
+        if kb_manager:is_held("s") then
             self.yvel = math.min(self.yvel + speed, self.speed)
-        elseif love.keyboard.isDown("w") then
+        elseif kb_manager:is_held("w") then
             self.yvel = math.max(self.yvel - speed, -self.speed)
         end
 
