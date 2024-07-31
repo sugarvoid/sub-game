@@ -1,9 +1,8 @@
---local flux = require("lib.flux")
-
-
 
 MiniSub = {}
 MiniSub.__index = MiniSub
+
+all_mini_subs = {}
 
 local _sfx_die = love.audio.newSource("asset/audio/bad_ship_die.wav", "stream")
 local spr_sheet = love.graphics.newImage("asset/image/mini_submarine/mini_sub.png")
@@ -27,7 +26,6 @@ function MiniSub:new(x, y, facing_dir, speed_multiplier)
 end
 
 function MiniSub:update(dt)
-    --flux.update(dt)
     self.curr_animation:update(dt)
     self.x = self.x + self.move_speed * self.facing_dir * dt
     self.hitbox.x = (self.x - self.w /2)+2
@@ -44,11 +42,8 @@ end
 
 function MiniSub:draw()
     self.curr_animation:draw(spr_sheet, self.x, self.y - 2, 0, self.facing_dir, 1, self.w / 2, self.h / 2)
-    draw_hitbox(self.hitbox, "#f30909")
+    --draw_hitbox(self.hitbox, "#f30909")
 end
-
-
-all_mini_subs = {}
 
 
 function update_mini_subs(dt)

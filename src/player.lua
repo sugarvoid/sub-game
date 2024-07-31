@@ -19,7 +19,7 @@ local sounds = {
 function Player:new()
     local _player = setmetatable({}, Player)
     _player.score = 0
-    _player.high_score = 0 --TODO: Add to game object, not player??
+ 
     
     _player.MAX_OXYGEN = 60
     _player.oxygen = _player.MAX_OXYGEN
@@ -79,7 +79,7 @@ function Player:update(dt)
             self:move(dt)
         end
         if self.is_submerged then
-            self.oxygen = clamp(0, self.oxygen - 0.05, self.MAX_OXYGEN)
+            self.oxygen = clamp(0, self.oxygen - 0.02, self.MAX_OXYGEN)
         end
      
         if self.oxygen == 0 then
@@ -126,10 +126,14 @@ function Player:unload_divers()
     --TODO: Make a general update_diver(value) function in player
     if player.diver_on_board > 0 then
         player.diver_on_board = clamp(0, player.diver_on_board - 1, 6)
-        diver_HUD:update_display(player.diver_on_board)
+        
+    elseif player.diver_on_board == 6 then
+        logger.info("off loading all divers...")
+        player.diver_on_board = 0 
     else
         self:die()
     end
+    diver_HUD:update_display(player.diver_on_board)
     
 end
 
@@ -161,15 +165,16 @@ function Player:move(dt)
 end
 
 function Player:die(pos, condition)
-    if self.o2_tween then
-        self.o2_tween:stop()
-    end
+    
     self:play_sound(4)
     self.is_alive = false
     self.draw_sheet = self.death_sheet
     self.rotation = 0
     self.curr_animation = self.animations["death"]
     self.tmr_wait_for_animation:start(60*0.9)
+    if self.o2_tween then
+        self.o2_tween:stop()
+    end
 
 end
 

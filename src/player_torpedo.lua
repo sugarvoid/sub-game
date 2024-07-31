@@ -8,9 +8,8 @@ Torpedo.__index = Torpedo
 player_torpedos = {}
 
 
-function Torpedo:new(x, y, _parent)
+function Torpedo:new(x, y)
 	local _torpedo = setmetatable({}, Torpedo)
-	_torpedo.parent = _parent --TODO: Remove??
 	_torpedo.x = x
 	_torpedo.y = y
 	_torpedo.xvel = 0
@@ -42,13 +41,11 @@ function Torpedo:update(dt)
 			table.insert(all_bubbles, Bubble:new(self.x, self.y))
 			self.add_bubble = 0
 		end
-		
 	end
 
 	self.hitbox.x = (self.x - self.w / 2)
 	self.hitbox.y = (self.y - 1)
 
-	
 end
 
 function Torpedo:drop(starting_y)

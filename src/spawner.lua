@@ -46,6 +46,20 @@ local WAVES = {
     {
         {SPAWN_SHARK, SPAWN_LEFT_X, 3},
         {SPAWN_SHARK, SPAWN_LEFT_X, 6},
+    },
+    {
+        {SPAWN_DIVER, SPAWN_RIGHT_X, 1},
+        {SPAWN_DIVER, SPAWN_LEFT_X, 4},
+    },
+    {
+        {SPAWN_SUB, SPAWN_LEFT_X, 2},
+        {SPAWN_DIVER, SPAWN_RIGHT_X, 3},
+        {SPAWN_SUB, SPAWN_RIGHT_X, 4},
+        {SPAWN_SUB, SPAWN_LEFT_X, 6},
+    },
+    {
+        {SPAWN_SHARK, SPAWN_RIGHT_X, 4},
+        {SPAWN_SHARK, SPAWN_RIGHT_X, 5},
     }
 }
 
@@ -108,7 +122,8 @@ function Spawner:spawn_actor(type, side, lane)
         end
 end
 function Spawner:spawn_something()
-    for w in table.for_each(WAVES[2]) do
+    local _index = math.random(1, #WAVES)
+    for w in table.for_each(WAVES[_index]) do
         self:spawn_actor(w[1], w[2], w[3])
     end
 end

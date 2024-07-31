@@ -20,6 +20,8 @@ flux = require("lib.flux")
 world = love.physics.newWorld(0, 0, false)
 love.graphics.setDefaultFilter("nearest", "nearest")
 
+local lume = require("lib.lume")
+
 kb_manager = require("lib.kgo.keyboard_manager")
 
 require("lib.color")
@@ -40,7 +42,7 @@ require("src.battleship")
 require("src.sea_mine")
 require("src.spawner")
 
-
+local high_score = 0
 local font = nil
 local gamestates = {
     title = 0,
@@ -51,7 +53,7 @@ local gamestates = {
     win = 2
 }
 local gamestate = nil
-level = 1
+
 local background = love.graphics.newImage("asset/image/background.png")
 local sand = love.graphics.newImage("asset/image/sand_bottom.png")
 
@@ -62,13 +64,9 @@ local gameover_bg = love.graphics.newImage("asset/image/gameover.png")
 local o2_bar = OxygenBar:new()
 local spawner = Spawner:new()
 
-
 player = Player:new()
 battleship = Battleship:new()
-
-
-
-
+level = 1
 
 function love.load()
     if DEBUG then
@@ -81,8 +79,7 @@ function love.load()
     end
 
     kb_manager:init()
-    
-
+    load_game()
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.graphics.scale(4)
     font = love.graphics.newFont("asset/font/c64esque.ttf", 16)
@@ -102,17 +99,12 @@ function love.load()
     surface.fixture = love.physics.newFixture(surface.body, surface.shape)
     surface.body:setAwake(true)
     surface.fixture:setUserData("Surface")
-
     set_up_surface()
 end
 
 function reset_game()
-    -- reset spawner
     spawner:reset()
-    -- reset score
     level = 1
-    -- clear actors
-    -- reset player
     player:reset()
 end
 
@@ -125,32 +117,6 @@ function on_player_win()
     gamestate = gamestates.win
 end
 
---function love.keypressed(key)
-    -- if key == "escape" then
-    --     if DEBUG then
-    --         love.profiler.stop()
-    --         print(love.profiler.report(30))
-    --     end
-    --     love.event.quit()
-    -- end
-
-    -- if gamestate == gamestates.game then
-    --     -- if key == "space" then
-    --     --     player:shoot()
-    --     -- end
-    -- elseif gamestate == gamestates.retry then
-    --     if key == "space" then
-    --         --reset_game()
-    --         gamestate = gamestates.title
-    --     end
-    -- elseif gamestate == gamestates.title then
-    --     -- if key == "space" then
-    --     --     gamestate = gamestates.game
-    --     --     start_game()
-    --     -- end
-    -- end
---end
-
 function love.update(dt)
     if kb_manager:just_pressed("escape") then
         if DEBUG then
@@ -159,7 +125,6 @@ function love.update(dt)
         end
         love.event.quit()
     end
-
     if gamestate == gamestates.title then
         update_title()
     elseif gamestate == gamestates.game then
@@ -178,12 +143,9 @@ function update_title()
 end
 
 function update_game(dt)
-
-
     if kb_manager:just_pressed("space") then
         player:shoot()
     end
-
     flux.update(dt)
     spawner:update(dt)
     battleship:update(dt)
@@ -216,9 +178,6 @@ end
 
 function love.draw()
     love.graphics.scale(4)
-    
-    
-    
 
     if gamestate == gamestates.title then
         draw_title()
@@ -235,15 +194,13 @@ function draw_title()
     love.graphics.draw(title_bg, 0, 0)
     love.graphics.print("sub game", 80, 40, 0, 1, 1)
     love.graphics.print("[space] to play", 70, 80, 0, 1, 1)
+    love.graphics.print("high score: " .. high_score, 70, 120, 0, 0.6, 0.6)
 end
 
 function draw_game()
     love.graphics.draw(background, 0, 0)
-    --love.graphics.push("all")
-    --love.graphics.pop()
     draw_surface_back()
     draw_bubbles()
-   
     battleship:draw()
     player:draw()
     draw_divers()
@@ -255,8 +212,6 @@ function draw_game()
         sp:draw()
     end
     draw_surface_front()
-    
-
     love.graphics.draw(sand, 0, 136 - 31)
     change_draw_color("#000000")
     love.graphics.rectangle("fill", 0, 126, 250, 10)
@@ -268,7 +223,9 @@ end
 
 function draw_gameover()
     love.graphics.draw(gameover_bg, 0, 0)
-    
+    if math.floor(love.timer.getTime()) % 2 == 0 then
+        love.graphics.print("game over", 60, 50, 0, 1, 1)
+    end
     love.graphics.print("[space] to try again", 65, 70, 0, 1, 1)
 end
 
@@ -285,7 +242,7 @@ function playSound(_sound)
 end
 
 function go_to_gameover()
-    
+    save_game()
     gamestate = gamestates.retry
 end
 
@@ -305,39 +262,29 @@ function do_tables_match(_table_1, _table_2)
 end
 
 function save_game()
-    data = {}
-    data.high_score = player.high_score
-    serialized = lume.serialize(data)
-    love.filesystem.write("sub_game.sav", serialized)
+    if player.score > high_score then
+        logger.debug("Players score was higher that current high score")
+        data = {}
+        data.high_score = player.score
+        serialized = lume.serialize(data)
+        love.filesystem.write("sub_game.sav", serialized)
+    end
 end
 
 function load_game()
     if love.filesystem.getInfo("sub_game.sav") then
         file = love.filesystem.read("sub_game.sav")
         data = lume.deserialize(file)
-        player.high_score = data.high_score or 0
+        high_score = data.high_score or 0
     end
 end
 
---TODO: Move to separate physics file
 
 function beginContact(a, b, coll)
     x, y = coll:getNormal()
     obj_a = a:getUserData()
     obj_b = b:getUserData()
-    --if obj_a["type"] == "P_Torpedo" and obj_b["type"] == "Shark" or
-    -- obj_b["type"] == "P_Torpedo" and obj_a["type"] == "Shark" then
-    --player:play_sound(3)
-    --player.is_submerged =  not player.is_submerged
-    --obj_a:setAwake(false)
-    --obj_a["owner"]:die()
-    --table.remove_item(all_sharks, obj_b)
-    --end
-    --if obj_a == "Player" and obj_b["type"] == "Shark" then
-    --print("player made contact with shark")
-    --end
     if obj_a == "Player" and obj_b == "Surface" then
-        --TODO: Make on_surface function in player
         player.can_move = false
         player:on_surfaced()
         player:play_sound(3)
@@ -353,19 +300,10 @@ function endContact(a, b, coll)
 end
 
 function preSolve(a, b, coll)
-    -- if persisting == 0 then    -- only say when they first start touching
-    --     --text = text.."\n"..a:getUserData().." touching "..b:getUserData()
-    -- elseif persisting < 20 then    -- then just start counting
-    --     text = text
-    -- end
-    --persisting = persisting + 1    -- keep track of how many updates they've been touching for
 end
 
 function postSolve(a, b, coll, normalimpulse, tangentimpulse)
-    -- we won't do anything with this function
-    --print(a:getUserData() .. b:getUserData())
 end
-
 
 function get_kill_value(e_type)
     if e_type == "shark" then

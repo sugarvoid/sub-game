@@ -46,8 +46,6 @@ function SharkPart:fade_away(starting_y)
 end
 
 function SharkPart:draw()
-	--TODO: Make sprites fade to clear over time
-	--TODO: Replace ox and oy with numbers, not math
 	love.graphics.draw(spr_left, self.left_spr.x, self.left_spr.y, self.left_spr.rot, self.facing_dir, 1, self.origin.x, self.origin.y)
 	love.graphics.draw(spr_right, self.right_spr.x, self.right_spr.y, self.right_spr.rot, self.facing_dir, 1, self.origin.x, self.origin.y)
 end
