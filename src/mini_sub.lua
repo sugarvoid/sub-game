@@ -1,4 +1,6 @@
 
+require("src.mini_sub_parts")
+
 MiniSub = {}
 MiniSub.__index = MiniSub
 
@@ -36,7 +38,7 @@ end
 function MiniSub:die(pos)
     love.audio.play_sfx(_sfx_die)
     player:increase_score(get_kill_value("mini_sub"))
-    --spawn_mini_sub_peices(self.x, self.y, self.facing_dir)
+    spawn_sub_peices(self.x, self.y, self.facing_dir)
     table.remove_item(all_mini_subs, self)
 end
 

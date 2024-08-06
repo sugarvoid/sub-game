@@ -168,6 +168,9 @@ function update_game(dt)
     for sp in table.for_each(shark_parts) do
         sp:update()
     end
+    for ssp in table.for_each(sub_parts) do
+        ssp:update()
+    end
 end
 
 function update_gameover(dt)
@@ -210,6 +213,9 @@ function draw_game()
     draw_mines()
     for sp in table.for_each(shark_parts) do
         sp:draw()
+    end
+    for ssp in table.for_each(sub_parts) do
+        ssp:draw()
     end
     draw_surface_front()
     love.graphics.draw(sand, 0, 136 - 31)
