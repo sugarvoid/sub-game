@@ -1,5 +1,7 @@
 # Sub Game
 
+## Project Goal
+- Make a game with collisions, without using external library.
 
 ## Credit
 
