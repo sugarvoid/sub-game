@@ -49,23 +49,23 @@ end
 
 
 function update_mini_subs(dt)
-    for p in table.for_each(all_mini_subs) do
-        if check_collision(p.hitbox, player.hitbox) then
-            --remove_item(all_mini_subs, p)
-            print("player die")
+    for sub in table.for_each(all_mini_subs) do
+        if check_collision(sub.hitbox, player.hitbox) then
+            table.remove_item(all_mini_subs, sub)
+            player:die()
         end
         for _t in table.for_each(player_torpedos) do
-            if check_collision(p.hitbox, _t.hitbox) then
-                p:die()
+            if check_collision(sub.hitbox, _t.hitbox) then
+                sub:die()
                 table.remove_item(player_torpedos, _t)
             end
         end
-        p:update(dt)
+        sub:update(dt)
     end
 end
 
 function draw_mini_subs()
-    for p in table.for_each(all_mini_subs) do
-        p:draw()
+    for sub in table.for_each(all_mini_subs) do
+        sub:draw()
     end
 end

@@ -68,7 +68,7 @@ local WAVES = {
 local die = {
     roll=function(self, sides)
         local _sides = sides or 6
-        return love.math.random(_sides)
+        return math.random(_sides)
     end
 }
 
@@ -81,7 +81,7 @@ Spawner = {}
 Spawner.__index = Spawner
 
 function Spawner:new()
-    love.math.setRandomSeed(love.timer.getTime())
+    
     local _spawner = setmetatable({}, Spawner)
     _spawner.spawn_interval = 5*60
     _spawner.tmr_spawn_battleship = Timer:new(function() _spawner:spawn_battleship() end, true)
@@ -122,7 +122,9 @@ function Spawner:spawn_actor(type, side, lane)
         end
 end
 function Spawner:spawn_something()
+    math.randomseed(os.time())
     local _index = math.random(1, #WAVES)
+    print("wave is: ".. _index)
     for w in table.for_each(WAVES[_index]) do
         self:spawn_actor(w[1], w[2], w[3])
     end
