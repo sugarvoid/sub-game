@@ -4,9 +4,7 @@ local spr_right = love.graphics.newImage("asset/image/mini_submarine/mini_sub_ri
 MiniSubParts = {}
 MiniSubParts.__index = MiniSubParts
 
-
 sub_parts = {}
-
 
 function MiniSubParts:new(x, y, dir)
 	local _mini_sub_parts = setmetatable({}, MiniSubParts)
@@ -39,10 +37,7 @@ function MiniSubParts:update()
 end
 
 function MiniSubParts:fade_away(starting_y)
-	flux.to(self, 0.5, { y = starting_y + 4 }):oncomplete(function()
-		self.trusting = true
-		self.parent.can_shoot = true
-	end)
+
 end
 
 function MiniSubParts:draw()

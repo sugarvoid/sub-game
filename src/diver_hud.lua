@@ -1,9 +1,12 @@
 local DEBUG_IMAGE = love.graphics.newImage("asset/image/test_diver_ui_sheet.png")
 local diver_null = love.graphics.newImage("asset/image/diver_null.png")
 
-
+--TODO: Add lowering available seats when player shoots at diver?
 
 diver_HUD = {
+    x_pos = 110,
+    y_pos = 125,
+    scale = 0.7,
     frame = 1,
     frames = {
         love.graphics.newQuad(0, 0, 62, 15, DEBUG_IMAGE),
@@ -18,8 +21,6 @@ diver_HUD = {
         self.frame = new_amount + 1
     end,
     draw = function(self)
-        love.graphics.draw(DEBUG_IMAGE, self.frames[self.frame], 110, 125, 0, 0.7, 0.7)
-        --TODO: add lowering available seats for player
-        --love.graphics.draw(diver_null, 110+7+7+7+7+7, 125, 0, 0.7, 0.7)
-    end
+        love.graphics.draw(DEBUG_IMAGE, self.frames[self.frame], self.x_pos, self.y_pos, 0, self.scale, self.scale)
+    end,
 }

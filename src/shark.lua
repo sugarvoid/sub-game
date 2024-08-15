@@ -1,4 +1,3 @@
-
 require("src.shark_parts")
 
 Shark = {}
@@ -29,7 +28,6 @@ function Shark:new(x, y, facing_dir, speed_multiplier)
     return _shark
 end
 
-
 function Shark:update(dt)
     self.curr_animation:update(dt)
     self.x = self.x + self.move_speed * self.facing_dir * dt
@@ -46,7 +44,6 @@ end
 
 function Shark:draw()
     self.curr_animation:draw(spr_sheet, self.x, self.y - 2, 0, self.facing_dir, 1, self.w / 2, self.h / 2)
-    --draw_hitbox(self.hitbox, "#f30909")
 end
 
 function update_sharks(dt)

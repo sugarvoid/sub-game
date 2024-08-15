@@ -1,7 +1,6 @@
 Bubble = {}
 Bubble.__index = Bubble
 
-
 all_bubbles={}
 
 function Bubble:new(x, y)
@@ -26,7 +25,6 @@ function Bubble:die(pos)
 end
 
 function Bubble:draw()
-
     --love.graphics.push("all")
     --love.graphics.scale(0.5)
     love.graphics.circle("fill", self.x, self.y, self.r)
@@ -41,12 +39,12 @@ function update_bubbles(dt)
 end
 
 function draw_bubbles()
-        for _, b in ipairs(all_bubbles) do
-            if b.y > b.kill_y then
-                b:draw()
-            else
-                table.remove(all_bubbles, _)
-            end
+    for _, b in ipairs(all_bubbles) do
+        if b.y > b.kill_y then
+            b:draw()
+        else
+            table.remove(all_bubbles, _)
         end
+    end
 end
 

@@ -2,13 +2,11 @@
 -- author:      sugarvoid
 -- description: A clone of Seaquest for the Atari 2600
 -- license:     MIT License
--- version:     0.1
+-- version:     1.0
 
 DEBUG = false
 
-
 love = require("love")
-
 
 if DEBUG then
     love.profiler = require('lib.profile')
@@ -18,11 +16,12 @@ logger = require "lib.log"
 anim8 = require("lib.anim8")
 flux = require("lib.flux")
 world = love.physics.newWorld(0, 0, false)
+kb_manager = require("lib.kgo.keyboard_manager")
 love.graphics.setDefaultFilter("nearest", "nearest")
 
 local lume = require("lib.lume")
 
-kb_manager = require("lib.kgo.keyboard_manager")
+
 
 require("lib.color")
 require("lib.kgo.core")
@@ -88,7 +87,6 @@ function love.load()
     gamestate = gamestates.title
     world:setCallbacks(beginContact, endContact, preSolve, postSolve)
 
-    --TODO: Move to separate file. The scale is messing with the hitbox
     surface_rect = {
         x = 0, y = 0, w = 240 * 4, h = 8 * 3
     }
@@ -197,7 +195,7 @@ function draw_title()
     love.graphics.draw(title_bg, 0, 0)
     love.graphics.print("sub game", 80, 40, 0, 1, 1)
     love.graphics.print("[space] to play", 70, 80, 0, 1, 1)
-    love.graphics.print("high score: " .. high_score, 70, 120, 0, 0.6, 0.6)
+    love.graphics.print("High Score: " .. high_score, 70, 120, 0, 0.6, 0.6)
 end
 
 function draw_game()
@@ -284,7 +282,6 @@ function load_game()
         high_score = data.high_score or 0
     end
 end
-
 
 function beginContact(a, b, coll)
     x, y = coll:getNormal()

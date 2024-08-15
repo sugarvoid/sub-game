@@ -71,17 +71,9 @@ function update_surfaces()
 end
 
 function draw_surface_back()
-	--for _, sb in ipairs(surface_sections) do
-    --   sb:draw_back()
-   -- end
    love.graphics.draw(s_batch_back)
 end
 
 function draw_surface_front()
-	--for _, s in ipairs(surface_sections) do
-    --   s:draw_front()
-    --end
-	
-	
 	love.graphics.draw(s_batch)
 end

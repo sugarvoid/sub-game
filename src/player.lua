@@ -1,16 +1,12 @@
-
 Player = {}
 Player.__index = Player
 
-
-_sfx_diver_saved = love.audio.newSource("asset/audio/on_collect.wav", "static")
---local _sfx_diver_killed = love.audio.newSource("asset/audio/diver_death.ogg", "static")
 local _sfx_diver_killed = nil
 local _sfx_surface = love.audio.newSource("asset/audio/surface.wav", "stream")
 local _sfx_die = love.audio.newSource("asset/audio/player_die.wav", "static")
 
 local sounds = {
-    _sfx_diver_saved,
+    nil,
     _sfx_diver_killed,
     _sfx_surface,
     _sfx_die
@@ -19,8 +15,6 @@ local sounds = {
 function Player:new()
     local _player = setmetatable({}, Player)
     _player.score = 0
- 
-    
     _player.MAX_OXYGEN = 60
     _player.oxygen = _player.MAX_OXYGEN
     _player.image = love.graphics.newImage("asset/image/ship_player.png")
@@ -88,7 +82,6 @@ function Player:update(dt)
     
     end
 
-    
     self.curr_animation:update(dt)
 
     self.hitbox.x = self.x - self.w / 2
@@ -165,7 +158,6 @@ function Player:move(dt)
 end
 
 function Player:die(pos, condition)
-    
     self:play_sound(4)
     self.is_alive = false
     self.draw_sheet = self.death_sheet
@@ -175,7 +167,6 @@ function Player:die(pos, condition)
     if self.o2_tween then
         self.o2_tween:stop()
     end
-
 end
 
 function Player:shoot(...)
@@ -192,7 +183,6 @@ end
 
 function Player:draw()
     self.curr_animation:draw(self.draw_sheet, self.x, self.y - 2, math.rad(self.rotation), self.facing_dir, 1, self.w / 2, self.h / 2)
-    --draw_hitbox(self.hitbox, "#D70040")
 end
 
 function Player:reset()

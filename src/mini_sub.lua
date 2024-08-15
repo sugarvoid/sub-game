@@ -30,9 +30,8 @@ end
 function MiniSub:update(dt)
     self.curr_animation:update(dt)
     self.x = self.x + self.move_speed * self.facing_dir * dt
-    self.hitbox.x = (self.x - self.w /2)+2
+    self.hitbox.x = (self.x - self.w/2) + 2
     self.hitbox.y = (self.y - self.h/2) + 2
-    
 end
 
 function MiniSub:die(pos)
@@ -44,9 +43,7 @@ end
 
 function MiniSub:draw()
     self.curr_animation:draw(spr_sheet, self.x, self.y - 2, 0, self.facing_dir, 1, self.w / 2, self.h / 2)
-    --draw_hitbox(self.hitbox, "#f30909")
 end
-
 
 function update_mini_subs(dt)
     for sub in table.for_each(all_mini_subs) do

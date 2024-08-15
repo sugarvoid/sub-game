@@ -1,12 +1,10 @@
 require("src.bubble")
 local spr_torpedo = love.graphics.newImage("asset/image/player_torpedo.png")
 
-
 Torpedo = {}
 Torpedo.__index = Torpedo
 
 player_torpedos = {}
-
 
 function Torpedo:new(x, y)
 	local _torpedo = setmetatable({}, Torpedo)
@@ -31,7 +29,6 @@ function Torpedo:new(x, y)
 end
 
 function Torpedo:update(dt)
-	--TODO: Add bubble particles
 	if self.trusting then
 		self.add_bubble = self.add_bubble + 1
 		self.xvel = clamp(0, self.xvel + 0.05, 100)
@@ -45,7 +42,6 @@ function Torpedo:update(dt)
 
 	self.hitbox.x = (self.x - self.w / 2)
 	self.hitbox.y = (self.y - 1)
-
 end
 
 function Torpedo:drop(starting_y)
@@ -57,7 +53,6 @@ end
 
 function Torpedo:draw()
 	love.graphics.draw(spr_torpedo, self.x, self.y, 0, self.facing_dir, 1, 3, 1)
-	--draw_hitbox(self.hitbox, "#ff80a4")
 end
 
 function draw_torpedos()
@@ -65,5 +60,3 @@ function draw_torpedos()
         t:draw()
     end
 end
-
-

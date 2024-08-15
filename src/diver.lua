@@ -1,4 +1,3 @@
-
 Diver = {}
 Diver.__index = Diver
 
@@ -6,6 +5,7 @@ all_divers = {}
 
 local spr_sheet = love.graphics.newImage("asset/image/diver.png")
 local s_grid = anim8.newGrid(17, 16, spr_sheet:getWidth(), spr_sheet:getHeight())
+local _sfx_diver_saved = love.audio.newSource("asset/audio/on_collect.wav", "static")
 
 function Diver:new(x, y, facing_dir, speed_multiplier)
     local _diver = setmetatable({}, Diver)
@@ -54,10 +54,10 @@ function update_divers(dt)
                 player.diver_on_board = player.diver_on_board + 1
                 diver_HUD:update_display(player.diver_on_board)
                 table.remove_item(all_divers, d)
-                player:play_sound(1)
                 love.audio.play_sfx(_sfx_diver_saved)
             end
         end
+
         for _, t in ipairs(player_torpedos) do
             if check_collision(d.hitbox, t.hitbox) then
                 d:flee()

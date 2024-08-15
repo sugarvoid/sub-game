@@ -1,4 +1,3 @@
-
 Battleship = {}
 Battleship.__index = Battleship
 
@@ -15,7 +14,7 @@ function Battleship:new()
     _battleship.x = STARTING_X
 	_battleship.y = 4
 	_battleship.moving_dir = 1
-	_battleship.move_speed = 2
+	_battleship.move_speed = 100
 	_battleship.time_on_screen = 0 --To know when to stop updating and drawing the ship
 	_battleship.is_in_game = false
 	_battleship.ox = _battleship.sprite:getWidth()/2
@@ -28,7 +27,7 @@ function Battleship:update(dt)
     self.tmr_delay:update()
     if self.is_in_game then
     	self.time_on_screen = self.time_on_screen + 1
-	    self.x = self.x + self.move_speed * self.moving_dir --* dt
+	    self.x = self.x + self.move_speed * self.moving_dir * dt
 	    if self.time_on_screen >= 200 then
 			self:reset()
 	    end
@@ -40,18 +39,18 @@ function Battleship:pass_by()
     self.tmr_delay:start(2*60)
 end
 
-function Battleship:go( ... )
+function Battleship:go()
 	self.is_in_game = true
 	spawn_mine(40, 4)
 	spawn_mine(82, -2)
 	spawn_mine(124, -7)
 	spawn_mine(166, -12)
 	spawn_mine(208, -17)
-	logger.info("Shipping coming through")
+	logger.debug("Battleship coming through.")
 end
 
 function Battleship:reset()
-    logger.info("battleship done. resetting")
+    logger.debug("Battleship done, resetting.")
 	self.is_in_game = false
 	self.x = STARTING_X
 	self.time_on_screen = 0

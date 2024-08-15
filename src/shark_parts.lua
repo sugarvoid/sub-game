@@ -4,9 +4,7 @@ local spr_right = love.graphics.newImage("asset/image/shark_right.png")
 SharkPart = {}
 SharkPart.__index = SharkPart
 
-
 shark_parts = {}
-
 
 function SharkPart:new(x, y, dir)
 	local _shark_part = setmetatable({}, SharkPart)
@@ -38,11 +36,8 @@ function SharkPart:update()
 	end
 end
 
-function SharkPart:fade_away(starting_y)
-	flux.to(self, 0.5, { y = starting_y + 4 }):oncomplete(function()
-		self.trusting = true
-		self.parent.can_shoot = true
-	end)
+function SharkPart:fade_away()
+
 end
 
 function SharkPart:draw()
