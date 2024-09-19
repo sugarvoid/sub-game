@@ -43,7 +43,9 @@ function Shark:die()
 end
 
 function Shark:draw()
-    self.curr_animation:draw(spr_sheet, self.x, self.y - 2, 0, self.facing_dir, 1, self.w / 2, self.h / 2)
+    if self.x >= -10 and self.x <= 250 then
+        self.curr_animation:draw(spr_sheet, self.x, self.y - 2, 0, self.facing_dir, 1, self.w / 2, self.h / 2)
+    end
 end
 
 function update_sharks(dt)

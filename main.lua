@@ -12,6 +12,9 @@ if DEBUG then
     love.profiler = require('lib.profile')
 end
 
+GAME_W=240
+GAME_H=136
+
 logger = require "lib.log"
 anim8 = require("lib.anim8")
 flux = require("lib.flux")
@@ -80,12 +83,26 @@ function love.load()
     kb_manager:init()
     load_game()
     love.graphics.setDefaultFilter("nearest", "nearest")
-    love.graphics.scale(4)
+    --love.graphics.scale(4)
     font = love.graphics.newFont("asset/font/c64esque.ttf", 16)
     font:setFilter("nearest")
     love.graphics.setFont(font)
     gamestate = gamestates.title
     world:setCallbacks(beginContact, endContact, preSolve, postSolve)
+
+    -- if your code was optimized for fullHD:
+
+    --t.window.width = 240*4
+    --t.window.height = 136*4
+
+
+
+    window = { translateX = 0, translateY = 0, scale = 4, width = GAME_W, height = GAME_H }
+    width, height = love.graphics.getDimensions()
+    love.window.setMode(width, height, { resizable = true, borderless = false })
+    resize(width, height) -- update new translation and scale
+
+
 
     surface_rect = {
         x = 0, y = 0, w = 240 * 4, h = 8 * 3
@@ -178,7 +195,10 @@ function update_gameover(dt)
 end
 
 function love.draw()
-    love.graphics.scale(4)
+    --love.graphics.scale(4)
+    -- first translate, then scale
+    love.graphics.translate(window.translateX, window.translateY)
+    love.graphics.scale(window.scale)
 
     if gamestate == gamestates.title then
         draw_title()
@@ -314,4 +334,14 @@ function get_kill_value(e_type)
     elseif e_type == "mini_sub" then
         return 20
     end
+end
+
+function resize(w, h)                          -- update new translation and scale:
+    local w1, h1 = window.width, window.height -- target rendering resolution
+    local scale = math.min(w / w1, h / h1)
+    window.translateX, window.translateY, window.scale = (w - w1 * scale) / 2, (h - h1 * scale) / 2, scale
+end
+
+function love.resize(w, h)
+    resize(w, h) -- update new translation and scale
 end
