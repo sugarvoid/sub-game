@@ -64,7 +64,6 @@ function Player:new()
 end
 
 function Player:update(dt)
-    print(self.x, self.y)
     self.tmr_wait_for_animation:update()
 
     if self.is_alive then

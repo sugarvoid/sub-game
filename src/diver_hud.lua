@@ -24,3 +24,5 @@ diver_HUD = {
         love.graphics.draw(DEBUG_IMAGE, self.frames[self.frame], self.x_pos, self.y_pos, 0, self.scale, self.scale)
     end,
 }
+
+

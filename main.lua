@@ -12,8 +12,8 @@ if DEBUG then
     love.profiler = require('lib.profile')
 end
 
-GAME_W=240
-GAME_H=136
+GAME_W = 240
+GAME_H = 136
 
 logger = require "lib.log"
 anim8 = require("lib.anim8")
@@ -115,6 +115,7 @@ function love.load()
     surface.body:setAwake(true)
     surface.fixture:setUserData("Surface")
     set_up_surface()
+    changeBgColor("#2b362e")
 end
 
 function reset_game()
@@ -134,10 +135,6 @@ end
 
 function love.update(dt)
     if kb_manager:just_pressed("escape") then
-        if DEBUG then
-            love.profiler.stop()
-            print(love.profiler.report(30))
-        end
         love.event.quit()
     end
     if gamestate == gamestates.title then
@@ -192,6 +189,19 @@ function update_gameover(dt)
     if kb_manager:just_pressed("space") then
         gamestate = gamestates.title
     end
+end
+
+function love.quit()
+    print("The application is closing.")
+    -- Perform your cleanup tasks here.
+    -- For example, save game progress, release resources, write to log files, etc.
+    if DEBUG then
+        love.profiler.stop()
+        print(love.profiler.report(30))
+    end
+
+    -- Returning false or no value will allow the application to quit normally.
+    -- If you return true from this callback, it will prevent the quit from happening.
 end
 
 function love.draw()

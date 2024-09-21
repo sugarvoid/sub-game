@@ -34,65 +34,65 @@ local FACR_RIGHT = 1
 
 local WAVES = {
     {
-        {SPAWN_SUB, SPAWN_RIGHT_X, 2},
-        {SPAWN_SHARK, SPAWN_RIGHT_X, 3},
-        {SPAWN_DIVER, SPAWN_RIGHT_X, 4},
+        { SPAWN_SUB,   SPAWN_RIGHT_X, 2 },
+        { SPAWN_SHARK, SPAWN_RIGHT_X, 3 },
+        { SPAWN_DIVER, SPAWN_RIGHT_X, 4 },
     },
     {
-        {SPAWN_SHARK, SPAWN_LEFT_X, 2},
-        {SPAWN_DIVER, SPAWN_RIGHT_X, 5},
-        {SPAWN_DIVER, SPAWN_LEFT_X, 4},
+        { SPAWN_SHARK, SPAWN_LEFT_X,  2 },
+        { SPAWN_DIVER, SPAWN_RIGHT_X, 5 },
+        { SPAWN_DIVER, SPAWN_LEFT_X,  4 },
     },
     {
-        {SPAWN_SHARK, SPAWN_LEFT_X, 3},
-        {SPAWN_SHARK, SPAWN_LEFT_X, 6},
+        { SPAWN_SHARK, SPAWN_LEFT_X, 3 },
+        { SPAWN_SHARK, SPAWN_LEFT_X, 6 },
     },
     {
-        {SPAWN_SHARK, SPAWN_RIGHT_X, 2},
-        {SPAWN_SHARK, SPAWN_RIGHT_X, 4},
+        { SPAWN_SHARK, SPAWN_RIGHT_X, 2 },
+        { SPAWN_SHARK, SPAWN_RIGHT_X, 4 },
     },
     {
-        {SPAWN_DIVER, SPAWN_RIGHT_X, 1},
-        {SPAWN_DIVER, SPAWN_LEFT_X, 4},
+        { SPAWN_DIVER, SPAWN_RIGHT_X, 1 },
+        { SPAWN_DIVER, SPAWN_LEFT_X,  4 },
     },
     {
-        {SPAWN_DIVER, SPAWN_RIGHT_X, 2},
-        {SPAWN_DIVER, SPAWN_RIGHT_X, 6},
+        { SPAWN_DIVER, SPAWN_RIGHT_X, 2 },
+        { SPAWN_DIVER, SPAWN_RIGHT_X, 6 },
     },
     {
-        {SPAWN_DIVER, SPAWN_LEFT_X, 5},
-        {SPAWN_DIVER, SPAWN_LEFT_X, 2},
-        {SPAWN_DIVER, SPAWN_LEFT_X, 3},
+        { SPAWN_DIVER, SPAWN_LEFT_X, 5 },
+        { SPAWN_DIVER, SPAWN_LEFT_X, 2 },
+        { SPAWN_DIVER, SPAWN_LEFT_X, 3 },
     },
     {
-        {SPAWN_SUB, SPAWN_LEFT_X, 2},
-        {SPAWN_DIVER, SPAWN_RIGHT_X, 3},
-        {SPAWN_SUB, SPAWN_RIGHT_X, 4},
-        {SPAWN_SUB, SPAWN_LEFT_X, 6},
+        { SPAWN_SUB,   SPAWN_LEFT_X,  2 },
+        { SPAWN_DIVER, SPAWN_RIGHT_X, 3 },
+        { SPAWN_SUB,   SPAWN_RIGHT_X, 4 },
+        { SPAWN_SUB,   SPAWN_LEFT_X,  6 },
     },
     {
-        {SPAWN_SHARK, SPAWN_RIGHT_X, 4},
-        {SPAWN_SHARK, SPAWN_RIGHT_X, 5},
+        { SPAWN_SHARK, SPAWN_RIGHT_X, 4 },
+        { SPAWN_SHARK, SPAWN_RIGHT_X, 5 },
     },
     {
-        {SPAWN_SUB, SPAWN_RIGHT_X, 4},
-        {SPAWN_SUB, SPAWN_RIGHT_X, 5},
+        { SPAWN_SUB, SPAWN_RIGHT_X, 4 },
+        { SPAWN_SUB, SPAWN_RIGHT_X, 5 },
     },
     {
-        {SPAWN_SUB, SPAWN_RIGHT_X, 1},
-        {SPAWN_SUB, SPAWN_RIGHT_X, 3},
-        {SPAWN_SUB, SPAWN_RIGHT_X, 5},
+        { SPAWN_SUB, SPAWN_RIGHT_X, 1 },
+        { SPAWN_SUB, SPAWN_RIGHT_X, 3 },
+        { SPAWN_SUB, SPAWN_RIGHT_X, 5 },
     },
     {
-        {SPAWN_SUB, SPAWN_LEFT_X, 1},
-        {SPAWN_SUB, SPAWN_LEFT_X, 3},
-        {SPAWN_SUB, SPAWN_LEFT_X, 5},
+        { SPAWN_SUB, SPAWN_LEFT_X, 1 },
+        { SPAWN_SUB, SPAWN_LEFT_X, 3 },
+        { SPAWN_SUB, SPAWN_LEFT_X, 5 },
     },
 }
 
 
 local die = {
-    roll=function(self, sides)
+    roll = function(self, sides)
         local _sides = sides or 6
         return math.random(_sides)
     end
@@ -105,14 +105,14 @@ Spawner.__index = Spawner
 
 function Spawner:new()
     local _spawner = setmetatable({}, Spawner)
-    _spawner.spawn_interval = 5*60
+    _spawner.spawn_interval = 5 * 60
     _spawner.tmr_spawn_battleship = Timer:new(function() _spawner:spawn_battleship() end, true)
     _spawner.tmr_spawn_wave = Timer:new(function() _spawner:spawn_something() end, true)
     return _spawner
 end
 
 function Spawner:start()
-    self.tmr_spawn_battleship:start(10*60)
+    self.tmr_spawn_battleship:start(10 * 60)
     self.tmr_spawn_wave:start(self.spawn_interval)
     logger.debug("Spawner timers have started.")
 end
@@ -148,7 +148,7 @@ end
 function Spawner:spawn_something()
     math.randomseed(os.time())
     local _index = math.random(1, #WAVES)
-    logger.debug("Wave is: ".. _index)
+    logger.debug("Wave is: " .. _index)
     for w in table.for_each(WAVES[_index]) do
         self:spawn_actor(w[1], w[2], w[3])
     end
