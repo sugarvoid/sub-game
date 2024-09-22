@@ -12,6 +12,8 @@ if DEBUG then
     love.profiler = require('lib.profile')
 end
 
+SCREEN_RECT = {x=0, y=0, w=240, h=136}
+
 GAME_W = 240
 GAME_H = 136
 

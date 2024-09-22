@@ -77,3 +77,16 @@ function table.clear(tbl)
         tbl[k] = nil
     end
 end
+
+---Check if an object is on screen
+---@param obj table
+---@param rect table with screen data {x=0,y=0,w=0,h=0}
+function is_on_screen(obj, rect)
+    if ((obj.x >= rect.x + rect.w) or
+           (obj.x + obj.w <= rect.x) or
+           (obj.y >= rect.y + rect.h) or
+           (obj.y + obj.h <= rect.y)) then
+              return false 
+    else return true
+    end
+end
