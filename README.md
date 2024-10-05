@@ -6,7 +6,8 @@
 ## Credit
 
 ### Sound
-- Sounds made with [jsfxr](https://sfxr.me/) and [chiptone](https://sfbgames.itch.io/chiptone)
+- Sound effects made with [jsfxr](https://sfxr.me/) and [chiptone](https://sfbgames.itch.io/chiptone)
+- Boss Battle 10 by [nene](https://opengameart.org/users/nene), used under [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
 
 ### Font
 - c64esque by andraaspar [link](https://nimblebeastscollective.itch.io/nb-pixel-font-bundle-2)

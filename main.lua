@@ -64,6 +64,8 @@ local sand = love.graphics.newImage("asset/image/sand_bottom.png")
 local title_bg = love.graphics.newImage("asset/image/titlescreen.png")
 local gameover_bg = love.graphics.newImage("asset/image/gameover.png")
 
+local bg_music = love.audio.newSource("asset/audio/boss_battle_10.ogg", "stream")
+
 
 local o2_bar = OxygenBar:new()
 local spawner = Spawner:new()
@@ -92,19 +94,17 @@ function love.load()
     gamestate = gamestates.title
     world:setCallbacks(beginContact, endContact, preSolve, postSolve)
 
-    -- if your code was optimized for fullHD:
 
-    --t.window.width = 240*4
-    --t.window.height = 136*4
+    bg_music:setLooping(true)
 
+    bg_music:setVolume(0.3)
+    bg_music:play()
 
-
+    
     window = { translateX = 0, translateY = 0, scale = 4, width = GAME_W, height = GAME_H }
     width, height = love.graphics.getDimensions()
     love.window.setMode(width, height, { resizable = true, borderless = false })
-    resize(width, height) -- update new translation and scale
-
-
+    resize(width, height)
 
     surface_rect = {
         x = 0, y = 0, w = 240 * 4, h = 8 * 3
@@ -201,14 +201,9 @@ function love.quit()
         love.profiler.stop()
         print(love.profiler.report(30))
     end
-
-    -- Returning false or no value will allow the application to quit normally.
-    -- If you return true from this callback, it will prevent the quit from happening.
 end
 
 function love.draw()
-    --love.graphics.scale(4)
-    -- first translate, then scale
     love.graphics.translate(window.translateX, window.translateY)
     love.graphics.scale(window.scale)
 
@@ -348,12 +343,12 @@ function get_kill_value(e_type)
     end
 end
 
-function resize(w, h)                          -- update new translation and scale:
-    local w1, h1 = window.width, window.height -- target rendering resolution
+function resize(w, h)                          
+    local w1, h1 = window.width, window.height 
     local scale = math.min(w / w1, h / h1)
     window.translateX, window.translateY, window.scale = (w - w1 * scale) / 2, (h - h1 * scale) / 2, scale
 end
 
 function love.resize(w, h)
-    resize(w, h) -- update new translation and scale
+    resize(w, h)
 end
